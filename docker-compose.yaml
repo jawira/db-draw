@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+
+  php:
+    build:
+      context: .
+      dockerfile: resources/dc/Dockerfile
+    entrypoint: []
+    command: []
+    tty: true
+    stdin_open: true
+    volumes:
+      - '.:/app'
+    depends_on:
+      - database
+    networks:
+      - default
+
+  database:
+    image: genschsa/mysql-employees
+    environment:
+      MYSQL_ROOT_PASSWORD: groot
+    networks:
+      - default
+
+networks:
+  default:
