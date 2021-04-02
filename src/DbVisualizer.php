@@ -8,7 +8,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use function strval;
 
-class Drawer
+class DbVisualizer
 {
   /**
    * @var Connection

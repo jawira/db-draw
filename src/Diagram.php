@@ -3,6 +3,7 @@
 
 namespace Jawira\DbVisualizer;
 
+use Jawira\DbVisualizer\Element\ElementInterface;
 use Jawira\DbVisualizer\Element\Raw;
 use Jawira\DbVisualizer\Element\Entity;
 use function array_map;
@@ -19,24 +20,26 @@ class Diagram
 {
 
   /**
-   * @var Raw
+   * @var Raw[]
    */
-  protected $start;
+  protected $header = [];
 
   /**
-   * @var Raw
+   * @var Raw[]
    */
-  protected $end;
+  protected $footer = [];
 
   /**
    * @var Entity[]
    */
-  protected $tables = [];
+  protected $entities = [];
 
   public function __construct()
   {
-    $this->start = new Raw('@startuml');
-    $this->end   = new Raw('@enduml');
+    $this->header[] = new Raw('@startuml');
+    $this->header[] = new Raw('hide circle');
+    $this->header[] = new Raw('skinparam linetype ortho');
+    $this->footer[] = new Raw('@enduml');
   }
 
   public function retrieveEntities(array $listTables)
@@ -45,18 +48,19 @@ class Diagram
       return new Entity($table);
     };
 
-    $this->tables = array_map($createEntity, $listTables);
+    $this->entities = array_map($createEntity, $listTables);
   }
 
   public function __toString()
   {
-    $tableReducer = function ($carry, Entity $table) {
-      return $carry . strval($table) . PHP_EOL;
-    };
-
-    $puml = strval($this->start) . PHP_EOL;
-    $puml .= array_reduce($this->tables, $tableReducer, '');
-    $puml .= strval($this->end) . PHP_EOL;
+    $puml = array_reduce($this->header, [self::class, 'reducer'], '');
+    $puml = array_reduce($this->entities, [self::class, 'reducer'], $puml);
+    $puml = array_reduce($this->footer, [self::class, 'reducer'], $puml);
     return $puml;
+  }
+
+  public static function reducer(string $carry, ElementInterface $element): string
+  {
+    return $carry . strval($element);
   }
 }
