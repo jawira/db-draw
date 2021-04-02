@@ -1,0 +1,22 @@
+{
+  "name": "jawira/db-visualizer",
+  "description": "Create a diagram from your DB",
+  "type": "library",
+  "require": {
+    "jawira/plantuml-client": "^0.1.0",
+    "doctrine/dbal": "^3.0",
+    "php": ">=7.3"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "jawira",
+      "email": "dev@tugal.be"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Jawira\\DbVisualizer\\": "src"
+    }
+  }
+}
