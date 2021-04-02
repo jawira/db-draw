@@ -1,9 +1,118 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project name="" description="" default="">
-    
-    <target name="" description="">
-        
-    </target>
-    
+<project name="DB visualizer" default="help">
+
+  <property name="dc.project-name" value="db-visualizer"/>
+
+  <target name="setup" depends="composer:install"/>
+  <target name="qa" depends="composer:validate,composer:normalize"/>
+
+  <target name="dc:up" description="Launch containers">
+    <exec executable="docker-compose" passthru="true" checkreturn="true">
+      <arg line="--project-name ${dc.project-name}"/>
+      <arg value="up"/>
+      <arg value="--detach"/>
+      <arg value="--remove-orphans"/>
+    </exec>
+  </target>
+
+  <target name="dc:stop">
+    <exec executable="docker-compose" passthru="true">
+      <arg line="--project-name ${dc.project-name}"/>
+      <arg value="stop"/>
+    </exec>
+  </target>
+
+  <target name="dc:down" description="Take down containers, networks, images, and volumes">
+    <exec executable="docker-compose" passthru="true">
+      <arg line="--project-name ${dc.project-name}"/>
+      <arg value="down"/>
+      <arg value="--volumes"/>
+      <arg value="--remove-orphans"/>
+      <arg value="--rmi=local"/>
+    </exec>
+  </target>
+
+  <target name="dc:ip" description="Reveal containers ip addresses">
+    <exec executable="docker" checkreturn="true" passthru="true">
+      <arg value="inspect"/>
+      <arg value="${dc.project-name}_php_1"/>
+      <arg line="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
+    </exec>
+    <exec executable="docker" checkreturn="true" passthru="true">
+      <arg value="inspect"/>
+      <arg value="${dc.project-name}_database_1"/>
+      <arg line="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
+    </exec>
+  </target>
+
+  <target name="dc:shell" description="Tunnel to container">
+    <exec executable="docker" passthru="true">
+      <arg value="exec"/>
+      <arg value="-it"/>
+      <arg value="${dc.project-name}_php_1"/>
+      <arg value="/bin/bash"/>
+    </exec>
+  </target>
+
+  <target name="dc:remote-test" description="Diff on docker container">
+    <exec executable="docker" passthru="true" checkreturn="true">
+      <arg value="exec"/>
+      <arg value="${dc.project-name}_php_1"/>
+      <arg line="phing qa"/>
+    </exec>
+  </target>
+
+  <target name="wait-for-database">
+    <waitfor timeoutproperty="db.timeout" maxwait="300" maxwaitunit="second">
+      <pdosqlexec url="mysql:host=api-db;dbname=api-db;port=3306"
+                  userid="groot"
+                  password="groot"/>
+    </waitfor>
+    <fail if="db.timeout">Cannot reach API database</fail>
+  </target>
+
+  <target name="phpstan:analyze" description="analyze at max level">
+    <exec executable="vendor/bin/phpstan" passthru="true" checkreturn="true">
+      <arg value="--ansi"/>
+      <arg value="--no-interaction"/>
+      <arg value="--level=max"/>
+      <arg value="analyze"/>
+      <arg value="--no-progress"/>
+      <arg path="src"/>
+    </exec>
+    <exec executable="vendor/bin/phpstan" passthru="true" checkreturn="true">
+      <arg value="clear-result-cache"/>
+    </exec>
+  </target>
+
+  <target name="composer:validate">
+    <composer command="validate">
+      <arg value="--ansi"/>
+    </composer>
+  </target>
+
+  <target name="composer:normalize">
+    <composer command="normalize">
+      <arg value="--ansi"/>
+    </composer>
+  </target>
+
+  <target name="composer:install">
+    <composer command="install">
+      <arg value="--no-interaction"/>
+      <arg value="--prefer-dist"/>
+      <arg value="--no-progress"/>
+      <arg value="--ansi"/>
+    </composer>
+  </target>
+
+
+  <target name="help">
+    <visualizer format="png"/>
+    <exec executable="xdg-open" spawn="true">
+      <arg file="build.png"/>
+    </exec>
+  </target>
+
 </project>
