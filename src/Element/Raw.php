@@ -1,11 +1,8 @@
 <?php
 
-
 namespace Jawira\DbVisualizer\Element;
 
-
-use function assert;
-use function is_string;
+use const PHP_EOL;
 
 /**
  * Raw element
@@ -14,7 +11,7 @@ use function is_string;
  *
  * @package Jawira\DbVisualizer\Element
  */
-class Raw
+class Raw implements ElementInterface
 {
   /**
    * @var string
@@ -25,14 +22,13 @@ class Raw
    * Raw constructor.
    * @param string $raw
    */
-  public function __construct($raw)
+  public function __construct(string $raw)
   {
-    assert(is_string($raw));
     $this->raw = $raw;
   }
 
-  public function __toString()
+  public function __toString(): string
   {
-    return $this->raw;
+    return $this->raw . PHP_EOL;
   }
 }

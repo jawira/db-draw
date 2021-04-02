@@ -4,8 +4,9 @@ namespace Jawira\DbVisualizer\Element;
 
 use \Doctrine\DBAL\Schema\Table;
 use function sprintf;
+use const PHP_EOL;
 
-class Entity
+class Entity implements ElementInterface
 {
   /**
    * @var \Doctrine\DBAL\Schema\Table
@@ -17,8 +18,8 @@ class Entity
     $this->table = $table;
   }
 
-  public function __toString()
+  public function __toString(): string
   {
-    return sprintf('entity %s', $this->table->getName());
+    return sprintf('entity %s { }', $this->table->getName()) . PHP_EOL;
   }
 }

@@ -25,5 +25,10 @@
     "psr-4": {
       "Jawira\\DbVisualizer\\": "src"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Jawira\\DbVisualizer\\Tests\\Type\\": "tests/Type"
+    }
   }
 }
