@@ -3,10 +3,14 @@
 
 namespace Jawira\DbVisualizer;
 
+use Doctrine\DBAL\Schema\ForeignKeyConstraint;
+use Doctrine\DBAL\Schema\Table;
 use Jawira\DbVisualizer\Element\ElementInterface;
-use Jawira\DbVisualizer\Element\Raw;
 use Jawira\DbVisualizer\Element\Entity;
+use Jawira\DbVisualizer\Element\Raw;
+use Jawira\DbVisualizer\Element\Relationship;
 use function array_map;
+use function array_merge;
 use function array_reduce;
 use function strval;
 use const PHP_EOL;
@@ -34,6 +38,11 @@ class Diagram
    */
   protected $entities = [];
 
+  /**
+   * @var Relationship[]
+   */
+  protected $relationships = [];
+
   public function __construct()
   {
     $this->header[] = new Raw('@startuml');
@@ -42,19 +51,36 @@ class Diagram
     $this->footer[] = new Raw('@enduml');
   }
 
-  public function retrieveEntities(array $listTables)
+  public function retrieveEntities(array $tables)
   {
     $createEntity = function ($table) {
       return new Entity($table);
     };
 
-    $this->entities = array_map($createEntity, $listTables);
+    $this->entities = array_map($createEntity, $tables);
+  }
+
+  /**
+   * @param Table[]
+   */
+  public function retrieveRelationships(array $tables)
+  {
+    $foreignKeys         = [];
+    $retrieveForeignKeys = function (Table $table) use (&$foreignKeys) {
+      $foreignKeys = array_merge($foreignKeys, $table->getForeignKeys());
+    };
+    array_map($retrieveForeignKeys, $tables);
+    $createRelationship  = function (ForeignKeyConstraint $foreignKeyConstraint) {
+      return new Relationship($foreignKeyConstraint);
+    };
+    $this->relationships = array_map($createRelationship, $foreignKeys);
   }
 
   public function __toString()
   {
     $puml = array_reduce($this->header, [self::class, 'reducer'], '');
     $puml = array_reduce($this->entities, [self::class, 'reducer'], $puml);
+    $puml = array_reduce($this->relationships, [self::class, 'reducer'], $puml);
     $puml = array_reduce($this->footer, [self::class, 'reducer'], $puml);
     return $puml;
   }

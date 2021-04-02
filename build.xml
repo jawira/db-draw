@@ -4,7 +4,7 @@
 
   <property name="dc.project-name" value="db-visualizer"/>
 
-  <target name="setup" depends="composer:install"/>
+  <target name="setup" depends="composer:install,dc:up"/>
   <target name="qa" depends="composer:validate,composer:normalize"/>
 
   <target name="dc:up" description="Launch containers">
