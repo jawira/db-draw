@@ -19,6 +19,7 @@
     "ext-mbstring": "^7.3",
     "ext-xml": "^7.3",
     "ergebnis/composer-normalize": "^2.13",
+    "phpstan/phpstan": "^0.12.82",
     "phpunit/phpunit": "^9.5"
   },
   "autoload": {

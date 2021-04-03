@@ -13,7 +13,6 @@ use function array_map;
 use function array_merge;
 use function array_reduce;
 use function strval;
-use const PHP_EOL;
 
 /**
  * Class Diagram
@@ -48,10 +47,14 @@ class Diagram
     $this->header[] = new Raw('@startuml');
     $this->header[] = new Raw('hide circle');
     $this->header[] = new Raw('skinparam linetype ortho');
+    $this->header[] = new Raw('skinparam shadowing false');
     $this->footer[] = new Raw('@enduml');
   }
 
-  public function retrieveEntities(array $tables)
+  /**
+   * @param Table[] $tables
+   */
+  public function retrieveEntities(array $tables): void
   {
     $createEntity = function ($table) {
       return new Entity($table);
@@ -61,9 +64,9 @@ class Diagram
   }
 
   /**
-   * @param Table[]
+   * @param Table[] $tables
    */
-  public function retrieveRelationships(array $tables)
+  public function retrieveRelationships(array $tables): void
   {
     $foreignKeys         = [];
     $retrieveForeignKeys = function (Table $table) use (&$foreignKeys) {
@@ -78,14 +81,14 @@ class Diagram
 
   public function __toString()
   {
-    $puml = array_reduce($this->header, [self::class, 'reducer'], '');
-    $puml = array_reduce($this->entities, [self::class, 'reducer'], $puml);
-    $puml = array_reduce($this->relationships, [self::class, 'reducer'], $puml);
-    $puml = array_reduce($this->footer, [self::class, 'reducer'], $puml);
+    $puml = array_reduce($this->header, [static::class, 'reducer'], '');
+    $puml = array_reduce($this->entities, [static::class, 'reducer'], $puml);
+    $puml = array_reduce($this->relationships, [static::class, 'reducer'], $puml);
+    $puml = array_reduce($this->footer, [static::class, 'reducer'], $puml);
     return $puml;
   }
 
-  public static function reducer(string $carry, ElementInterface $element): string
+  protected static function reducer(string $carry, ElementInterface $element): string
   {
     return $carry . strval($element);
   }

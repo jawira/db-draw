@@ -5,7 +5,7 @@
   <property name="dc.project-name" value="db-visualizer"/>
 
   <target name="setup" depends="composer:install,dc:up"/>
-  <target name="qa" depends="composer:validate,composer:normalize"/>
+  <target name="qa" depends="composer:validate,composer:normalize,phpstan:analyze,phpunit:test"/>
 
   <target name="dc:up" description="Launch containers">
     <exec executable="docker-compose" passthru="true" checkreturn="true">
@@ -37,12 +37,14 @@
     <exec executable="docker" checkreturn="true" passthru="true">
       <arg value="inspect"/>
       <arg value="${dc.project-name}_php_1"/>
-      <arg line="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
+      <arg
+        line="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
     </exec>
     <exec executable="docker" checkreturn="true" passthru="true">
       <arg value="inspect"/>
       <arg value="${dc.project-name}_database_1"/>
-      <arg line="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
+      <arg
+        line="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
     </exec>
   </target>
 
@@ -55,21 +57,12 @@
     </exec>
   </target>
 
-  <target name="dc:remote-test" description="Diff on docker container">
+  <target name="qa:remote" description="Diff on docker container">
     <exec executable="docker" passthru="true" checkreturn="true">
       <arg value="exec"/>
       <arg value="${dc.project-name}_php_1"/>
       <arg line="phing qa"/>
     </exec>
-  </target>
-
-  <target name="wait-for-database">
-    <waitfor timeoutproperty="db.timeout" maxwait="300" maxwaitunit="second">
-      <pdosqlexec url="mysql:host=api-db;dbname=api-db;port=3306"
-                  userid="groot"
-                  password="groot"/>
-    </waitfor>
-    <fail if="db.timeout">Cannot reach API database</fail>
   </target>
 
   <target name="phpstan:analyze" description="analyze at max level">
@@ -107,6 +100,17 @@
     </composer>
   </target>
 
+  <target name="phpunit:test" depends="wait-for-database">
+    <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true"/>
+  </target>
+
+  <target name="wait-for-database">
+    <waitfor timeoutproperty="db.timeout" maxwait="300" maxwaitunit="second">
+      <pdosqlexec url="mysql:host=database;dbname=employees;port=3306"
+                  userid="root" password="groot"/>
+    </waitfor>
+    <fail if="db.timeout">Cannot reach employees database</fail>
+  </target>
 
   <target name="help">
     <visualizer format="png"/>

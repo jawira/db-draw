@@ -34,7 +34,7 @@ class DiagramTest extends TestCase
   {
     $drawer = new DbVisualizer($this->connection);
     $puml   = $drawer->draw();
-    file_put_contents('./test.puml', $puml);
+    file_put_contents('./employees.puml', $puml);
     $this->assertIsString($puml);
     $this->assertStringContainsString('dept_manager', $puml);
     $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
