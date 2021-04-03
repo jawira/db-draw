@@ -23,32 +23,40 @@ class Diagram
 {
 
   /**
+   * Things to put at the beginning of the diagram
+   *
    * @var Raw[]
    */
-  protected $header = [];
+  protected $beginning = [];
 
   /**
+   * Things to put at the ending of the diagram
+   *
    * @var Raw[]
    */
-  protected $footer = [];
+  protected $ending = [];
 
   /**
+   * DB entities (tables)
+   *
    * @var Entity[]
    */
   protected $entities = [];
 
   /**
+   * DB relationships
+   *
    * @var Relationship[]
    */
   protected $relationships = [];
 
   public function __construct()
   {
-    $this->header[] = new Raw('@startuml');
-    $this->header[] = new Raw('hide circle');
-    $this->header[] = new Raw('skinparam linetype ortho');
-    $this->header[] = new Raw('skinparam shadowing false');
-    $this->footer[] = new Raw('@enduml');
+    $this->beginning[] = new Raw('@startuml');
+    $this->beginning[] = new Raw('hide circle');
+    $this->beginning[] = new Raw('skinparam linetype ortho');
+    $this->beginning[] = new Raw('skinparam shadowing false');
+    $this->ending[]    = new Raw('@enduml');
   }
 
   /**
@@ -81,10 +89,10 @@ class Diagram
 
   public function __toString()
   {
-    $puml = array_reduce($this->header, [static::class, 'reducer'], '');
+    $puml = array_reduce($this->beginning, [static::class, 'reducer'], '');
     $puml = array_reduce($this->entities, [static::class, 'reducer'], $puml);
     $puml = array_reduce($this->relationships, [static::class, 'reducer'], $puml);
-    $puml = array_reduce($this->footer, [static::class, 'reducer'], $puml);
+    $puml = array_reduce($this->ending, [static::class, 'reducer'], $puml);
     return $puml;
   }
 
