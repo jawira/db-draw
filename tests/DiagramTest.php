@@ -28,7 +28,7 @@ class DiagramTest extends TestCase
   }
 
   /**
-   * @covers \Jawira\DbVisualizer\Drawer::draw
+   * @covers \Jawira\DbVisualizer\DbVisualizer::draw
    */
   public function testDbVisualizer()
   {
