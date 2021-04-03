@@ -30,6 +30,7 @@ class DbVisualizer
     $schemaManager = $this->connection->getSchemaManager();
     $diagram       = new Diagram();
     $diagram->retrieveEntities($schemaManager->listTables());
+    $diagram->retrieveRelationships($schemaManager->listTables());
 
     return strval($diagram);
   }
