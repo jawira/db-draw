@@ -21,11 +21,18 @@ class Relationship implements ElementInterface
 
   public function __construct(ForeignKeyConstraint $foreignKeyConstraint)
   {
+    $this->table                = $foreignKeyConstraint->getLocalTable();
     $this->foreignKeyConstraint = $foreignKeyConstraint;
+  }
+
+  public function isLocalManyToOne(): void
+  {
+    $localColumns = $this->foreignKeyConstraint->getColumns();
   }
 
   public function __toString(): string
   {
-    return sprintf('%s }-- %s', $this->foreignKeyConstraint->getLocalTableName(), $this->foreignKeyConstraint->getForeignTableName()) . PHP_EOL;;
+      $this->isLocalManyToOne();
+    return sprintf('%s -- %s', $this->foreignKeyConstraint->getLocalTableName(), $this->foreignKeyConstraint->getForeignTableName()) . PHP_EOL;;
   }
 }

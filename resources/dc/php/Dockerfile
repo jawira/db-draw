@@ -5,7 +5,7 @@ WORKDIR "/app"
 # Fix debconf warnings upon build
 ARG DEBIAN_FRONTEND=noninteractive
 ENV COMPOSER_ALLOW_SUPERUSER=1
-COPY resources/dc/zzz-php-settings.ini  /usr/local/etc/php/conf.d/
+COPY resources/dc/php/zzz-php-settings.ini  /usr/local/etc/php/conf.d/
 
 RUN set -ex \
     && echo "### apg-get ###" \

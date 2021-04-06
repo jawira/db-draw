@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project name="DB visualizer" default="help">
+<project name="DB visualizer" default="help" phingVersion="3">
 
   <property name="dc.project-name" value="db-visualizer"/>
+  <property name="db.host" value="database"/>
+  <property name="db.schema" value="sakila"/>
 
-  <target name="setup" depends="composer:install,dc:up"/>
-  <target name="qa" depends="composer:validate,composer:normalize,phpstan:analyze,phpunit:test"/>
+  <target name="setup" depends="composer:install,dc:up,dc:ip"/>
+  <target name="qa" depends="composer:validate,composer:normalize,phpstan:analyze,phpunit:run"/>
 
   <target name="dc:up" description="Launch containers">
     <exec executable="docker-compose" passthru="true" checkreturn="true">
@@ -57,7 +59,7 @@
     </exec>
   </target>
 
-  <target name="qa:remote" description="Diff on docker container">
+  <target name="qa:remote" description="Run tests on docker container">
     <exec executable="docker" passthru="true" checkreturn="true">
       <arg value="exec"/>
       <arg value="${dc.project-name}_php_1"/>
@@ -79,13 +81,13 @@
     </exec>
   </target>
 
-  <target name="composer:validate">
+  <target name="composer:validate" description="Validate composer.json">
     <composer command="validate">
       <arg value="--ansi"/>
     </composer>
   </target>
 
-  <target name="composer:normalize">
+  <target name="composer:normalize" description="Normalize composer.json">
     <composer command="normalize">
       <arg value="--ansi"/>
     </composer>
@@ -100,16 +102,28 @@
     </composer>
   </target>
 
-  <target name="phpunit:test" depends="wait-for-database">
-    <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true"/>
+  <target name="docs:images">
+    <visualizer destination="docs/images" format="puml"/>
+    <exec executable="plantuml" checkreturn="true" passthru="true">
+      <arg value="-tpng"/>
+      <arg value="-nometadata"/>
+      <arg file="docs/images/build.puml"/>
+    </exec>
+  </target>
+
+  <target name="phpunit:run" depends="wait-for-database">
+    <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
+      <env key="DB_HOST" value="${db.host}"/>
+      <env key="DB_SCHEMA" value="${db.schema}"/>
+    </exec>
   </target>
 
   <target name="wait-for-database">
-    <waitfor timeoutproperty="db.timeout" maxwait="300" maxwaitunit="second">
-      <pdosqlexec url="mysql:host=database;dbname=employees;port=3306"
+    <waitfor timeoutproperty="db.timeout" maxwait="30" maxwaitunit="second">
+      <pdosqlexec url="mysql:host=${db.host};dbname=${db.schema};port=3306"
                   userid="root" password="groot"/>
     </waitfor>
-    <fail if="db.timeout">Cannot reach employees database</fail>
+    <fail if="db.timeout">Cannot reach sakila database</fail>
   </target>
 
   <target name="help">

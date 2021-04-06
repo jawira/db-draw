@@ -15,9 +15,9 @@
     "jawira/plantuml-client": "^0.1.0"
   },
   "require-dev": {
-    "ext-dom": "20031129",
-    "ext-mbstring": "^7.3",
-    "ext-xml": "^7.3",
+    "ext-dom": "*",
+    "ext-mbstring": "*",
+    "ext-xml": "*",
     "ergebnis/composer-normalize": "^2.13",
     "phpstan/phpstan": "^0.12.82",
     "phpunit/phpunit": "^9.5"
@@ -29,7 +29,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Jawira\\DbVisualizer\\Tests\\Type\\": "tests/Type"
+      "Jawira\\DbVisualizer\\Tests\\": "tests"
     }
   }
 }

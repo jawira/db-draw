@@ -5,7 +5,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: resources/dc/Dockerfile
+      dockerfile: resources/dc/php/Dockerfile
     entrypoint: []
     command: []
     tty: true
@@ -18,9 +18,13 @@ services:
       - default
 
   database:
-    image: genschsa/mysql-employees
+    image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: groot
+    volumes:
+      - './resources/dc/mysql/employees.sql:/docker-entrypoint-initdb.d/employees.sql:ro'
+      - './resources/dc/mysql/mysqlsampledatabase.sql:/docker-entrypoint-initdb.d/mysqlsampledatabase.sql:ro'
+      - './resources/dc/mysql/sakila-mv-schema.sql:/docker-entrypoint-initdb.d/sakila-mv-schema.sql:ro'
     networks:
       - default
 
