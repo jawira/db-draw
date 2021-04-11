@@ -11,8 +11,9 @@
   ],
   "require": {
     "php": ">=7.3",
-    "doctrine/dbal": "^3.0",
-    "jawira/plantuml-client": "^0.1.0"
+    "jawira/plantuml-client": "^0.1.0",
+    "jawira/the-lost-functions": "^1.1",
+    "doctrine/dbal": "^2"
   },
   "require-dev": {
     "ext-dom": "*",
@@ -20,7 +21,8 @@
     "ext-xml": "*",
     "ergebnis/composer-normalize": "^2.13",
     "phpstan/phpstan": "^0.12.82",
-    "phpunit/phpunit": "^9.5"
+    "phpunit/phpunit": "^9.5",
+    "doctrine/orm": "^2.8"
   },
   "autoload": {
     "psr-4": {

@@ -3,10 +3,9 @@
 <project name="DB visualizer" default="help" phingVersion="3">
 
   <property name="dc.project-name" value="db-visualizer"/>
-  <property name="db.host" value="database"/>
-  <property name="db.schema" value="sakila"/>
+  <property name="db.host" value="mysql"/>
 
-  <target name="setup" depends="composer:install,dc:up,dc:ip"/>
+  <target name="setup" depends="composer:install,dc:up,remote:db-update,dc:ip"/>
   <target name="qa" depends="composer:validate,composer:normalize,phpstan:analyze,phpunit:run"/>
 
   <target name="dc:up" description="Launch containers">
@@ -35,6 +34,30 @@
     </exec>
   </target>
 
+  <target name="remote:db-update" description="Run tests on docker container">
+    <exec executable="docker" passthru="true" checkreturn="true">
+      <arg value="exec"/>
+      <arg value="${dc.project-name}_php_1"/>
+      <arg line="phing db:update"/>
+    </exec>
+  </target>
+
+  <target name="db:update" description="Update database schema" depends="wait-for-database">
+    <copy file="config/doctrine-url.php.dist" tofile="config/doctrine-url.php" overwrite="true">
+      <filterchain>
+        <replacetokens>
+          <token key="DB_HOST" value="${db.host}"/>
+        </replacetokens>
+      </filterchain>
+    </copy>
+    <exec executable="vendor/bin/doctrine" passthru="true" checkreturn="false">
+      <arg value="orm:schema-tool:update"/>
+      <arg value="--force"/>
+      <arg value="--dump-sql"/>
+      <arg value="--ansi"/>
+    </exec>
+  </target>
+
   <target name="dc:ip" description="Reveal containers ip addresses">
     <exec executable="docker" checkreturn="true" passthru="true">
       <arg value="inspect"/>
@@ -44,7 +67,7 @@
     </exec>
     <exec executable="docker" checkreturn="true" passthru="true">
       <arg value="inspect"/>
-      <arg value="${dc.project-name}_database_1"/>
+      <arg value="${dc.project-name}_mysql_1"/>
       <arg
         line="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
     </exec>
@@ -59,7 +82,7 @@
     </exec>
   </target>
 
-  <target name="qa:remote" description="Run tests on docker container">
+  <target name="remote:qa" description="Run tests on docker container">
     <exec executable="docker" passthru="true" checkreturn="true">
       <arg value="exec"/>
       <arg value="${dc.project-name}_php_1"/>
@@ -114,13 +137,12 @@
   <target name="phpunit:run" depends="wait-for-database">
     <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
       <env key="DB_HOST" value="${db.host}"/>
-      <env key="DB_SCHEMA" value="${db.schema}"/>
     </exec>
   </target>
 
   <target name="wait-for-database">
     <waitfor timeoutproperty="db.timeout" maxwait="30" maxwaitunit="second">
-      <pdosqlexec url="mysql:host=${db.host};dbname=${db.schema};port=3306"
+      <pdosqlexec url="mysql:host=${db.host};dbname=db-visualizer;port=3306"
                   userid="root" password="groot"/>
     </waitfor>
     <fail if="db.timeout">Cannot reach sakila database</fail>

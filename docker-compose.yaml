@@ -6,26 +6,25 @@ services:
     build:
       context: .
       dockerfile: resources/dc/php/Dockerfile
-    entrypoint: []
-    command: []
+    entrypoint: [ ]
+    command: [ ]
     tty: true
     stdin_open: true
     volumes:
       - '.:/app'
     depends_on:
-      - database
+      - mysql
     networks:
       - default
 
-  database:
-    image: mysql:5.7
+  mysql:
+    image: mysql:8
+    command: '--default-authentication-plugin=mysql_native_password'
     environment:
+      MYSQL_DATABASE: db-visualizer
+      MYSQL_USER: groot
+      MYSQL_PASSWORD: groot
       MYSQL_ROOT_PASSWORD: groot
-    volumes:
-      - './resources/dc/mysql/employees.sql:/docker-entrypoint-initdb.d/employees.sql:ro'
-      - './resources/dc/mysql/mysqlsampledatabase.sql:/docker-entrypoint-initdb.d/mysqlsampledatabase.sql:ro'
-      - './resources/dc/mysql/sakila-mv-schema.sql:/docker-entrypoint-initdb.d/sakila-mv-schema.sql:ro'
-      - './resources/dc/mysql/samples.sql:/docker-entrypoint-initdb.d/samples.sql:ro'
     networks:
       - default
 
