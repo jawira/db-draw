@@ -25,6 +25,7 @@ services:
       - './resources/dc/mysql/employees.sql:/docker-entrypoint-initdb.d/employees.sql:ro'
       - './resources/dc/mysql/mysqlsampledatabase.sql:/docker-entrypoint-initdb.d/mysqlsampledatabase.sql:ro'
       - './resources/dc/mysql/sakila-mv-schema.sql:/docker-entrypoint-initdb.d/sakila-mv-schema.sql:ro'
+      - './resources/dc/mysql/samples.sql:/docker-entrypoint-initdb.d/samples.sql:ro'
     networks:
       - default
 
