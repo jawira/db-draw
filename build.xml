@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project name="DB visualizer" default="help">
+<project name="DB visualizer" default="help" phingVersion="3">
 
   <property name="dc.project-name" value="db-visualizer"/>
+  <property name="db.host" value="mysql"/>
 
-  <target name="setup" depends="composer:install,dc:up"/>
-  <target name="qa" depends="composer:validate,composer:normalize,phpstan:analyze,phpunit:test"/>
+  <target name="setup" depends="composer:install,dc:up,remote:db-update,dc:ip"/>
+  <target name="qa" depends="composer:validate,composer:normalize,phpstan:analyze,phpunit:run"/>
 
   <target name="dc:up" description="Launch containers">
     <exec executable="docker-compose" passthru="true" checkreturn="true">
@@ -16,7 +17,7 @@
     </exec>
   </target>
 
-  <target name="dc:stop">
+  <target name="dc:stop" description="Stop docker containers">
     <exec executable="docker-compose" passthru="true">
       <arg line="--project-name ${dc.project-name}"/>
       <arg value="stop"/>
@@ -33,6 +34,33 @@
     </exec>
   </target>
 
+  <target name="remote:db-update" description="Update database schema on docker container">
+    <exec executable="docker" passthru="true" checkreturn="true">
+      <arg value="exec"/>
+      <arg value="${dc.project-name}_php_1"/>
+      <arg line="phing db:update"/>
+      <arg line="-logger \\Phing\\Listener\\AnsiColorLogger"/>
+      <arg line="-longtargets"/>
+    </exec>
+  </target>
+
+  <target name="db:update" description="Update database schema" depends="db:wait-for-database">
+    <copy file="config/doctrine-url.php.dist" tofile="config/doctrine-url.php" overwrite="true">
+      <filterchain>
+        <replacetokens>
+          <token key="DB_HOST" value="${db.host}"/>
+        </replacetokens>
+      </filterchain>
+    </copy>
+    <exec executable="vendor/bin/doctrine" passthru="true" checkreturn="false">
+      <arg value="orm:schema-tool:update"/>
+      <arg value="--force"/>
+      <arg value="--dump-sql"/>
+      <arg value="--complete"/>
+      <arg value="--ansi"/>
+    </exec>
+  </target>
+
   <target name="dc:ip" description="Reveal containers ip addresses">
     <exec executable="docker" checkreturn="true" passthru="true">
       <arg value="inspect"/>
@@ -42,7 +70,7 @@
     </exec>
     <exec executable="docker" checkreturn="true" passthru="true">
       <arg value="inspect"/>
-      <arg value="${dc.project-name}_database_1"/>
+      <arg value="${dc.project-name}_mysql_1"/>
       <arg
         line="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
     </exec>
@@ -57,7 +85,7 @@
     </exec>
   </target>
 
-  <target name="qa:remote" description="Diff on docker container">
+  <target name="remote:qa" description="Run tests on docker container">
     <exec executable="docker" passthru="true" checkreturn="true">
       <arg value="exec"/>
       <arg value="${dc.project-name}_php_1"/>
@@ -65,7 +93,7 @@
     </exec>
   </target>
 
-  <target name="phpstan:analyze" description="analyze at max level">
+  <target name="phpstan:analyze" description="Analyze code at max level">
     <exec executable="vendor/bin/phpstan" passthru="true" checkreturn="true">
       <arg value="--ansi"/>
       <arg value="--no-interaction"/>
@@ -79,19 +107,19 @@
     </exec>
   </target>
 
-  <target name="composer:validate">
+  <target name="composer:validate" description="Validate composer.json">
     <composer command="validate">
       <arg value="--ansi"/>
     </composer>
   </target>
 
-  <target name="composer:normalize">
+  <target name="composer:normalize" description="Normalize composer.json">
     <composer command="normalize">
       <arg value="--ansi"/>
     </composer>
   </target>
 
-  <target name="composer:install">
+  <target name="composer:install" description="Install Composer dependencies">
     <composer command="install">
       <arg value="--no-interaction"/>
       <arg value="--prefer-dist"/>
@@ -100,22 +128,34 @@
     </composer>
   </target>
 
-  <target name="phpunit:test" depends="wait-for-database">
-    <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true"/>
+  <target name="docs:images" description="Convert puml to png">
+    <visualizer destination="docs/images" format="puml"/>
+    <exec executable="plantuml" checkreturn="true" passthru="true">
+      <arg value="-tpng"/>
+      <arg value="-nometadata"/>
+      <arg file="docs/images/build.puml"/>
+    </exec>
   </target>
 
-  <target name="wait-for-database">
-    <waitfor timeoutproperty="db.timeout" maxwait="300" maxwaitunit="second">
-      <pdosqlexec url="mysql:host=database;dbname=employees;port=3306"
+  <target name="phpunit:run" description="Run PHPUnit tests" depends="db:update">
+    <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
+      <env key="DB_HOST" value="${db.host}"/>
+      <arg line="--colors=always"/>
+    </exec>
+  </target>
+
+  <target name="db:wait-for-database" description="Wait until DB is up and running">
+    <waitfor timeoutproperty="db.timeout" maxwait="30" maxwaitunit="second">
+      <pdosqlexec url="mysql:host=${db.host};dbname=db-visualizer;port=3306"
                   userid="root" password="groot"/>
     </waitfor>
-    <fail if="db.timeout">Cannot reach employees database</fail>
+    <fail if="db.timeout">Cannot reach sakila database</fail>
   </target>
 
   <target name="help">
-    <visualizer format="png"/>
+    <visualizer format="png" destination="docs/images"/>
     <exec executable="xdg-open" spawn="true">
-      <arg file="build.png"/>
+      <arg file="docs/images/build.png"/>
     </exec>
   </target>
 

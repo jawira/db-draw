@@ -1,30 +1,27 @@
 <?php
 
+namespace Jawira\DbVisualizer\Tests;
+
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Types\Type;
 use Jawira\DbVisualizer\DbVisualizer;
-use Jawira\DbVisualizer\Tests\Type\EnumType;
 use PHPUnit\Framework\TestCase;
 
 class DiagramTest extends TestCase
 {
-
   /**
    * @var Connection
    */
   protected $connection;
+  protected $dbHost;
 
-  public function setUp(): void
+  public function __construct()
   {
-    $connectionParams = array(
-      'url' => 'mysql://root:groot@database/employees',
-    );
-
+    parent::__construct();
+    $this->dbHost     = getenv('DB_HOST') ?: 'mysql';
+    $connectionParams = ['url' => "mysql://root:groot@{$this->dbHost}/db-visualizer",];
     $this->connection = DriverManager::getConnection($connectionParams);
-    Type::addType('enum', EnumType::class);
-    $this->connection->getDatabasePlatform()->registerDoctrineTypeMapping('Enum', 'enum');
-
+    $this->connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
   }
 
   /**
@@ -34,9 +31,8 @@ class DiagramTest extends TestCase
   {
     $drawer = new DbVisualizer($this->connection);
     $puml   = $drawer->draw();
-    file_put_contents('./employees.puml', $puml);
+    file_put_contents("./resources/output/db-visualizer.puml", $puml);
     $this->assertIsString($puml);
-    $this->assertStringContainsString('dept_manager', $puml);
     $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
     $this->assertStringEndsWith('@enduml' . PHP_EOL, $puml);
   }

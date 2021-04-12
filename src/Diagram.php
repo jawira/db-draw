@@ -53,7 +53,12 @@ class Diagram
   public function __construct()
   {
     $this->beginning[] = new Raw('@startuml');
+    $this->beginning[] = new Raw('left to right direction');
+    $this->beginning[] = new Raw('hide empty members');
     $this->beginning[] = new Raw('hide circle');
+    $this->beginning[] = new Raw('skinparam ClassBorderColor #333');
+    $this->beginning[] = new Raw('skinparam ArrowColor #333');
+    $this->beginning[] = new Raw('skinparam ClassBackgroundColor AntiqueWhite');
     $this->beginning[] = new Raw('skinparam linetype ortho');
     $this->beginning[] = new Raw('skinparam shadowing false');
     $this->ending[]    = new Raw('@enduml');

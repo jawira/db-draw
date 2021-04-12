@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+hide empty members
+hide circle
+skinparam ClassBorderColor #222
+skinparam ArrowColor #222
+skinparam ClassBackgroundColor AntiqueWhite
+skinparam linetype ortho
+skinparam shadowing false
+entity Assistant { }
+entity Course { }
+entity CreditCard { }
+entity Faculty { }
+entity Inscription { }
+entity Person { }
+entity Session { }
+entity Student { }
+entity Teacher { }
+entity inscription_session { }
+Assistant |o--|| Person
+Course }o--o| Faculty
+Course }o--o| Course
+Inscription }o--|| Student
+Session }o--|| Teacher
+Session }o--|| Course
+Session }o--o| Assistant
+Student |o--o| CreditCard
+Student |o--|| Person
+Teacher |o--|| Person
+inscription_session }o--|| Inscription
+inscription_session }o--|| Session
+@enduml
