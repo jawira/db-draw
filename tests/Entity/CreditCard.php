@@ -19,7 +19,12 @@ class CreditCard
   protected $id;
 
   /**
-   * @ORM\Column(type="string")
+   * @ORM\Column(type="string", length=16)
+   */
+  protected $ownerFullName;
+
+  /**
+   * @ORM\Column(type="string", length=16)
    */
   protected $number;
 
@@ -28,4 +33,8 @@ class CreditCard
    */
   protected $pin;
 
+  /**
+   * @ORM\Column(type="date_immutable")
+   */
+  protected $expirationDate;
 }

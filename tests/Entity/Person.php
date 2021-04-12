@@ -1,15 +1,13 @@
 <?php
 
-
 namespace Jawira\DbVisualizer\Tests\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class Course
+class Person
 {
   /**
    * @ORM\Id
@@ -21,16 +19,20 @@ class Course
   /**
    * @ORM\Column(type="string")
    */
-  protected $name;
+  protected $firstName;
 
   /**
-   * @ORM\ManyToOne(targetEntity="Faculty")
+   * @ORM\Column(type="string")
    */
-  protected $faculty;
+  protected $lastName;
 
   /**
-   * @ORM\ManyToOne(targetEntity="Course")
-   * @ORM\JoinColumn(nullable=true)
+   * @ORM\Column(type="datetime", nullable=true)
    */
-  protected $required;
+  protected $birthDate;
+
+  /**
+   * @ORM\Column (type="string",length=200)
+   */
+  protected $email;
 }

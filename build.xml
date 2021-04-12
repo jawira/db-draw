@@ -5,7 +5,7 @@
   <property name="dc.project-name" value="db-visualizer"/>
   <property name="db.host" value="mysql"/>
 
-  <target name="setup" depends="qa:dir,composer:install,dc:up,remote:db-update,dc:ip"/>
+  <target name="setup" depends="composer:install,dc:up,remote:db-update,dc:ip"/>
   <target name="qa" depends="composer:validate,composer:normalize,phpstan:analyze,phpunit:run"/>
 
   <target name="dc:up" description="Launch containers">
@@ -150,10 +150,6 @@
                   userid="root" password="groot"/>
     </waitfor>
     <fail if="db.timeout">Cannot reach sakila database</fail>
-  </target>
-
-  <target name="qa:dir" description="Create output dir">
-    <mkdir dir="resources/output"/>
   </target>
 
   <target name="help">

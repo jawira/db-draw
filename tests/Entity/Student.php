@@ -27,24 +27,14 @@ class Student
   protected $password;
 
   /**
-   * @ORM\Column(type="string")
-   */
-  protected $firstName;
-
-  /**
-   * @ORM\Column(type="string")
-   */
-  protected $lastName;
-
-  /**
-   * @ORM\Column(type="datetime", nullable=true)
-   */
-  protected $birthDate;
-
-  /**
    * @ORM\OneToOne(targetEntity="CreditCard")
-   * @ORM\JoinColumn(nullable=false)
+   * @ORM\JoinColumn(nullable=true)
    */
   protected $creditCard;
 
+  /**
+   * @ORM\OneToOne(targetEntity="Person")
+   * @ORM\JoinColumn(nullable=false)
+   */
+  protected $details;
 }

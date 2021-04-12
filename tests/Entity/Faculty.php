@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class Course
+class Faculty
 {
   /**
    * @ORM\Id
@@ -22,15 +22,4 @@ class Course
    * @ORM\Column(type="string")
    */
   protected $name;
-
-  /**
-   * @ORM\ManyToOne(targetEntity="Faculty")
-   */
-  protected $faculty;
-
-  /**
-   * @ORM\ManyToOne(targetEntity="Course")
-   * @ORM\JoinColumn(nullable=true)
-   */
-  protected $required;
 }

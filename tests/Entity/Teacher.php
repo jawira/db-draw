@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class Inscription
+class Teacher
 {
   /**
    * @ORM\Id
@@ -17,18 +17,8 @@ class Inscription
   protected $id;
 
   /**
-   * @ORM\Column(type="datetime")
-   */
-  protected $createdAt;
-
-  /**
-   * @ORM\ManyToOne(targetEntity="Student")
+   * @ORM\OneToOne(targetEntity="Person")
    * @ORM\JoinColumn(nullable=false)
    */
-  protected $student;
-
-  /**
-   * @ORM\ManyToMany(targetEntity="Session")
-   */
-  protected $session;
+  protected $details;
 }
