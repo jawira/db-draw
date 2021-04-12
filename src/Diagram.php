@@ -58,7 +58,7 @@ class Diagram
     $this->beginning[] = new Raw('hide circle');
     $this->beginning[] = new Raw('skinparam ClassBorderColor #333');
     $this->beginning[] = new Raw('skinparam ArrowColor #333');
-    $this->beginning[] = new Raw('skinparam ClassBackgroundColor Azure');
+    $this->beginning[] = new Raw('skinparam ClassBackgroundColor AntiqueWhite');
     $this->beginning[] = new Raw('skinparam linetype ortho');
     $this->beginning[] = new Raw('skinparam shadowing false');
     $this->ending[]    = new Raw('@enduml');
