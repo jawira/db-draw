@@ -150,9 +150,9 @@
   </target>
 
   <target name="help">
-    <visualizer format="png"/>
+    <visualizer format="png" destination="docs/images"/>
     <exec executable="xdg-open" spawn="true">
-      <arg file="build.png"/>
+      <arg file="docs/images/build.png"/>
     </exec>
   </target>
 
