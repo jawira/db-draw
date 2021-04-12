@@ -8,11 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="details")
  */
-class Details
+class CreditCard
 {
-
   /**
    * @ORM\Id
    * @ORM\Column(type="integer")
@@ -20,5 +18,14 @@ class Details
    */
   protected $id;
 
+  /**
+   * @ORM\Column(type="string")
+   */
+  protected $number;
+
+  /**
+   * @ORM\Column(type="string",length=4)
+   */
+  protected $pin;
 
 }

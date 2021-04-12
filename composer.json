@@ -11,18 +11,18 @@
   ],
   "require": {
     "php": ">=7.3",
+    "doctrine/dbal": "^2",
     "jawira/plantuml-client": "^0.1.0",
-    "jawira/the-lost-functions": "^1.1",
-    "doctrine/dbal": "^2"
+    "jawira/the-lost-functions": "^1.1"
   },
   "require-dev": {
     "ext-dom": "*",
     "ext-mbstring": "*",
     "ext-xml": "*",
+    "doctrine/orm": "^2.8",
     "ergebnis/composer-normalize": "^2.13",
     "phpstan/phpstan": "^0.12.82",
-    "phpunit/phpunit": "^9.5",
-    "doctrine/orm": "^2.8"
+    "phpunit/phpunit": "^9.5"
   },
   "autoload": {
     "psr-4": {

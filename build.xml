@@ -54,6 +54,7 @@
       <arg value="orm:schema-tool:update"/>
       <arg value="--force"/>
       <arg value="--dump-sql"/>
+      <arg value="--complete"/>
       <arg value="--ansi"/>
     </exec>
   </target>

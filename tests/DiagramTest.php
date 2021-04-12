@@ -14,7 +14,6 @@ class DiagramTest extends TestCase
    */
   protected $connection;
   protected $dbHost;
-  protected $dbSchema;
 
   public function __construct()
   {
@@ -32,7 +31,7 @@ class DiagramTest extends TestCase
   {
     $drawer = new DbVisualizer($this->connection);
     $puml   = $drawer->draw();
-    file_put_contents("./resources/output/{$this->dbSchema}.puml", $puml);
+    file_put_contents("./resources/output/db-visualizer.puml", $puml);
     $this->assertIsString($puml);
     $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
     $this->assertStringEndsWith('@enduml' . PHP_EOL, $puml);

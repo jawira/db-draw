@@ -6,6 +6,7 @@ use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Index;
 use function array_filter;
 use function array_intersect;
+use function array_reduce;
 use function array_search;
 use function count;
 use function Jawira\TheLostFunctions\array_search_callback;
@@ -32,7 +33,7 @@ class Relationship implements ElementInterface
     $this->foreignKeyConstraint = $foreignKeyConstraint;
   }
 
-  public function isOneToOne(): bool
+  public function fkIsUnique(): bool
   {
     $localColumns = $this->foreignKeyConstraint->getColumns();
 
@@ -48,7 +49,6 @@ class Relationship implements ElementInterface
         return false;
       }
 
-
       return $index->isUnique();
     };
 
@@ -57,14 +57,26 @@ class Relationship implements ElementInterface
     return $uniqueIndex instanceof Index;
   }
 
+  public function fkIsNullable(): bool
+  {
+    $localColumns = $this->foreignKeyConstraint->getColumns();
+
+    $reducer = function ($carry, $column) {
+      $isNullable = !$this->table->getColumn($column)->getNotnull();
+      return $carry && $isNullable;
+    };
+
+    return array_reduce($localColumns, $reducer, true);
+  }
+
   public function __toString(): string
   {
     $chuncks                 = [];
     $chuncks['localTable']   = $this->foreignKeyConstraint->getLocalTableName();
-    $chuncks['localMax']     = $this->isOneToOne() ? '|' : '}';
-    $chuncks['localMin']     = '|';
+    $chuncks['localMax']     = $this->fkIsUnique() ? '|' : '}';
+    $chuncks['remoteMin']    = $this->fkIsNullable() ? 'o' : '|';
     $chuncks['foreignTable'] = $this->foreignKeyConstraint->getForeignTableName();
 
-    return vsprintf('%s %s%s-- %s', $chuncks) . PHP_EOL;
+    return vsprintf('%s %so--%s| %s', $chuncks) . PHP_EOL;
   }
 }
