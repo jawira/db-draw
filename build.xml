@@ -5,7 +5,7 @@
   <property name="dc.project-name" value="db-visualizer"/>
   <property name="db.host" value="mysql"/>
 
-  <target name="setup" depends="composer:install,dc:up,remote:db-update,dc:ip"/>
+  <target name="setup" depends="qa:dir,composer:install,dc:up,remote:db-update,dc:ip"/>
   <target name="qa" depends="composer:validate,composer:normalize,phpstan:analyze,phpunit:run"/>
 
   <target name="dc:up" description="Launch containers">
@@ -17,7 +17,7 @@
     </exec>
   </target>
 
-  <target name="dc:stop">
+  <target name="dc:stop" description="Stop docker containers">
     <exec executable="docker-compose" passthru="true">
       <arg line="--project-name ${dc.project-name}"/>
       <arg value="stop"/>
@@ -34,15 +34,17 @@
     </exec>
   </target>
 
-  <target name="remote:db-update" description="Run tests on docker container">
+  <target name="remote:db-update" description="Update database schema on docker container">
     <exec executable="docker" passthru="true" checkreturn="true">
       <arg value="exec"/>
       <arg value="${dc.project-name}_php_1"/>
       <arg line="phing db:update"/>
+      <arg line="-logger \\Phing\\Listener\\AnsiColorLogger"/>
+      <arg line="-longtargets"/>
     </exec>
   </target>
 
-  <target name="db:update" description="Update database schema" depends="wait-for-database">
+  <target name="db:update" description="Update database schema" depends="db:wait-for-database">
     <copy file="config/doctrine-url.php.dist" tofile="config/doctrine-url.php" overwrite="true">
       <filterchain>
         <replacetokens>
@@ -91,7 +93,7 @@
     </exec>
   </target>
 
-  <target name="phpstan:analyze" description="analyze at max level">
+  <target name="phpstan:analyze" description="Analyze code at max level">
     <exec executable="vendor/bin/phpstan" passthru="true" checkreturn="true">
       <arg value="--ansi"/>
       <arg value="--no-interaction"/>
@@ -117,7 +119,7 @@
     </composer>
   </target>
 
-  <target name="composer:install">
+  <target name="composer:install" description="Install Composer dependencies">
     <composer command="install">
       <arg value="--no-interaction"/>
       <arg value="--prefer-dist"/>
@@ -126,7 +128,7 @@
     </composer>
   </target>
 
-  <target name="docs:images">
+  <target name="docs:images" description="Convert puml to png">
     <visualizer destination="docs/images" format="puml"/>
     <exec executable="plantuml" checkreturn="true" passthru="true">
       <arg value="-tpng"/>
@@ -135,18 +137,23 @@
     </exec>
   </target>
 
-  <target name="phpunit:run" depends="wait-for-database">
+  <target name="phpunit:run" description="Run PHPUnit tests" depends="db:update">
     <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
       <env key="DB_HOST" value="${db.host}"/>
+      <arg line="--colors=always"/>
     </exec>
   </target>
 
-  <target name="wait-for-database">
+  <target name="db:wait-for-database" description="Wait until DB is up and running">
     <waitfor timeoutproperty="db.timeout" maxwait="30" maxwaitunit="second">
       <pdosqlexec url="mysql:host=${db.host};dbname=db-visualizer;port=3306"
                   userid="root" password="groot"/>
     </waitfor>
     <fail if="db.timeout">Cannot reach sakila database</fail>
+  </target>
+
+  <target name="qa:dir" description="Create output dir">
+    <mkdir dir="resources/output"/>
   </target>
 
   <target name="help">
