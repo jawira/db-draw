@@ -6,7 +6,7 @@
   <property name="db.host" value="mysql"/>
 
   <target name="setup" depends="composer:install,dc:up,remote:db-update,dc:ip"/>
-  <target name="qa" depends="composer:validate,composer:normalize,phpstan:analyze,phpunit:run"/>
+  <target name="qa" depends="composer:validate,composer:normalize,cs:fix,phpstan:analyze,phpunit:run"/>
 
   <target name="dc:up" description="Launch containers">
     <exec executable="docker-compose" passthru="true" checkreturn="true">
@@ -62,17 +62,13 @@
   </target>
 
   <target name="dc:ip" description="Reveal containers ip addresses">
+    <property name="dc.format"
+              value="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
     <exec executable="docker" checkreturn="true" passthru="true">
       <arg value="inspect"/>
+      <arg line="${dc.format}"/>
       <arg value="${dc.project-name}_php_1"/>
-      <arg
-        line="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
-    </exec>
-    <exec executable="docker" checkreturn="true" passthru="true">
-      <arg value="inspect"/>
       <arg value="${dc.project-name}_mysql_1"/>
-      <arg
-        line="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
     </exec>
   </target>
 
@@ -159,4 +155,9 @@
     </exec>
   </target>
 
+  <target name="cs:fix" description="Fix code style">
+    <exec executable="vendor/bin/php-cs-fixer" passthru="true" checkreturn="true">
+      <arg value="fix"/>
+    </exec>
+  </target>
 </project>

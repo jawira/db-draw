@@ -1,12 +1,15 @@
 @startuml
-left to right direction
 hide empty members
 hide circle
-skinparam ClassBorderColor #222
-skinparam ArrowColor #222
-skinparam ClassBackgroundColor AntiqueWhite
-skinparam linetype ortho
-skinparam shadowing false
+skinparam ArrowColor #333
+skinparam ArrowThickness 1.5
+skinparam ClassBackgroundColor White-APPLICATION
+skinparam ClassBorderColor LightSlateGray
+skinparam ClassBorderThickness 1
+skinparam MinClassWidth 150
+skinparam LineType Ortho
+skinparam Shadowing false
+title db-visualizer
 entity Assistant { }
 entity Course { }
 entity CreditCard { }

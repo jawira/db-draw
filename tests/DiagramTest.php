@@ -30,7 +30,7 @@ class DiagramTest extends TestCase
   public function testDbVisualizer()
   {
     $drawer = new DbVisualizer($this->connection);
-    $puml   = $drawer->draw();
+    $puml   = $drawer->generatePuml();
     file_put_contents("./resources/output/db-visualizer.puml", $puml);
     $this->assertIsString($puml);
     $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);

@@ -5,12 +5,8 @@ namespace Jawira\DbVisualizer\Element;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Index;
 use function array_filter;
-use function array_intersect;
 use function array_reduce;
-use function array_search;
-use function count;
 use function Jawira\TheLostFunctions\array_search_callback;
-use function sprintf;
 use function vsprintf;
 use const PHP_EOL;
 

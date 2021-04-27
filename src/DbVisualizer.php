@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Jawira\DbVisualizer;
-
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
@@ -21,18 +19,16 @@ class DbVisualizer
   }
 
   /**
-   * @return string
    * @throws \Doctrine\DBAL\Exception
+   * @return string
    */
-  public function draw()
+  public function generatePuml()
   {
     /** @var AbstractSchemaManager $schemaManager */
     $schemaManager = $this->connection->getSchemaManager();
-    $diagram       = new Diagram();
-    $diagram->retrieveEntities($schemaManager->listTables());
-    $diagram->retrieveRelationships($schemaManager->listTables());
+    $diagram       = new Diagram($schemaManager);
+    $diagram->setTitle($this->connection->getDatabase());
 
     return strval($diagram);
   }
-
 }
