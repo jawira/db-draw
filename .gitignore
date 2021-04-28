@@ -4,3 +4,4 @@
 /.phpunit.cache
 /build.png
 /config/doctrine-url.php
+/.php_cs.cache
