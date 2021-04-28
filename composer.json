@@ -12,6 +12,7 @@
   "require": {
     "php": ">=7.3",
     "doctrine/dbal": "^2",
+    "friendsofphp/php-cs-fixer": "^2.18",
     "jawira/plantuml-client": "^0.1.0",
     "jawira/the-lost-functions": "^1.1"
   },
