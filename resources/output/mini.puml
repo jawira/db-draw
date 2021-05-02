@@ -10,16 +10,26 @@ skinparam MinClassWidth 150
 skinparam LineType Ortho
 skinparam Shadowing false
 title db-visualizer
-entity Assistant { }
-entity Course { }
-entity CreditCard { }
-entity Faculty { }
-entity Inscription { }
-entity Person { }
-entity Session { }
-entity Student { }
-entity Teacher { }
-entity inscription_session { }
+entity Assistant {
+}
+entity Course {
+}
+entity CreditCard {
+}
+entity Faculty {
+}
+entity Inscription {
+}
+entity Person {
+}
+entity Session {
+}
+entity Student {
+}
+entity Teacher {
+}
+entity inscription_session {
+}
 Assistant |o--|| Person
 Course }o--o| Faculty
 Course }o--o| Course

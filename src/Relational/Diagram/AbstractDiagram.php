@@ -7,14 +7,12 @@ namespace Jawira\DbVisualizer\Relational\Diagram;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Table;
-use Jawira\DbVisualizer\Relational\ElementInterface;
 use Jawira\DbVisualizer\Relational\Entity;
 use Jawira\DbVisualizer\Relational\Raw;
 use Jawira\DbVisualizer\Relational\Relationship;
 use function array_map;
 use function array_merge;
 use function array_reduce;
-use function strval;
 
 abstract class AbstractDiagram
 {
@@ -52,7 +50,9 @@ abstract class AbstractDiagram
    */
   protected $connection;
 
-
+  /**
+   * @return $this
+   */
   abstract public function process();
 
   /**
@@ -70,8 +70,10 @@ abstract class AbstractDiagram
    */
   protected function generateEntities(array $tables): void
   {
-    $createEntity = function ($table) {
-      return new Entity($table);
+    $createEntity = function (Table $table) {
+      $entity = new Entity($table);
+      $entity->generateHeaderAndFooter();
+      return $entity;
     };
 
     $this->entities = array_map($createEntity, $tables);
@@ -93,12 +95,6 @@ abstract class AbstractDiagram
     $this->relationships = array_map($createRelationship, $foreignKeys);
   }
 
-  protected static function reducer(string $carry, ElementInterface $element): string
-  {
-    return $carry . strval($element);
-  }
-
-
   protected function generateHeaderAndFooter(Connection $connection): void
   {
     $this->beginning[] = new Raw('@startuml');
@@ -119,10 +115,10 @@ abstract class AbstractDiagram
 
   public function __toString(): string
   {
-    $puml = array_reduce($this->beginning, [static::class, 'reducer'], '');
-    $puml = array_reduce($this->entities, [static::class, 'reducer'], $puml);
-    $puml = array_reduce($this->relationships, [static::class, 'reducer'], $puml);
-    $puml = array_reduce($this->ending, [static::class, 'reducer'], $puml);
+    $puml = array_reduce($this->beginning, '\\Jawira\\DbVisualizer\\Toolbox::reducer', '');
+    $puml = array_reduce($this->entities, '\\Jawira\\DbVisualizer\\Toolbox::reducer', $puml);
+    $puml = array_reduce($this->relationships, '\\Jawira\\DbVisualizer\\Toolbox::reducer', $puml);
+    $puml = array_reduce($this->ending, '\\Jawira\\DbVisualizer\\Toolbox::reducer', $puml);
 
     return $puml;
   }

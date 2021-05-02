@@ -6,6 +6,9 @@ namespace Jawira\DbVisualizer\Relational\Diagram;
 
 class Mini extends AbstractDiagram
 {
+  /**
+   * @return $this
+   */
   public function process()
   {
     $this->generateHeaderAndFooter($this->connection);

@@ -27,11 +27,24 @@ class DiagramTest extends TestCase
   /**
    * @covers \Jawira\DbVisualizer\DbVisualizer::draw
    */
-  public function testDbVisualizer()
+  public function testMiniDiagram()
   {
     $drawer = new DbVisualizer($this->connection);
     $puml   = $drawer->generatePuml(DbVisualizer::MINI);
-    file_put_contents("./resources/output/db-visualizer.puml", $puml);
+    file_put_contents('./resources/output/mini.puml', $puml);
+    $this->assertIsString($puml);
+    $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
+    $this->assertStringEndsWith('@enduml' . PHP_EOL, $puml);
+  }
+
+  /**
+   * @covers \Jawira\DbVisualizer\DbVisualizer::draw
+   */
+  public function testMidiDiagram()
+  {
+    $drawer = new DbVisualizer($this->connection);
+    $puml   = $drawer->generatePuml(DbVisualizer::MIDI);
+    file_put_contents('./resources/output/midi.puml', $puml);
     $this->assertIsString($puml);
     $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
     $this->assertStringEndsWith('@enduml' . PHP_EOL, $puml);
