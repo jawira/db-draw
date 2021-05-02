@@ -22,8 +22,12 @@
     "ext-xml": "*",
     "doctrine/orm": "^2.8",
     "ergebnis/composer-normalize": "^2.13",
+    "jawira/skeleton": "^2.0",
     "phpstan/phpstan": "^0.12.82",
     "phpunit/phpunit": "^9.5"
+  },
+  "config": {
+    "preferred-install": "dist"
   },
   "autoload": {
     "psr-4": {

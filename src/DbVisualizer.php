@@ -3,11 +3,18 @@
 namespace Jawira\DbVisualizer;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Schema\AbstractSchemaManager;
+use Jawira\DbVisualizer\Relational\Diagram\AbstractDiagram;
+use Jawira\DbVisualizer\Relational\Diagram\Maxi;
+use Jawira\DbVisualizer\Relational\Diagram\Midi;
+use Jawira\DbVisualizer\Relational\Diagram\Mini;
 use function strval;
 
 class DbVisualizer
 {
+  public const MINI = 'mini';
+  public const MIDI = 'midi';
+  public const MAXI = 'maxi';
+
   /**
    * @var Connection
    */
@@ -19,16 +26,35 @@ class DbVisualizer
   }
 
   /**
-   * @throws \Doctrine\DBAL\Exception
    * @return string
+   * @throws \Doctrine\DBAL\Exception
    */
-  public function generatePuml()
+  public function generatePuml(string $size)
   {
-    /** @var AbstractSchemaManager $schemaManager */
-    $schemaManager = $this->connection->getSchemaManager();
-    $diagram       = new Diagram($schemaManager);
-    $diagram->setTitle($this->connection->getDatabase());
+    $diagram = $this->resolveDiagram($size)->setConnection($this->connection)->process();
 
     return strval($diagram);
+  }
+
+  /**
+   * @throws \Jawira\DbVisualizer\DbVisualizerException
+   */
+  protected function resolveDiagram(string $size): AbstractDiagram
+  {
+    switch ($size) {
+      case self::MINI:
+        $diagram = new Mini();
+        break;
+      case self::MIDI:
+        $diagram = new Midi();
+        break;
+      case self::MAXI:
+        $diagram = new Maxi();
+        break;
+      default:
+        throw new DbVisualizerException('Invalid diagram size');
+    }
+
+    return $diagram;
   }
 }

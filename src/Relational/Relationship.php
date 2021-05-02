@@ -1,6 +1,6 @@
 <?php
 
-namespace Jawira\DbVisualizer\Element;
+namespace Jawira\DbVisualizer\Relational;
 
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Index;
@@ -29,7 +29,7 @@ class Relationship implements ElementInterface
     $this->foreignKeyConstraint = $foreignKeyConstraint;
   }
 
-  public function fkIsUnique(): bool
+  protected function fkIsUnique(): bool
   {
     $localColumns = $this->foreignKeyConstraint->getColumns();
 
@@ -53,7 +53,7 @@ class Relationship implements ElementInterface
     return $uniqueIndex instanceof Index;
   }
 
-  public function fkIsNullable(): bool
+  protected function fkIsNullable(): bool
   {
     $localColumns = $this->foreignKeyConstraint->getColumns();
 
