@@ -1,6 +1,6 @@
 <?php
 
-namespace Jawira\DbVisualizer\Element;
+namespace Jawira\DbVisualizer\Relational;
 
 use \Doctrine\DBAL\Schema\Table;
 use function sprintf;

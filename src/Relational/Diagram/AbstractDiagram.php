@@ -1,27 +1,24 @@
 <?php
 
 
-namespace Jawira\DbVisualizer;
+namespace Jawira\DbVisualizer\Relational\Diagram;
 
-use Doctrine\DBAL\Schema\AbstractSchemaManager;
+
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Table;
-use Jawira\DbVisualizer\Element\ElementInterface;
-use Jawira\DbVisualizer\Element\Entity;
-use Jawira\DbVisualizer\Element\Raw;
-use Jawira\DbVisualizer\Element\Relationship;
+use Jawira\DbVisualizer\Relational\ElementInterface;
+use Jawira\DbVisualizer\Relational\Entity;
+use Jawira\DbVisualizer\Relational\Raw;
+use Jawira\DbVisualizer\Relational\Relationship;
 use function array_map;
 use function array_merge;
 use function array_reduce;
 use function strval;
 
-/**
- * Class Diagram
- *
- * @package Jawira\DbVisualizer
- */
-class Diagram
+abstract class AbstractDiagram
 {
+
   /**
    * Things to put at the beginning of the diagram
    *
@@ -51,20 +48,27 @@ class Diagram
   protected $relationships = [];
 
   /**
-   * @var string
+   * @var Connection
    */
-  protected $title;
+  protected $connection;
 
-  public function __construct(AbstractSchemaManager $schemaManager)
+
+  abstract public function process();
+
+  /**
+   * @param Connection $connection
+   * @return AbstractDiagram
+   */
+  public function setConnection(Connection $connection): AbstractDiagram
   {
-    $this->retrieveEntities($schemaManager->listTables());
-    $this->retrieveRelationships($schemaManager->listTables());
+    $this->connection = $connection;
+    return $this;
   }
 
   /**
    * @param Table[] $tables
    */
-  protected function retrieveEntities(array $tables): void
+  protected function generateEntities(array $tables): void
   {
     $createEntity = function ($table) {
       return new Entity($table);
@@ -76,7 +80,7 @@ class Diagram
   /**
    * @param Table[] $tables
    */
-  protected function retrieveRelationships(array $tables): void
+  protected function generateRelationships(array $tables): void
   {
     $foreignKeys         = [];
     $retrieveForeignKeys = function (Table $table) use (&$foreignKeys) {
@@ -89,7 +93,13 @@ class Diagram
     $this->relationships = array_map($createRelationship, $foreignKeys);
   }
 
-  public function __toString()
+  protected static function reducer(string $carry, ElementInterface $element): string
+  {
+    return $carry . strval($element);
+  }
+
+
+  protected function generateHeaderAndFooter(Connection $connection): void
   {
     $this->beginning[] = new Raw('@startuml');
     $this->beginning[] = new Raw('hide empty members');
@@ -102,39 +112,18 @@ class Diagram
     $this->beginning[] = new Raw('skinparam MinClassWidth 150');
     $this->beginning[] = new Raw('skinparam LineType Ortho');
     $this->beginning[] = new Raw('skinparam Shadowing false');
-    $this->beginning[] = new Raw('title ' . $this->getTitle());
+    $this->beginning[] = new Raw('title ' . $connection->getDatabase());
     $this->ending[]    = new Raw('@enduml');
+  }
 
+
+  public function __toString(): string
+  {
     $puml = array_reduce($this->beginning, [static::class, 'reducer'], '');
     $puml = array_reduce($this->entities, [static::class, 'reducer'], $puml);
     $puml = array_reduce($this->relationships, [static::class, 'reducer'], $puml);
     $puml = array_reduce($this->ending, [static::class, 'reducer'], $puml);
 
     return $puml;
-  }
-
-  protected static function reducer(string $carry, ElementInterface $element): string
-  {
-    return $carry . strval($element);
-  }
-
-  /**
-   * @return string
-   */
-  public function getTitle(): string
-  {
-    return $this->title;
-  }
-
-  /**
-   * @param string $title
-   *
-   * @return \Jawira\DbVisualizer\Diagram
-   */
-  public function setTitle(string $title): self
-  {
-    $this->title = $title;
-
-    return $this;
   }
 }
