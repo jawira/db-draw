@@ -10,9 +10,11 @@ use Doctrine\DBAL\Schema\Table;
 use Jawira\DbVisualizer\Relational\Entity;
 use Jawira\DbVisualizer\Relational\Raw;
 use Jawira\DbVisualizer\Relational\Relationship;
+use Jawira\DbVisualizer\Relational\Views;
 use function array_map;
 use function array_merge;
 use function array_reduce;
+use function strval;
 
 abstract class AbstractDiagram
 {
@@ -20,28 +22,28 @@ abstract class AbstractDiagram
   /**
    * Things to put at the beginning of the diagram
    *
-   * @var Raw[]
+   * @var \Jawira\DbVisualizer\Relational\Raw[]
    */
   protected $beginning = [];
 
   /**
    * Things to put at the ending of the diagram
    *
-   * @var Raw[]
+   * @var \Jawira\DbVisualizer\Relational\Raw[]
    */
   protected $ending = [];
 
   /**
    * DB entities (tables)
    *
-   * @var Entity[]
+   * @var \Jawira\DbVisualizer\Relational\Entity[]
    */
   protected $entities = [];
 
   /**
    * DB relationships
    *
-   * @var Relationship[]
+   * @var \Jawira\DbVisualizer\Relational\Relationship[]
    */
   protected $relationships = [];
 
@@ -49,6 +51,10 @@ abstract class AbstractDiagram
    * @var Connection
    */
   protected $connection;
+  /**
+   * @var \Jawira\DbVisualizer\Relational\Views
+   */
+  protected $views;
 
   /**
    * @return $this
@@ -57,11 +63,13 @@ abstract class AbstractDiagram
 
   /**
    * @param Connection $connection
+   *
    * @return AbstractDiagram
    */
   public function setConnection(Connection $connection): AbstractDiagram
   {
     $this->connection = $connection;
+
     return $this;
   }
 
@@ -73,6 +81,7 @@ abstract class AbstractDiagram
     $createEntity = function (Table $table) {
       $entity = new Entity($table);
       $entity->generateHeaderAndFooter();
+
       return $entity;
     };
 
@@ -95,7 +104,7 @@ abstract class AbstractDiagram
     $this->relationships = array_map($createRelationship, $foreignKeys);
   }
 
-  protected function generateHeaderAndFooter(Connection $connection): void
+  protected function generateHeaderAndFooter(Connection $connection): self
   {
     $this->beginning[] = new Raw('@startuml');
     $this->beginning[] = new Raw('hide empty members');
@@ -108,16 +117,32 @@ abstract class AbstractDiagram
     $this->beginning[] = new Raw('skinparam MinClassWidth 150');
     $this->beginning[] = new Raw('skinparam LineType Ortho');
     $this->beginning[] = new Raw('skinparam Shadowing false');
+    $this->beginning[] = new Raw('skinparam PackageBackgroundColor #eee');
+    $this->beginning[] = new Raw('skinparam PackageBorderColor #eee');
+    $this->beginning[] = new Raw('skinparam PackageFontStyle normal');
     $this->beginning[] = new Raw('title ' . $connection->getDatabase());
     $this->ending[]    = new Raw('@enduml');
+
+    return $this;
   }
 
+  /**
+   * @param \Doctrine\DBAL\Schema\View[] $views
+   */
+  public function generateViews(array $views): self
+  {
+    $this->views = new Views($views);
+    $this->views->generateHeaderAndFooter()->generateViews();
+
+    return $this;
+  }
 
   public function __toString(): string
   {
     $puml = array_reduce($this->beginning, '\\Jawira\\DbVisualizer\\Toolbox::reducer', '');
     $puml = array_reduce($this->entities, '\\Jawira\\DbVisualizer\\Toolbox::reducer', $puml);
     $puml = array_reduce($this->relationships, '\\Jawira\\DbVisualizer\\Toolbox::reducer', $puml);
+    $puml .= strval($this->views);
     $puml = array_reduce($this->ending, '\\Jawira\\DbVisualizer\\Toolbox::reducer', $puml);
 
     return $puml;

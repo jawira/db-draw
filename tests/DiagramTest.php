@@ -49,4 +49,16 @@ class DiagramTest extends TestCase
     $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
     $this->assertStringEndsWith('@enduml' . PHP_EOL, $puml);
   }
+  /**
+   * @covers \Jawira\DbVisualizer\DbVisualizer::draw
+   */
+  public function testMaxiDiagram()
+  {
+    $drawer = new DbVisualizer($this->connection);
+    $puml   = $drawer->generatePuml(DbVisualizer::MAXI);
+    file_put_contents('./resources/output/maxi.puml', $puml);
+    $this->assertIsString($puml);
+    $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
+    $this->assertStringEndsWith('@enduml' . PHP_EOL, $puml);
+  }
 }
