@@ -1,19 +1,23 @@
 {
   "name": "jawira/db-visualizer",
   "type": "library",
-  "description": "Create a diagram from your DB",
+  "description": "\ud83d\udcf8 Create an ER diagram from your DB",
+  "keywords": [
+    "doctrine",
+    "db",
+    "diagram",
+    "database"
+  ],
   "license": "MIT",
   "authors": [
     {
-      "name": "jawira",
+      "name": "Jawira Portugal",
       "email": "dev@tugal.be"
     }
   ],
   "require": {
     "php": ">=7.3",
     "doctrine/dbal": "^2",
-    "friendsofphp/php-cs-fixer": "^2.18",
-    "jawira/plantuml-client": "^0.1.0",
     "jawira/the-lost-functions": "^1.1"
   },
   "require-dev": {
@@ -22,6 +26,8 @@
     "ext-xml": "*",
     "doctrine/orm": "^2.8",
     "ergebnis/composer-normalize": "^2.13",
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "jawira/plantuml-client": "^1.0",
     "jawira/skeleton": "^2.0",
     "phpstan/phpstan": "^0.12.82",
     "phpunit/phpunit": "^9.5"

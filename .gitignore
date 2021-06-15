@@ -5,3 +5,4 @@
 /build.png
 /config/doctrine-url.php
 /.php_cs.cache
+/.php-cs-fixer.cache
