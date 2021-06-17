@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Jawira\DbVisualizer\Relational\Diagram;
+namespace Jawira\DbDraw\Relational\Diagram;
 
 
-use Jawira\DbVisualizer\Relational\Entity;
+use Jawira\DbDraw\Relational\Entity;
 use function array_map;
 
 class Maxi extends AbstractDiagram

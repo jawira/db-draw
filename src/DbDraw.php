@@ -1,15 +1,15 @@
 <?php
 
-namespace Jawira\DbVisualizer;
+namespace Jawira\DbDraw;
 
 use Doctrine\DBAL\Connection;
-use Jawira\DbVisualizer\Relational\Diagram\AbstractDiagram;
-use Jawira\DbVisualizer\Relational\Diagram\Maxi;
-use Jawira\DbVisualizer\Relational\Diagram\Midi;
-use Jawira\DbVisualizer\Relational\Diagram\Mini;
+use Jawira\DbDraw\Relational\Diagram\AbstractDiagram;
+use Jawira\DbDraw\Relational\Diagram\Maxi;
+use Jawira\DbDraw\Relational\Diagram\Midi;
+use Jawira\DbDraw\Relational\Diagram\Mini;
 use function strval;
 
-class DbVisualizer
+class DbDraw
 {
   public const MINI = 'mini';
   public const MIDI = 'midi';
@@ -37,7 +37,7 @@ class DbVisualizer
   }
 
   /**
-   * @throws \Jawira\DbVisualizer\DbVisualizerException
+   * @throws \Jawira\DbDraw\DbDrawException
    */
   protected function resolveDiagram(string $size): AbstractDiagram
   {
@@ -52,7 +52,7 @@ class DbVisualizer
         $diagram = new Maxi();
         break;
       default:
-        throw new DbVisualizerException('Invalid diagram size');
+        throw new DbDrawException('Invalid diagram size');
     }
 
     return $diagram;

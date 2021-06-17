@@ -1,13 +1,13 @@
 <?php
 
-namespace Jawira\DbVisualizer\Relational;
+namespace Jawira\DbDraw\Relational;
 
 use const PHP_EOL;
 
 /**
  * Raw element is printed as is.
  *
- * @package Jawira\DbVisualizer\Relational
+ * @package Jawira\DbDraw\Relational
  */
 class Raw implements ElementInterface
 {

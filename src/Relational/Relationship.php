@@ -1,6 +1,6 @@
 <?php
 
-namespace Jawira\DbVisualizer\Relational;
+namespace Jawira\DbDraw\Relational;
 
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Index;

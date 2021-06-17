@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Jawira\DbVisualizer\Relational\Diagram;
+namespace Jawira\DbDraw\Relational\Diagram;
 
 
 class Mini extends AbstractDiagram

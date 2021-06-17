@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Jawira\DbVisualizer\Relational;
+namespace Jawira\DbDraw\Relational;
 
 
 interface ElementInterface

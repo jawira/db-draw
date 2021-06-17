@@ -1,6 +1,6 @@
 <?php
 
-namespace Jawira\DbVisualizer\Relational;
+namespace Jawira\DbDraw\Relational;
 
 use Doctrine\DBAL\Schema\Column as DoctrineColumn;
 use \Doctrine\DBAL\Schema\Table;
@@ -72,7 +72,7 @@ class Entity implements ElementInterface
   public function __toString(): string
   {
     $puml = strval($this->header);
-    $puml = array_reduce($this->columns, '\\Jawira\\DbVisualizer\\Toolbox::reducer', $puml);
+    $puml = array_reduce($this->columns, '\\Jawira\\DbDraw\\Toolbox::reducer', $puml);
     $puml .= strval($this->footer);
 
     return $puml;

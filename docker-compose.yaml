@@ -21,7 +21,7 @@ services:
     image: mysql:8
     command: '--default-authentication-plugin=mysql_native_password'
     environment:
-      MYSQL_DATABASE: db-visualizer
+      MYSQL_DATABASE: db-draw
       MYSQL_USER: groot
       MYSQL_PASSWORD: groot
       MYSQL_ROOT_PASSWORD: groot

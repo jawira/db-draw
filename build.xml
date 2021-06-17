@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project name="DB visualizer" default="help" phingVersion="3">
+<project name="DB draw" default="help" phingVersion="3">
 
-  <property name="dc.project-name" value="db-visualizer"/>
+  <property name="dc.project-name" value="db-draw"/>
   <property name="db.host" value="mysql"/>
 
   <target name="setup" depends="composer:install,dc:up,db:remote-update,dc:ip"/>
@@ -52,7 +52,7 @@
         </replacetokens>
       </filterchain>
     </copy>
-    <exec executable="vendor/bin/doctrine" passthru="true" checkreturn="false">
+    <exec executable="vendor/bin/doctrine" passthru="true" checkreturn="true">
       <arg value="orm:schema-tool:update"/>
       <arg value="--force"/>
       <arg value="--dump-sql"/>
@@ -142,10 +142,10 @@
 
   <target name="db:wait-for-database" description="Wait until DB is up and running">
     <waitfor timeoutproperty="db.timeout" maxwait="30" maxwaitunit="second">
-      <pdosqlexec url="mysql:host=${db.host};dbname=db-visualizer;port=3306"
+      <pdosqlexec url="mysql:host=${db.host};dbname=db-draw;port=3306"
                   userid="root" password="groot"/>
     </waitfor>
-    <fail if="db.timeout">Cannot reach sakila database</fail>
+    <fail if="db.timeout">Cannot reach database.</fail>
   </target>
 
   <target name="help">

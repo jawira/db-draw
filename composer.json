@@ -1,5 +1,5 @@
 {
-  "name": "jawira/db-visualizer",
+  "name": "jawira/db-draw",
   "type": "library",
   "description": "\ud83d\udcf8 Create an ER diagram from your DB",
   "keywords": [
@@ -37,12 +37,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Jawira\\DbVisualizer\\": "src"
+      "Jawira\\DbDraw\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Jawira\\DbVisualizer\\Tests\\": "tests"
+      "Jawira\\DbDraw\\Tests\\": "tests"
     }
   }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jawira\DbVisualizer\Relational;
+namespace Jawira\DbDraw\Relational;
 
 use Doctrine\DBAL\Schema\Column as DoctrineColumn;
 
@@ -8,7 +8,7 @@ use function vsprintf;
 use const PHP_EOL;
 
 /**
- * @package Jawira\DbVisualizer\Relational
+ * @package Jawira\DbDraw\Relational
  */
 class Column implements ElementInterface
 {
