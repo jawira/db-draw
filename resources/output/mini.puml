@@ -12,7 +12,7 @@ skinparam Shadowing false
 skinparam PackageBackgroundColor #eee
 skinparam PackageBorderColor #eee
 skinparam PackageFontStyle normal
-title db-visualizer
+title db-draw
 entity Assistant {
 }
 entity Course {

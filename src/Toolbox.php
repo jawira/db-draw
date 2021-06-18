@@ -1,12 +1,15 @@
 <?php
 
 
-namespace Jawira\DbVisualizer;
+namespace Jawira\DbDraw;
 
 
-use Jawira\DbVisualizer\Relational\ElementInterface;
+use Jawira\DbDraw\Relational\ElementInterface;
 use function strval;
 
+/**
+ * @author  Jawira Portugal
+ */
 class Toolbox
 {
   /**

@@ -1,49 +1,52 @@
 <?php
 
 
-namespace Jawira\DbVisualizer\Relational\Diagram;
+namespace Jawira\DbDraw\Relational\Diagram;
 
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Table;
-use Jawira\DbVisualizer\Relational\Entity;
-use Jawira\DbVisualizer\Relational\Raw;
-use Jawira\DbVisualizer\Relational\Relationship;
-use Jawira\DbVisualizer\Relational\Views;
+use Jawira\DbDraw\Relational\Entity;
+use Jawira\DbDraw\Relational\Raw;
+use Jawira\DbDraw\Relational\Relationship;
+use Jawira\DbDraw\Relational\Views;
 use function array_map;
 use function array_merge;
 use function array_reduce;
 use function strval;
 
+/**
+ * @author  Jawira Portugal
+ */
 abstract class AbstractDiagram
 {
 
   /**
    * Things to put at the beginning of the diagram
    *
-   * @var \Jawira\DbVisualizer\Relational\Raw[]
+   * @var \Jawira\DbDraw\Relational\Raw[]
    */
   protected $beginning = [];
 
   /**
    * Things to put at the ending of the diagram
    *
-   * @var \Jawira\DbVisualizer\Relational\Raw[]
+   * @var \Jawira\DbDraw\Relational\Raw[]
    */
   protected $ending = [];
 
   /**
    * DB entities (tables)
    *
-   * @var \Jawira\DbVisualizer\Relational\Entity[]
+   * @var \Jawira\DbDraw\Relational\Entity[]
    */
   protected $entities = [];
 
   /**
    * DB relationships
    *
-   * @var \Jawira\DbVisualizer\Relational\Relationship[]
+   * @var \Jawira\DbDraw\Relational\Relationship[]
    */
   protected $relationships = [];
 
@@ -52,7 +55,7 @@ abstract class AbstractDiagram
    */
   protected $connection;
   /**
-   * @var \Jawira\DbVisualizer\Relational\Views
+   * @var \Jawira\DbDraw\Relational\Views
    */
   protected $views;
 
@@ -139,11 +142,11 @@ abstract class AbstractDiagram
 
   public function __toString(): string
   {
-    $puml = array_reduce($this->beginning, '\\Jawira\\DbVisualizer\\Toolbox::reducer', '');
-    $puml = array_reduce($this->entities, '\\Jawira\\DbVisualizer\\Toolbox::reducer', $puml);
-    $puml = array_reduce($this->relationships, '\\Jawira\\DbVisualizer\\Toolbox::reducer', $puml);
+    $puml = array_reduce($this->beginning, '\\Jawira\\DbDraw\\Toolbox::reducer', '');
+    $puml = array_reduce($this->entities, '\\Jawira\\DbDraw\\Toolbox::reducer', $puml);
+    $puml = array_reduce($this->relationships, '\\Jawira\\DbDraw\\Toolbox::reducer', $puml);
     $puml .= strval($this->views);
-    $puml = array_reduce($this->ending, '\\Jawira\\DbVisualizer\\Toolbox::reducer', $puml);
+    $puml = array_reduce($this->ending, '\\Jawira\\DbDraw\\Toolbox::reducer', $puml);
 
     return $puml;
   }
