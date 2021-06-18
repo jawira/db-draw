@@ -12,6 +12,9 @@ use function in_array;
 use function sprintf;
 use function strval;
 
+/**
+ * @author  Jawira Portugal
+ */
 class Entity implements ElementInterface
 {
   /**

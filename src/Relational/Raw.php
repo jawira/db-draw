@@ -7,7 +7,7 @@ use const PHP_EOL;
 /**
  * Raw element is printed as is.
  *
- * @package Jawira\DbDraw\Relational
+ * @author  Jawira Portugal
  */
 class Raw implements ElementInterface
 {

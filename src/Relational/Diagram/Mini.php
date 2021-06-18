@@ -1,9 +1,10 @@
 <?php
 
-
 namespace Jawira\DbDraw\Relational\Diagram;
 
-
+/**
+ * @author  Jawira Portugal
+ */
 class Mini extends AbstractDiagram
 {
   /**

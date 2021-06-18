@@ -8,7 +8,7 @@ use function vsprintf;
 use const PHP_EOL;
 
 /**
- * @package Jawira\DbDraw\Relational
+ * @author  Jawira Portugal
  */
 class Column implements ElementInterface
 {

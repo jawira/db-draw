@@ -10,6 +10,9 @@ use function Jawira\TheLostFunctions\array_search_callback;
 use function vsprintf;
 use const PHP_EOL;
 
+/**
+ * @author  Jawira Portugal
+ */
 class Relationship implements ElementInterface
 {
   /**

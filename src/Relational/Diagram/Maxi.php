@@ -7,6 +7,9 @@ namespace Jawira\DbDraw\Relational\Diagram;
 use Jawira\DbDraw\Relational\Entity;
 use function array_map;
 
+/**
+ * @author  Jawira Portugal
+ */
 class Maxi extends AbstractDiagram
 {
   /**

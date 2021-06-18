@@ -9,6 +9,9 @@ use Jawira\DbDraw\Relational\Diagram\Midi;
 use Jawira\DbDraw\Relational\Diagram\Mini;
 use function strval;
 
+/**
+ * @author  Jawira Portugal
+ */
 class DbDraw
 {
   public const MINI = 'mini';

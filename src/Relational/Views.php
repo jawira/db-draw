@@ -8,9 +8,7 @@ use function array_reduce;
 use function strval;
 
 /**
- * Raw element is printed as is.
- *
- * @package Jawira\DbDraw\Relational
+ * @author  Jawira Portugal
  */
 class Views implements ElementInterface
 {

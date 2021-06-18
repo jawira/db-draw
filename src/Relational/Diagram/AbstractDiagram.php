@@ -16,6 +16,9 @@ use function array_merge;
 use function array_reduce;
 use function strval;
 
+/**
+ * @author  Jawira Portugal
+ */
 abstract class AbstractDiagram
 {
 

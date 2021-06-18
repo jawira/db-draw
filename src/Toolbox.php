@@ -7,6 +7,9 @@ namespace Jawira\DbDraw;
 use Jawira\DbDraw\Relational\ElementInterface;
 use function strval;
 
+/**
+ * @author  Jawira Portugal
+ */
 class Toolbox
 {
   /**
