@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Jawira\DbVisualizer\Tests\Entity;
+namespace Jawira\DbDraw\Tests\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;

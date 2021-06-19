@@ -1,9 +1,10 @@
 <?php
 
+namespace Jawira\DbDraw\Relational;
 
-namespace Jawira\DbVisualizer\Relational;
-
-
+/**
+ * @author  Jawira Portugal
+ */
 interface ElementInterface
 {
 }

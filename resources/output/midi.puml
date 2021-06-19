@@ -12,7 +12,7 @@ skinparam Shadowing false
 skinparam PackageBackgroundColor #eee
 skinparam PackageBorderColor #eee
 skinparam PackageFontStyle normal
-title db-visualizer
+title db-draw
 entity Assistant {
 * id: integer
 --
@@ -28,9 +28,9 @@ entity Course {
 entity CreditCard {
 * id: integer
 --
+* ownerFullName: string
 * number: string
 * pin: string
-* ownerFullName: string
 * expirationDate: date_immutable
 }
 entity Faculty {

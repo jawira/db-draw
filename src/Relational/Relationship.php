@@ -1,6 +1,6 @@
 <?php
 
-namespace Jawira\DbVisualizer\Relational;
+namespace Jawira\DbDraw\Relational;
 
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Index;
@@ -10,6 +10,9 @@ use function Jawira\TheLostFunctions\array_search_callback;
 use function vsprintf;
 use const PHP_EOL;
 
+/**
+ * @author  Jawira Portugal
+ */
 class Relationship implements ElementInterface
 {
   /**

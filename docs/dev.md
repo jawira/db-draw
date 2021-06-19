@@ -6,10 +6,8 @@
 
 ## Running tests
 
-PHPUnit needs a mysql database to run tests.
-
-This is handled by `docker-composer`, nevertheless you can customize this host:
+PHPUnit needs a mysql database to run tests, this is handled by `docker-composer`:
 
 ```console
-phing phpunit:run -Ddb.host=172.25.0.2
+phing setup qa:remote
 ```
