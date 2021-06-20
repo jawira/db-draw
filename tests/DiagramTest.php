@@ -1,6 +1,6 @@
 <?php
 
-namespace Jawira\DbDraw\Tests;
+namespace Jawira\DbDrawTests;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;

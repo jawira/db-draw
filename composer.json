@@ -42,7 +42,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Jawira\\DbDraw\\Tests\\": "tests"
+      "Jawira\\DbDrawTests\\": "tests"
     }
   }
 }
