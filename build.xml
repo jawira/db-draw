@@ -97,12 +97,11 @@
     </composer>
   </target>
 
-  <target name="docs:images" description="Convert puml to png">
-    <visualizer destination="docs/images" format="puml"/>
+  <target name="plantuml:convert" description="Convert puml to png">
     <exec executable="plantuml" checkreturn="true" passthru="true">
       <arg value="-tpng"/>
       <arg value="-nometadata"/>
-      <arg file="docs/images/build.puml"/>
+      <arg file="resources/output/*.puml"/>
     </exec>
   </target>
 
@@ -122,11 +121,21 @@
   </target>
 
   <target name="help">
-    <visualizer format="png" destination="docs/images"/>
+    <uptodate property="uptodate.build" srcfile="build.xml" targetfile="docs/images/build.png"/>
+    <if>
+      <not>
+        <isset property="uptodate.build"/>
+      </not>
+      <then>
+        <visualizer format="png" destination="docs/images"/>
+      </then>
+    </if>
     <exec executable="xdg-open" spawn="true">
       <arg file="docs/images/build.png"/>
     </exec>
   </target>
+
+
 
   <target name="cs:fix" description="Fix code style">
     <exec executable="vendor/bin/php-cs-fixer" passthru="true" checkreturn="true">
