@@ -18,14 +18,13 @@
   ],
   "require": {
     "php": ">=7.3",
-    "doctrine/dbal": "^2",
+    "doctrine/dbal": "^2.5",
     "jawira/the-lost-functions": "^1.1"
   },
   "require-dev": {
     "ext-dom": "*",
     "ext-mbstring": "*",
     "ext-xml": "*",
-    "doctrine/orm": "^2.8",
     "ergebnis/composer-normalize": "^2.13",
     "friendsofphp/php-cs-fixer": "^3.0",
     "jawira/plantuml-client": "^1.0",

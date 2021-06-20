@@ -94,5 +94,7 @@ Teacher |o--|| Person
 inscription_session }o--|| Inscription
 inscription_session }o--|| Session
 package "views" {
+entity introductory_courses { }
+entity students_with_no_card { }
 }
 @enduml

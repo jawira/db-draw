@@ -19,7 +19,7 @@ class DiagramTest extends TestCase
   {
     parent::__construct();
     $this->dbHost     = getenv('DB_HOST') ?: 'mysql';
-    $connectionParams = ['url' => "mysql://root:groot@{$this->dbHost}/db-draw",];
+    $connectionParams = ['url' => "mysql://groot:groot@{$this->dbHost}/db-draw", 'driver' => 'pdo_mysql'];
     $this->connection = DriverManager::getConnection($connectionParams);
     $this->connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
   }
@@ -34,6 +34,8 @@ class DiagramTest extends TestCase
     file_put_contents('./resources/output/mini.puml', $puml);
     $this->assertIsString($puml);
     $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
+    $this->assertStringContainsString('title db-draw', $puml);
+    $this->assertStringContainsString('entity Assistant', $puml);
     $this->assertStringEndsWith('@enduml' . PHP_EOL, $puml);
   }
 
@@ -47,8 +49,11 @@ class DiagramTest extends TestCase
     file_put_contents('./resources/output/midi.puml', $puml);
     $this->assertIsString($puml);
     $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
+    $this->assertStringContainsString('faculty_id: integer', $puml);
+    $this->assertStringContainsString('* pin: string', $puml);
     $this->assertStringEndsWith('@enduml' . PHP_EOL, $puml);
   }
+
   /**
    * @covers \Jawira\DbDraw\DbDraw::draw
    */
@@ -59,6 +64,8 @@ class DiagramTest extends TestCase
     file_put_contents('./resources/output/maxi.puml', $puml);
     $this->assertIsString($puml);
     $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
+    $this->assertStringContainsString('entity introductory_courses', $puml);
+    $this->assertStringContainsString('entity students_with_no_card', $puml);
     $this->assertStringEndsWith('@enduml' . PHP_EOL, $puml);
   }
 }
