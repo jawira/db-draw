@@ -24,7 +24,9 @@ services:
       MYSQL_DATABASE: db-draw
       MYSQL_USER: groot
       MYSQL_PASSWORD: groot
-      MYSQL_ROOT_PASSWORD: groot
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    volumes:
+      - "./resources/sql:/docker-entrypoint-initdb.d:ro"
     networks:
       - default
 

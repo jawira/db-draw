@@ -5,7 +5,7 @@
   <property name="dc.project-name" value="db-draw"/>
   <property name="db.host" value="mysql"/>
 
-  <target name="setup" depends="composer:install,dc:up,db:remote-update,dc:ip"/>
+  <target name="setup" depends="composer:install,dc:up,dc:ip"/>
   <target name="qa" depends="composer:validate,composer:normalize,cs:fix,phpstan:analyze,phpunit:run"/>
 
   <target name="dc:up" description="Launch containers">
@@ -34,33 +34,6 @@
     </exec>
   </target>
 
-  <target name="db:remote-update" description="Update database schema on docker container">
-    <exec executable="docker" passthru="true" checkreturn="true">
-      <arg value="exec"/>
-      <arg value="${dc.project-name}_php_1"/>
-      <arg line="phing db:update"/>
-      <arg line="-logger \\Phing\\Listener\\AnsiColorLogger"/>
-      <arg line="-longtargets"/>
-    </exec>
-  </target>
-
-  <target name="db:update" description="Update database schema" depends="db:wait-for-database">
-    <copy file="config/doctrine-url.php.dist" tofile="config/doctrine-url.php" overwrite="true">
-      <filterchain>
-        <replacetokens>
-          <token key="DB_HOST" value="${db.host}"/>
-        </replacetokens>
-      </filterchain>
-    </copy>
-    <exec executable="vendor/bin/doctrine" passthru="true" checkreturn="true">
-      <arg value="orm:schema-tool:update"/>
-      <arg value="--force"/>
-      <arg value="--dump-sql"/>
-      <arg value="--complete"/>
-      <arg value="--ansi"/>
-    </exec>
-  </target>
-
   <target name="dc:ip" description="Reveal containers ip addresses">
     <property name="dc.format"
               value="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
@@ -85,7 +58,7 @@
     <exec executable="docker" passthru="true" checkreturn="true">
       <arg value="exec"/>
       <arg value="${dc.project-name}_php_1"/>
-      <arg line="phing qa"/>
+      <arg line="phing -longtargets qa"/>
     </exec>
   </target>
 
@@ -124,16 +97,15 @@
     </composer>
   </target>
 
-  <target name="docs:images" description="Convert puml to png">
-    <visualizer destination="docs/images" format="puml"/>
+  <target name="plantuml:convert" description="Convert puml to png">
     <exec executable="plantuml" checkreturn="true" passthru="true">
       <arg value="-tpng"/>
       <arg value="-nometadata"/>
-      <arg file="docs/images/build.puml"/>
+      <arg file="resources/output/*.puml"/>
     </exec>
   </target>
 
-  <target name="phpunit:run" description="Run PHPUnit tests" depends="db:update">
+  <target name="phpunit:run" description="Run PHPUnit tests" depends="db:wait-for-database">
     <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
       <env key="DB_HOST" value="${db.host}"/>
       <arg line="--colors=always"/>
@@ -143,21 +115,32 @@
   <target name="db:wait-for-database" description="Wait until DB is up and running">
     <waitfor timeoutproperty="db.timeout" maxwait="30" maxwaitunit="second">
       <pdosqlexec url="mysql:host=${db.host};dbname=db-draw;port=3306"
-                  userid="root" password="groot"/>
+                  userid="groot" password="groot"/>
     </waitfor>
     <fail if="db.timeout">Cannot reach database.</fail>
   </target>
 
   <target name="help">
-    <visualizer format="png" destination="docs/images"/>
+    <uptodate property="uptodate.build" srcfile="build.xml" targetfile="docs/images/build.png"/>
+    <if>
+      <not>
+        <isset property="uptodate.build"/>
+      </not>
+      <then>
+        <visualizer format="png" destination="docs/images"/>
+      </then>
+    </if>
     <exec executable="xdg-open" spawn="true">
       <arg file="docs/images/build.png"/>
     </exec>
   </target>
+
+
 
   <target name="cs:fix" description="Fix code style">
     <exec executable="vendor/bin/php-cs-fixer" passthru="true" checkreturn="true">
       <arg value="fix"/>
     </exec>
   </target>
+
 </project>

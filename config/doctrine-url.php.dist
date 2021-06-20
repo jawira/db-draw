@@ -1,3 +1,0 @@
-<?php
-
-return 'mysql://groot:groot@@DB_HOST@/db-draw';
