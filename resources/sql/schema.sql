@@ -154,21 +154,12 @@ create index IDX_F99523385DAC5993
 create index IDX_F9952338613FECDF
     on inscription_session (session_id);
 
-create definer = groot@`%` view introductory_courses as
-select `db-draw`.`Course`.`id`          AS `id`,
-       `db-draw`.`Course`.`faculty_id`  AS `faculty_id`,
-       `db-draw`.`Course`.`required_id` AS `required_id`,
-       `db-draw`.`Course`.`name`        AS `name`
-from `db-draw`.`Course`
-where (`db-draw`.`Course`.`required_id` is null);
+create view introductory_courses as
+select *
+from Course
+where (required_id is null);
 
-create definer = groot@`%` view students_with_no_card as
-select `db-draw`.`Student`.`id`            AS `id`,
-       `db-draw`.`Student`.`details_id`    AS `details_id`,
-       `db-draw`.`Student`.`username`      AS `username`,
-       `db-draw`.`Student`.`password`      AS `password`,
-       `db-draw`.`Student`.`creditCard_id` AS `creditCard_id`
-from `db-draw`.`Student`
-where (`db-draw`.`Student`.`creditCard_id` is null);
-
-
+create view students_with_no_card as
+select *
+from Student
+where (creditCard_id is null);
