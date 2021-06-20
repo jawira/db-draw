@@ -30,7 +30,6 @@ class DbDraw
 
   /**
    * @return string
-   * @throws \Doctrine\DBAL\Exception
    */
   public function generatePuml(string $size)
   {

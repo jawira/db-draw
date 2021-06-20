@@ -5,7 +5,7 @@ create table if not exists CreditCard
     ownerFullName  varchar(16) not null,
     number         varchar(16) not null,
     pin            varchar(4)  not null,
-    expirationDate date        not null comment '(DC2Type:date_immutable)'
+    expirationDate date        not null
 )
     collate = utf8_unicode_ci;
 

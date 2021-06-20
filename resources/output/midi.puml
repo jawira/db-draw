@@ -31,7 +31,7 @@ entity CreditCard {
 * ownerFullName: string
 * number: string
 * pin: string
-* expirationDate: date_immutable
+* expirationDate: date
 }
 entity Faculty {
 * id: integer
