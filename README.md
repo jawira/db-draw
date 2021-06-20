@@ -18,19 +18,21 @@ In order to create a diagram you have to follow these steps:
 Example:
 
 ```php
-use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DriverManager;
 use Jawira\DbDraw\DbDraw;
 use Jawira\PlantUmlClient\{Client, Format};
 
-// Write some logic here to retrieve $connection
+// a. Some logic to retrieve $connection (\Doctrine\DBAL\Connection)
+$connectionParams = ['url'    => 'mysql://admin:pass1234@127.0.0.1/db-draw',
+                     'driver' => 'pdo_mysql'];
+$connection = DriverManager::getConnection($connectionParams);
 
-// Generating PlantUML diagram
-/** @var Connection $connection */
+// b. Generating PlantUML diagram
 $dbDiagram = new DbDraw($connection);
 $puml      = $dbDiagram->generatePuml(DbDraw::MIDI);
 file_put_contents('database.puml', $puml);
 
-// Converting & saving png image
+// c. Converting & saving png image
 $client = new Client();
 $png    = $client->generateImage($puml, Format::PNG);
 file_put_contents('database.png', $png);
