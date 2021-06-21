@@ -1,6 +1,11 @@
-# DB Draw
+# 📐 DB Draw
 
 **Generate an ER diagram from your existing database.**
+
+[![Latest Stable Version](http://poser.pugx.org/jawira/db-draw/v)](https://packagist.org/packages/jawira/db-draw)
+[![.gitattributes](http://poser.pugx.org/jawira/db-draw/gitattributes)](https://packagist.org/packages/jawira/db-draw)
+[![composer.lock](http://poser.pugx.org/jawira/db-draw/composerlock)](https://packagist.org/packages/jawira/db-draw)
+[![License](http://poser.pugx.org/jawira/db-draw/license)](https://packagist.org/packages/jawira/db-draw)
 
 ## How to use
 
@@ -42,9 +47,9 @@ file_put_contents('database.png', $png);
 
 ```php
 $dbDraw = new DbDraw($connection);
-$miniDiagram = $dbDraw->generatePuml(DbDraw::MINI); // only table names
-$midiDiagram = $dbDraw->generatePuml(DbDraw::MIDI); // like mini with columns
-$maxiDiagram = $dbDraw->generatePuml(DbDraw::MAXI); // like midi with views
+$mini   = $dbDraw->generatePuml(DbDraw::MINI); // only table names
+$midi   = $dbDraw->generatePuml(DbDraw::MIDI); // like mini with columns
+$maxi   = $dbDraw->generatePuml(DbDraw::MAXI); // like midi with views
 ```
 
 ![mini-diagram](resources/output/mini.png)
@@ -56,7 +61,7 @@ $maxiDiagram = $dbDraw->generatePuml(DbDraw::MAXI); // like midi with views
 ## Installing
 
 ```console
-$ composer require jawira/db-draw
+composer require jawira/db-draw
 ```
 
 ## Contributing

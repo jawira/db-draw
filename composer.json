@@ -1,7 +1,7 @@
 {
   "name": "jawira/db-draw",
   "type": "library",
-  "description": "\ud83d\udcf8 Create an ER diagram from your existing DB",
+  "description": "\uD83D\uDCD0 Create an ER diagram from your existing DB",
   "keywords": [
     "database",
     "db",
@@ -12,8 +12,7 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Jawira Portugal",
-      "email": "dev@tugal.be"
+      "name": "Jawira Portugal"
     }
   ],
   "require": {
