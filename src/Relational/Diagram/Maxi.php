@@ -17,7 +17,7 @@ class Maxi extends AbstractDiagram
    */
   public function process()
   {
-    $this->generateHeaderAndFooter($this->connection);
+    $this->generateHeaderAndFooter($this->connection, $this->theme);
     $this->generateEntities($this->connection->getSchemaManager()->listTables());
     array_map(function (Entity $entity) {
       $entity->generateColumns();

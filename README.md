@@ -52,11 +52,11 @@ $midi   = $dbDraw->generatePuml(DbDraw::MIDI); // like mini with columns
 $maxi   = $dbDraw->generatePuml(DbDraw::MAXI); // like midi with views
 ```
 
-![mini-diagram](resources/output/mini.png)
+![mini-diagram](docs/images/mini.png)
 
-![midi-diagram](resources/output/midi.png)
+![midi-diagram](docs/images/midi.png)
 
-![maxi-diagram](resources/output/maxi.png)
+![maxi-diagram](docs/images/maxi.png)
 
 ## Installing
 

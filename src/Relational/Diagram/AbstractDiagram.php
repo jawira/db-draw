@@ -21,7 +21,6 @@ use function strval;
  */
 abstract class AbstractDiagram
 {
-
   /**
    * Things to put at the beginning of the diagram
    *
@@ -54,10 +53,16 @@ abstract class AbstractDiagram
    * @var Connection
    */
   protected $connection;
+
   /**
    * @var \Jawira\DbDraw\Relational\Views
    */
   protected $views;
+
+  /**
+   * @var null|string
+   */
+  protected $theme;
 
   /**
    * @return $this
@@ -72,6 +77,13 @@ abstract class AbstractDiagram
   public function setConnection(Connection $connection): AbstractDiagram
   {
     $this->connection = $connection;
+
+    return $this;
+  }
+
+  public function setTheme(?string $theme): AbstractDiagram
+  {
+    $this->theme = $theme;
 
     return $this;
   }
@@ -107,7 +119,7 @@ abstract class AbstractDiagram
     $this->relationships = array_map($createRelationship, $foreignKeys);
   }
 
-  protected function generateHeaderAndFooter(Connection $connection): self
+  protected function generateHeaderAndFooter(Connection $connection, ?string $theme=null): self
   {
     $this->beginning[] = new Raw('@startuml');
     $this->beginning[] = new Raw('hide empty members');
@@ -124,7 +136,10 @@ abstract class AbstractDiagram
     $this->beginning[] = new Raw('skinparam PackageBorderColor #eee');
     $this->beginning[] = new Raw('skinparam PackageFontStyle normal');
     $this->beginning[] = new Raw('title ' . $connection->getDatabase());
-    $this->ending[]    = new Raw('@enduml');
+    if ($theme) {
+      $this->beginning[] = new Raw('!theme ' . $theme);
+    }
+    $this->ending[] = new Raw('@enduml');
 
     return $this;
   }
