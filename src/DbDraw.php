@@ -28,12 +28,12 @@ class DbDraw
     $this->connection = $connection;
   }
 
-  /**
-   * @return string
-   */
-  public function generatePuml(string $size)
+  public function generatePuml(string $size, ?string $theme = null): string
   {
-    $diagram = $this->resolveDiagram($size)->setConnection($this->connection)->process();
+    $diagram = $this->resolveDiagram($size);
+    $diagram->setTheme($theme)
+            ->setConnection($this->connection)
+            ->process();
 
     return strval($diagram);
   }

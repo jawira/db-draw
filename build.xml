@@ -6,7 +6,7 @@
   <property name="db.host" value="mysql"/>
 
   <target name="setup" depends="composer:install,dc:up,dc:ip"/>
-  <target name="qa" depends="composer:validate,composer:normalize,cs:fix,phpstan:analyze,phpunit:run"/>
+  <target name="qa" depends="composer:validate,composer:normalize,cs:fix,phpstan:analyze,phpunit:run,plantuml:convert"/>
 
   <target name="dc:up" description="Launch containers">
     <exec executable="docker-compose" passthru="true" checkreturn="true">
@@ -98,9 +98,11 @@
   </target>
 
   <target name="plantuml:convert" description="Convert puml to png">
-    <exec executable="plantuml" checkreturn="true" passthru="true">
+    <exec executable="vendor/bin/plantuml" checkreturn="true" passthru="true">
       <arg value="-tpng"/>
       <arg value="-nometadata"/>
+      <arg value="-output"/>
+      <arg path="docs/images"/>
       <arg file="resources/output/*.puml"/>
     </exec>
   </target>
@@ -108,7 +110,7 @@
   <target name="phpunit:run" description="Run PHPUnit tests" depends="db:wait-for-database">
     <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
       <env key="DB_HOST" value="${db.host}"/>
-      <arg line="--colors=always"/>
+      <env key="XDEBUG_MODE" value="coverage"/>
     </exec>
   </target>
 
@@ -121,21 +123,16 @@
   </target>
 
   <target name="help">
-    <uptodate property="uptodate.build" srcfile="build.xml" targetfile="docs/images/build.png"/>
-    <if>
-      <not>
-        <isset property="uptodate.build"/>
-      </not>
-      <then>
-        <visualizer format="png" destination="docs/images"/>
-      </then>
-    </if>
+    <uptodate property="visualizer.up-to-date" srcfile="build.xml" targetfile="docs/images/build.png"/>
+    <runtarget target="visualizer"/>
     <exec executable="xdg-open" spawn="true">
       <arg file="docs/images/build.png"/>
     </exec>
   </target>
 
-
+  <target name="visualizer" unless="visualizer.up-to-date">
+    <visualizer format="png" destination="docs/images"/>
+  </target>
 
   <target name="cs:fix" description="Fix code style">
     <exec executable="vendor/bin/php-cs-fixer" passthru="true" checkreturn="true">
