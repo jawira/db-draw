@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="898px" preserveAspectRatio="none" style="width:744px;height:898px;background:#FFFFFF;" version="1.1" viewBox="0 0 744 898" width="744px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="78" x="326.5118" y="16.708">DB draw</text><ellipse cx="61.1638" cy="610.6002" fill="#FFFECC" rx="40.6638" ry="14.5812" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="38.0122" y="614.2622">setup</text><ellipse cx="332.1107" cy="542.5412" fill="#FFFECC" rx="80.6107" ry="18.5221" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="270.6726" y="545.8538">composer:install</text><ellipse cx="331.9237" cy="610.591" fill="#FFFECC" rx="39.9237" ry="14.5719" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="309.5405" y="614.1846">dc:up</text><ellipse cx="331.9961" cy="674.5613" fill="#FFFECC" rx="36.9961" ry="14.5423" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="312.6301" y="677.8718">dc:ip</text><ellipse cx="61.0061" cy="295.5427" fill="#FFFECC" rx="23.5061" ry="14.5236" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="17" x="52.5061" y="298.3894">qa</text><ellipse cx="332.0998" cy="114.739" fill="#FFFECC" rx="86.5998" ry="19.72" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="134" x="265.0998" y="117.5857">composer:validate</text><ellipse cx="331.7771" cy="190.4745" fill="#FFFECC" rx="92.7771" ry="20.9554" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="148" x="257.7771" y="193.3211">composer:normalize</text><ellipse cx="331.9534" cy="261.5746" fill="#FFFECC" rx="38.4534" ry="14.5556" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38" x="311.0903" y="265.0285">cs:fix</text><ellipse cx="332.1963" cy="329.4583" fill="#FFFECC" rx="80.1963" ry="18.4393" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="119" x="271.1039" y="332.817">phpstan:analyze</text><ellipse cx="332.1678" cy="399.3526" fill="#FFFECC" rx="67.1678" ry="15.8336" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="286.6678" y="403.1002">phpunit:run</text><ellipse cx="332.212" cy="469.4614" fill="#FFFECC" rx="82.712" ry="18.9424" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="125" x="269.0208" y="472.5406">plantuml:convert</text><ellipse cx="643.0118" cy="399.4214" fill="#FFFECC" rx="95.0118" ry="21.4024" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="153" x="566.5118" y="402.2681">db:wait-for-database</text><ellipse cx="61.1191" cy="44.545" fill="#FFFECC" rx="34.1191" ry="14.526" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32" x="44.6725" y="47.5572">help</text><ellipse cx="331.8197" cy="44.2862" fill="#FFFECC" rx="59.3197" ry="14.7671" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66" x="295.8197" y="48.0337">visualizer</text><ellipse cx="61.1079" cy="739.7207" fill="#FFFECC" rx="51.1079" ry="14.7016" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="55" x="30.6079" y="743.4682">dc:stop</text><ellipse cx="60.8402" cy="803.7528" fill="#FFFECC" rx="54.8402" ry="14.7338" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="27.8402" y="807.5004">dc:down</text><ellipse cx="61.1079" cy="867.7207" fill="#FFFECC" rx="51.1079" ry="14.7016" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="55" x="30.6079" y="871.4682">dc:shell</text><ellipse cx="332.0594" cy="739.7309" fill="#FFFECC" rx="64.0594" ry="15.2119" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76" x="291.0594" y="743.4785">qa:remote</text><ellipse cx="332.1781" cy="806.6547" fill="#FFFECC" rx="71.1781" ry="16.6356" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="96" x="281.1781" y="810.4022">mkdocs:build</text><ellipse cx="332.1868" cy="875.4564" fill="#FFFECC" rx="72.6868" ry="16.9374" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="279.1868" y="879.204">mkdocs:serve</text><ellipse cx="642.995" cy="739.7181" fill="#FFFECC" rx="83.995" ry="19.199" style="stroke:#333333;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128" x="578.7335" y="742.6546">mkdocs:gh-pages</text><!--MD5=[c4e3d432c5d44af54c7eae14d718607a]
+link setup to composer:install--><path d="M92.2012,601.046 C108.137,596.171 128.055,590.27 146,585.519 C186.256,574.861 231.816,564.254 267.65,556.241 " fill="none" id="setup-to-composer:install" style="stroke:#1A85FF;stroke-width:2.0;"/><polygon fill="#1A85FF" points="272.864,555.078,263.209,553.1334,267.9839,556.1666,264.9508,560.9415,272.864,555.078" style="stroke:#1A85FF;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="147" y="565.5859">depend:1</text><!--MD5=[a418aa9f6b8b4a014169012d5f92d57a]
+link setup to dc:up--><path d="M101.6919,610.519 C151.003,610.519 234.908,610.519 286.396,610.519 " fill="none" id="setup-to-dc:up" style="stroke:#1A85FF;stroke-width:2.0;"/><polygon fill="#1A85FF" points="291.583,610.519,282.583,606.519,286.583,610.519,282.583,614.519,291.583,610.519" style="stroke:#1A85FF;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="147" y="606.5859">depend:2</text><!--MD5=[dde10144cbfaedd765f35520ddf255da]
+link setup to dc:ip--><path d="M91.771,620.024 C107.76,624.965 127.86,630.916 146,635.519 C196.544,648.345 255.602,660.272 293.141,667.476 " fill="none" id="setup-to-dc:ip" style="stroke:#1A85FF;stroke-width:2.0;"/><polygon fill="#1A85FF" points="298.064,668.417,289.9764,662.7965,293.1531,667.4772,288.4725,670.6539,298.064,668.417" style="stroke:#1A85FF;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="147" y="631.5859">depend:3</text><!--MD5=[2b3f4df63b0ee79c9fb6dbf297809d2e]
+link qa to composer:validate--><path d="M72.1071,282.462 C86.935,263.866 116.083,229.366 146,205.519 C183.375,175.727 196.051,172.49 239,151.519 C252.482,144.936 267.446,138.547 281.322,132.983 " fill="none" id="qa-to-composer:validate" style="stroke:#1A85FF;stroke-width:2.0;"/><polygon fill="#1A85FF" points="285.982,131.129,276.1408,130.7399,281.3363,132.9776,279.0986,138.1731,285.982,131.129" style="stroke:#1A85FF;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="147" y="162.5859">depend:1</text><!--MD5=[bd109b3677e86d799c713ba6a41cbebf]
+link qa to composer:normalize--><path d="M79.0153,285.852 C95.7353,276.584 122.141,262.557 146,252.519 C186.34,235.547 233.082,219.914 269.49,208.592 " fill="none" id="qa-to-composer:normalize" style="stroke:#1A85FF;stroke-width:2.0;"/><polygon fill="#1A85FF" points="274.33,207.093,264.5494,205.9356,269.554,208.5727,266.9168,213.5773,274.33,207.093" style="stroke:#1A85FF;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="147" y="226.5859">depend:2</text><!--MD5=[082354927f44ea0263e08b774e155835]
+link qa to cs:fix--><path d="M84.4721,292.679 C129.702,286.962 232.304,273.994 289.868,266.718 " fill="none" id="qa-to-cs:fix" style="stroke:#1A85FF;stroke-width:2.0;"/><polygon fill="#1A85FF" points="294.954,266.075,285.5233,263.2356,289.9935,266.7022,286.5269,271.1724,294.954,266.075" style="stroke:#1A85FF;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="147" y="273.5859">depend:3</text><!--MD5=[813d92c9fb1ef4075574608099832508]
+link qa to phpstan:analyze--><path d="M83.6846,299.849 C100.605,303.116 124.728,307.532 146,310.519 C180.447,315.357 218.666,319.488 251.38,322.65 " fill="none" id="qa-to-phpstan:analyze" style="stroke:#1A85FF;stroke-width:2.0;"/><polygon fill="#1A85FF" points="256.582,323.149,248.0048,318.3084,251.6048,322.6719,247.2414,326.2719,256.582,323.149" style="stroke:#1A85FF;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="147" y="306.5859">depend:4</text><!--MD5=[f650ecf875d4995533402a90e716630b]
+link qa to phpunit:run--><path d="M77.5503,305.829 C94.0083,316.396 121.008,332.759 146,343.519 C189.362,362.187 240.935,377.249 278.599,387.031 " fill="none" id="qa-to-phpunit:run" style="stroke:#1A85FF;stroke-width:2.0;"/><polygon fill="#1A85FF" points="283.586,388.317,275.8683,382.1984,278.7441,387.0698,273.8727,389.9455,283.586,388.317" style="stroke:#1A85FF;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="147" y="339.5859">depend:5</text><!--MD5=[76e7236dd687989a4b3fc015f326e4b7]
+link qa to plantuml:convert--><path d="M70.9419,308.746 C84.9624,328.67 113.859,366.592 146,390.519 C184.74,419.359 235.612,440.094 274.202,453.064 " fill="none" id="qa-to-plantuml:convert" style="stroke:#1A85FF;stroke-width:2.0;"/><polygon fill="#1A85FF" points="279.324,454.764,272.043,448.1318,274.5787,453.1885,269.5221,455.7242,279.324,454.764" style="stroke:#1A85FF;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="147" y="386.5859">depend:6</text><!--MD5=[001fbe53bd7acbf5ecd31da381785675]
+link phpunit:run to db:wait-for-database--><path d="M399.288,399.519 C441.122,399.519 495.931,399.519 542.878,399.519 " fill="none" id="phpunit:run-to-db:wait-for-database" style="stroke:#1A85FF;stroke-width:2.0;"/><polygon fill="#1A85FF" points="547.978,399.519,538.978,395.519,542.978,399.519,538.978,403.519,547.978,399.519" style="stroke:#1A85FF;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61" x="456" y="395.5859">depend:1</text><!--MD5=[9f3237f55493a0d177cfac72db78ff2c]
+link help to visualizer--><path d="M95.2545,44.519 C138.014,44.519 213.177,44.519 267.148,44.519 " fill="none" id="help-to-visualizer" style="stroke:#D41159;stroke-width:2.0;"/><polygon fill="#D41159" points="272.303,44.519,263.303,40.519,267.303,44.519,263.303,48.519,272.303,44.519" style="stroke:#D41159;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="34" x="160.5" y="40.5859">call:1</text><!--MD5=[5401591a2b3ddc456e19d4e15dffce57]
+link dc:stop to dc:down--><!--MD5=[585695613eaf5e5a8a54f17243aa7bc0]
+link dc:down to dc:shell--><!--MD5=[e85f96530924091dd6ce6485bad5fd98]
+link dc:stop to qa:remote--><!--MD5=[fda9d08d51125c3454f6829d9145209f]
+link qa:remote to mkdocs:build--><!--MD5=[44992dd352f6b36e877de0db04871742]
+link mkdocs:build to mkdocs:serve--><!--MD5=[3febfc4eda79513d8f0d7ea70f0b5ddb]
+link qa:remote to mkdocs:gh-pages--><!--MD5=[c5cdadf9207e66b1385fe258336e987f]
+@startuml
+title
+DB draw
+end title
+
+left to right direction
+
+skinparam Shadowing false
+skinparam ArrowFontColor Black
+skinparam ArrowThickness 2
+skinparam UseCaseBackgroundColor #FFFECC
+skinparam UseCaseBorderColor #333333
+skinparam UseCaseBorderThickness 2
+skinparam UseCaseFontColor Black
+
+
+(setup) -[#1A85FF]-> (composer:install) : depend:1
+(setup) -[#1A85FF]-> (dc:up) : depend:2
+(setup) -[#1A85FF]-> (dc:ip) : depend:3
+(qa) -[#1A85FF]-> (composer:validate) : depend:1
+(qa) -[#1A85FF]-> (composer:normalize) : depend:2
+(qa) -[#1A85FF]-> (cs:fix) : depend:3
+(qa) -[#1A85FF]-> (phpstan:analyze) : depend:4
+(qa) -[#1A85FF]-> (phpunit:run) : depend:5
+(qa) -[#1A85FF]-> (plantuml:convert) : depend:6
+(phpunit:run) -[#1A85FF]-> (db:wait-for-database) : depend:1
+(help) -[#D41159]-> (visualizer) : call:1
+(setup)
+(qa)
+(dc:up)
+(dc:stop)
+(dc:down)
+(dc:ip)
+(dc:shell)
+(qa:remote)
+(phpstan:analyze)
+(composer:validate)
+(composer:normalize)
+(composer:install)
+(plantuml:convert)
+(phpunit:run)
+(db:wait-for-database)
+(help)
+(visualizer)
+(cs:fix)
+(mkdocs:build)
+(mkdocs:serve)
+(mkdocs:gh-pages)
+@enduml
+
+PlantUML version 1.2021.10(Mon Aug 30 13:43:48 UTC 2021)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
