@@ -4,7 +4,7 @@
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::AMIGA);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::AMIGA);
 ```
 
 ![amiga](images/theme-amiga.png)
@@ -13,7 +13,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::AMIGA);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::BLACK_KNIGHT);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::BLACK_KNIGHT);
 ```
 
 ![black-knight](images/theme-black-knight.png)
@@ -22,7 +22,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::BLACK_KNIGHT);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::BLUEGRAY);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::BLUEGRAY);
 ```
 
 ![bluegray](images/theme-bluegray.png)
@@ -31,7 +31,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::BLUEGRAY);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::BLUEPRINT);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::BLUEPRINT);
 ```
 
 ![blueprint](images/theme-blueprint.png)
@@ -40,7 +40,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::BLUEPRINT);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CERULEAN);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::CERULEAN);
 ```
 
 ![cerulean](images/theme-cerulean.png)
@@ -49,7 +49,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CERULEAN);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CERULEAN_OUTLINE);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::CERULEAN_OUTLINE);
 ```
 
 ![cerulean-outline](images/theme-cerulean-outline.png)
@@ -58,7 +58,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CERULEAN_OUTLINE);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CRT_AMBER);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::CRT_AMBER);
 ```
 
 ![crt-amber](images/theme-crt-amber.png)
@@ -67,7 +67,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CRT_AMBER);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CRT_GREEN);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::CRT_GREEN);
 ```
 
 ![crt-green](images/theme-crt-green.png)
@@ -76,7 +76,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CRT_GREEN);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CYBORG);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::CYBORG);
 ```
 
 ![cyborg](images/theme-cyborg.png)
@@ -85,7 +85,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CYBORG);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CYBORG_OUTLINE);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::CYBORG_OUTLINE);
 ```
 
 ![cyborg-outline](images/theme-cyborg-outline.png)
@@ -94,7 +94,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::CYBORG_OUTLINE);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::HACKER);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::HACKER);
 ```
 
 ![hacker](images/theme-hacker.png)
@@ -103,7 +103,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::HACKER);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::LIGHTGRAY);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::LIGHTGRAY);
 ```
 
 ![lightgray](images/theme-lightgray.png)
@@ -112,7 +112,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::LIGHTGRAY);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::MATERIA);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::MATERIA);
 ```
 
 ![materia](images/theme-materia.png)
@@ -121,7 +121,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::MATERIA);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::MATERIA_OUTLINE);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::MATERIA_OUTLINE);
 ```
 
 ![materia-outline](images/theme-materia-outline.png)
@@ -130,7 +130,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::MATERIA_OUTLINE);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::METAL);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::METAL);
 ```
 
 ![metal](images/theme-metal.png)
@@ -139,7 +139,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::METAL);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::MIMEOGRAPH);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::MIMEOGRAPH);
 ```
 
 ![mimeograph](images/theme-mimeograph.png)
@@ -148,7 +148,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::MIMEOGRAPH);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::MINTY);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::MINTY);
 ```
 
 ![minty](images/theme-minty.png)
@@ -157,7 +157,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::MINTY);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::PLAIN);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::PLAIN);
 ```
 
 ![plain](images/theme-plain.png)
@@ -166,7 +166,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::PLAIN);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::RESUME_LIGHT);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::RESUME_LIGHT);
 ```
 
 ![resume-light](images/theme-resume-light.png)
@@ -175,7 +175,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::RESUME_LIGHT);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SANDSTONE);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::SANDSTONE);
 ```
 
 ![sandstone](images/theme-sandstone.png)
@@ -184,7 +184,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SANDSTONE);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SILVER);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::SILVER);
 ```
 
 ![silver](images/theme-silver.png)
@@ -193,7 +193,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SILVER);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SKETCHY);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::SKETCHY);
 ```
 
 ![sketchy](images/theme-sketchy.png)
@@ -202,7 +202,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SKETCHY);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SKETCHY_OUTLINE);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::SKETCHY_OUTLINE);
 ```
 
 ![sketchy-outline](images/theme-sketchy-outline.png)
@@ -211,7 +211,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SKETCHY_OUTLINE);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SPACELAB);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::SPACELAB);
 ```
 
 ![spacelab](images/theme-spacelab.png)
@@ -220,7 +220,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SPACELAB);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SUPERHERO);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::SUPERHERO);
 ```
 
 ![superhero](images/theme-superhero.png)
@@ -229,7 +229,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SUPERHERO);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SUPERHERO_OUTLINE);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::SUPERHERO_OUTLINE);
 ```
 
 ![superhero-outline](images/theme-superhero-outline.png)
@@ -238,7 +238,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::SUPERHERO_OUTLINE);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::TOY);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::TOY);
 ```
 
 ![toy](images/theme-toy.png)
@@ -247,7 +247,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::TOY);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::UNITED);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::UNITED);
 ```
 
 ![united](images/theme-united.png)
@@ -256,7 +256,7 @@ $puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::UNITED);
 
 ```php
 use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MINI, Theme::VIBRANT);
+$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::VIBRANT);
 ```
 
 ![vibrant](images/theme-vibrant.png)

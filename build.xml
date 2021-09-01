@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="DB draw" default="help" phingVersion="3">
 
   <property name="dc.project-name" value="db-draw"/>
@@ -108,6 +107,7 @@
   </target>
 
   <target name="phpunit:run" description="Run PHPUnit tests" depends="db:wait-for-database">
+    <mkdir dir="resources/output/"/>
     <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
       <env key="DB_HOST" value="${db.host}"/>
       <env key="XDEBUG_MODE" value="coverage"/>
@@ -116,8 +116,7 @@
 
   <target name="db:wait-for-database" description="Wait until DB is up and running">
     <waitfor timeoutproperty="db.timeout" maxwait="30" maxwaitunit="second">
-      <pdosqlexec url="mysql:host=${db.host};dbname=db-draw;port=3306"
-                  userid="groot" password="groot"/>
+      <pdosqlexec url="mysql:host=${db.host};dbname=institute;port=3306" userid="groot" password="groot"/>
     </waitfor>
     <fail if="db.timeout">Cannot reach database.</fail>
   </target>
@@ -131,12 +130,33 @@
   </target>
 
   <target name="visualizer" unless="visualizer.up-to-date">
-    <visualizer format="png" destination="docs/images"/>
+    <visualizer format="svg" destination="docs/images" direction="horizontal"/>
   </target>
 
   <target name="cs:fix" description="Fix code style">
     <exec executable="vendor/bin/php-cs-fixer" passthru="true" checkreturn="true">
       <arg value="fix"/>
+    </exec>
+  </target>
+
+  <target name="mkdocs:build" description="Build documentation">
+    <exec executable="mkdocs" passthru="true" checkreturn="true">
+      <arg value="build"/>
+      <arg value="--verbose"/>
+    </exec>
+  </target>
+
+  <target name="mkdocs:serve" description="Run local server">
+    <exec executable="mkdocs" passthru="true" checkreturn="true">
+      <arg value="serve"/>
+      <arg value="--verbose"/>
+    </exec>
+  </target>
+
+  <target name="mkdocs:gh-deploy" description="Deploy docs to github">
+    <exec executable="mkdocs" passthru="true" checkreturn="true">
+      <arg value="gh-deploy"/>
+      <arg value="--verbose"/>
     </exec>
   </target>
 

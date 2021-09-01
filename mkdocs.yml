@@ -1,0 +1,11 @@
+site_name: !ENV [ SITE_NAME, 'jawira/db-draw' ]
+theme: readthedocs
+copyright: © 2021 Jawira Portugal
+site_author: Jawira Portugal
+strict: true
+use_directory_urls: false
+nav:
+  - 'index.md'
+  - 'diagram-sizes.md'
+  - 'themes.md'
+  - 'dev-notes.md'

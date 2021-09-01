@@ -8,3 +8,4 @@
 /.php-cs-fixer.cache
 /cobertura.xml
 /resources/output/
+/site/
