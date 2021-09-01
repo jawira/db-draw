@@ -22,7 +22,7 @@ class DiagramTest extends TestCase
   {
     parent::__construct($name, $data, $dataName);
     $this->dbHost     = getenv('DB_HOST') ?: 'mysql';
-    $connectionParams = ['url' => "mysql://groot:groot@{$this->dbHost}/db-draw", 'driver' => 'pdo_mysql'];
+    $connectionParams = ['url' => "mysql://groot:groot@{$this->dbHost}/institute", 'driver' => 'pdo_mysql'];
     $this->connection = DriverManager::getConnection($connectionParams);
     $this->connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
   }
@@ -43,7 +43,7 @@ class DiagramTest extends TestCase
     file_put_contents('./resources/output/mini.puml', $puml);
     $this->assertIsString($puml);
     $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
-    $this->assertStringContainsString('title db-draw', $puml);
+    $this->assertStringContainsString('title institute', $puml);
     $this->assertStringContainsString('entity Assistant', $puml);
     $this->assertStringEndsWith('@enduml' . PHP_EOL, $puml);
   }
@@ -98,17 +98,21 @@ class DiagramTest extends TestCase
    * @covers       \Jawira\DbDraw\DbDraw
    * @covers       \Jawira\DbDraw\Relational\Column
    * @covers       \Jawira\DbDraw\Relational\Diagram\AbstractDiagram
-   * @covers       \Jawira\DbDraw\Relational\Diagram\Mini
+   * @covers       \Jawira\DbDraw\Relational\Diagram\Maxi
    * @covers       \Jawira\DbDraw\Relational\Entity
    * @covers       \Jawira\DbDraw\Relational\Raw
    * @covers       \Jawira\DbDraw\Relational\Relationship
+   * @covers       \Jawira\DbDraw\Relational\Views::__construct
+   * @covers       \Jawira\DbDraw\Relational\Views::__toString
+   * @covers       \Jawira\DbDraw\Relational\Views::generateHeaderAndFooter
+   * @covers       \Jawira\DbDraw\Relational\Views::generateViews
    * @covers       \Jawira\DbDraw\Toolbox
    * @dataProvider themeProvider
    */
   public function testTheme($theme)
   {
     $drawer = new DbDraw($this->connection);
-    $puml   = $drawer->generatePuml(DbDraw::MINI, $theme);
+    $puml   = $drawer->generatePuml(DbDraw::MAXI, $theme);
     file_put_contents("./resources/output/theme-{$theme}.puml", $puml);
     $this->assertIsString($puml);
     $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
