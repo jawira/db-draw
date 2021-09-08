@@ -108,6 +108,7 @@ class DiagramTest extends TestCase
    * @covers       \Jawira\DbDraw\Relational\Views::generateViews
    * @covers       \Jawira\DbDraw\Toolbox
    * @dataProvider themeProvider
+   * @testdox      Diagram with theme $theme
    */
   public function testTheme($theme)
   {
