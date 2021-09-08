@@ -111,6 +111,7 @@
     <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
       <env key="DB_HOST" value="${db.host}"/>
       <env key="XDEBUG_MODE" value="coverage"/>
+      <arg value="--testdox"/>
     </exec>
   </target>
 
