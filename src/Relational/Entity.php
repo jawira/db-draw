@@ -52,7 +52,7 @@ class Entity implements ElementInterface
 
   public function generateColumns(): self
   {
-    $pkNames    = $this->table->getPrimaryKeyColumns();
+    $pkNames    = $this->table->hasPrimaryKey() ? $this->table->getPrimaryKeyColumns() : [];
     $allColumns = $this->table->getColumns();
 
     $pkOnly       = function (DoctrineColumn $column) use ($pkNames): bool {
