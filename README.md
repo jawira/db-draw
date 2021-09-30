@@ -21,6 +21,12 @@ https://jawira.github.io/db-draw/
 
 If you liked this project, ⭐ [star it on GitHub](https://github.com/jawira/db-draw).
 
+## PlantUML crowdfunding
+
+When you generate **png** or **svg** diagrams you are using PlantUML servers for free.
+
+Please consider [donating to PlantUML](https://plantuml.com/crowdfunding).
+
 ## License
 
 This library is licensed under the [MIT license](LICENSE.md).
