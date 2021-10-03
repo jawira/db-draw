@@ -1,14 +1,16 @@
 {
   "name": "jawira/db-draw",
   "type": "library",
-  "description": "\ud83d\udcd0 Create an ER diagram from your existing DB",
+  "description": "\ud83d\udcd0 Library to generate database diagrams.",
   "keywords": [
     "database",
     "db",
     "dbal",
     "diagram",
-    "doctrine"
+    "doctrine",
+    "php"
   ],
+  "homepage": "https://jawira.github.io/db-draw/",
   "license": "MIT",
   "authors": [
     {
@@ -44,5 +46,8 @@
     "psr-4": {
       "Jawira\\DbDrawTests\\": "tests"
     }
+  },
+  "support": {
+    "issues": "https://github.com/jawira/db-draw/issues"
   }
 }

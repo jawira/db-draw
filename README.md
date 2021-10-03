@@ -1,6 +1,6 @@
-# 📐 DB Draw
+# DB Draw
 
-**Generate an ER diagram from your existing database.**
+**📐 Library to generate database diagrams.**
 
 [![Latest Stable Version](http://poser.pugx.org/jawira/db-draw/v)](https://packagist.org/packages/jawira/db-draw)
 [![.gitattributes](http://poser.pugx.org/jawira/db-draw/gitattributes)](https://packagist.org/packages/jawira/db-draw)
