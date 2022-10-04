@@ -162,15 +162,6 @@ $puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::PLAIN);
 
 ![plain](images/theme-plain.png)
 
-## resume-light
-
-```php
-use Jawira\DbDraw\{DbDraw, Theme};
-$puml = $dbDiagram->generatePuml(DbDraw::MAXI, Theme::RESUME_LIGHT);
-```
-
-![resume-light](images/theme-resume-light.png)
-
 ## sandstone
 
 ```php

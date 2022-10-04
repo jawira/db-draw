@@ -14,8 +14,10 @@ RUN set -ex \
         wget \
         libxml2-dev \
         libicu-dev \
-        mysql-common \
-    && echo "### PHP extensions ###" \
+        mysql-common
+
+
+RUN echo "### PHP extensions ###" \
     && docker-php-source extract \
     && pecl install xdebug \
     && docker-php-ext-configure intl \
@@ -25,11 +27,22 @@ RUN set -ex \
         mysqli \
         pdo_mysql \
     && docker-php-ext-enable \
-        xdebug \
-    && echo "### Phing ###" \
-    && wget -nv -O /usr/local/bin/phing https://github.com/phingofficial/phing/releases/download/3.0.0-RC1/phing-3.0.0-RC1.phar \
-    && chmod +x /usr/local/bin/phing \
-    && echo "### Cleaning ###" \
+        xdebug
+
+
+RUN echo "### Phing ###" \
+    && wget -nv -O /usr/local/bin/phing https://github.com/phingofficial/phing/releases/download/3.0.0-RC3/phing-3.0.0-RC3.phar \
+    && chmod +x /usr/local/bin/phing
+
+
+RUN echo '### Install Java ###' \
+    && apt-get install -y openjdk-11-jdk ca-certificates-java graphviz \
+    && update-ca-certificates -f
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+RUN export JAVA_HOME
+
+
+RUN echo "### Cleaning ###" \
     && docker-php-source delete \
     && apt-get clean \
     && rm -rf \
