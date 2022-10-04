@@ -22,5 +22,7 @@
 /tests                  export-ignore
 
 # Configure diff output for .php and .phar files.
-*.php   diff=php
-*.phar  -diff
+*.php	text	eol=lf	diff=php
+*.svg	text	eol=lf
+*.phar	binary
+*.png	binary

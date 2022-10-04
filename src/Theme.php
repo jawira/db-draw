@@ -22,7 +22,6 @@ class Theme
   public const MIMEOGRAPH        = 'mimeograph';
   public const MINTY             = 'minty';
   public const PLAIN             = 'plain';
-  public const RESUME_LIGHT      = 'resume-light';
   public const SANDSTONE         = 'sandstone';
   public const SILVER            = 'silver';
   public const SKETCHY           = 'sketchy';

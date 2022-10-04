@@ -11,6 +11,7 @@
     <exec executable="docker-compose" passthru="true" checkreturn="true">
       <arg line="--project-name ${dc.project-name}"/>
       <arg value="up"/>
+      <arg value="--build"/>
       <arg value="--detach"/>
       <arg value="--remove-orphans"/>
     </exec>
@@ -39,8 +40,8 @@
     <exec executable="docker" checkreturn="true" passthru="true">
       <arg value="inspect"/>
       <arg line="${dc.format}"/>
-      <arg value="${dc.project-name}_php_1"/>
-      <arg value="${dc.project-name}_mysql_1"/>
+      <arg value="${dc.project-name}-php-1"/>
+      <arg value="${dc.project-name}-mysql-1"/>
     </exec>
   </target>
 
@@ -48,15 +49,15 @@
     <exec executable="docker" passthru="true">
       <arg value="exec"/>
       <arg value="-it"/>
-      <arg value="${dc.project-name}_php_1"/>
+      <arg value="${dc.project-name}-php-1"/>
       <arg value="/bin/bash"/>
     </exec>
   </target>
 
-  <target name="qa:remote" description="Run tests on docker container">
+  <target name="remote:qa" description="Run tests on docker container">
     <exec executable="docker" passthru="true" checkreturn="true">
       <arg value="exec"/>
-      <arg value="${dc.project-name}_php_1"/>
+      <arg value="${dc.project-name}-php-1"/>
       <arg line="phing -longtargets qa"/>
     </exec>
   </target>

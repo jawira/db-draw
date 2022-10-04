@@ -1,7 +1,8 @@
 {
   "name": "jawira/db-draw",
-  "type": "library",
   "description": "\ud83d\udcd0 Library to generate database diagrams.",
+  "license": "MIT",
+  "type": "library",
   "keywords": [
     "database",
     "db",
@@ -10,16 +11,18 @@
     "doctrine",
     "php"
   ],
-  "homepage": "https://jawira.github.io/db-draw/",
-  "license": "MIT",
   "authors": [
     {
       "name": "Jawira Portugal"
     }
   ],
+  "homepage": "https://jawira.github.io/db-draw/",
+  "support": {
+    "issues": "https://github.com/jawira/db-draw/issues"
+  },
   "require": {
     "php": "^7.3 || ^8.0",
-    "doctrine/dbal": "^2.5",
+    "doctrine/dbal": "^2.5 || ^3",
     "jawira/the-lost-functions": "^1.1"
   },
   "require-dev": {
@@ -34,9 +37,6 @@
     "phpstan/phpstan": "^0.12.82",
     "phpunit/phpunit": "^9.5"
   },
-  "config": {
-    "preferred-install": "dist"
-  },
   "autoload": {
     "psr-4": {
       "Jawira\\DbDraw\\": "src"
@@ -47,7 +47,10 @@
       "Jawira\\DbDrawTests\\": "tests"
     }
   },
-  "support": {
-    "issues": "https://github.com/jawira/db-draw/issues"
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    },
+    "preferred-install": "dist"
   }
 }

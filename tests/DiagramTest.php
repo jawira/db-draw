@@ -141,7 +141,6 @@ class DiagramTest extends TestCase
             [Theme::MIMEOGRAPH],
             [Theme::MINTY],
             [Theme::PLAIN],
-            [Theme::RESUME_LIGHT],
             [Theme::SANDSTONE],
             [Theme::SILVER],
             [Theme::SKETCHY],
