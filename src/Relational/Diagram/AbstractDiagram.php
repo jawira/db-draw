@@ -113,9 +113,7 @@ abstract class AbstractDiagram
       $foreignKeys = array_merge($foreignKeys, $table->getForeignKeys());
     };
     array_map($retrieveForeignKeys, $tables);
-    $createRelationship  = function (ForeignKeyConstraint $foreignKeyConstraint) {
-      return new Relationship($foreignKeyConstraint);
-    };
+    $createRelationship  = fn(ForeignKeyConstraint $foreignKeyConstraint) => new Relationship($foreignKeyConstraint);
     $this->relationships = array_map($createRelationship, $foreignKeys);
   }
 

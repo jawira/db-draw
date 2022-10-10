@@ -37,9 +37,7 @@ class Relationship implements ElementInterface
     $localColumns = $this->foreignKeyConstraint->getColumns();
 
     // Find indexes for FK constraint only
-    $filterLocalIndexes = function (Index $index) use ($localColumns) {
-      return $localColumns == $index->getColumns();
-    };
+    $filterLocalIndexes = fn(Index $index) => $localColumns == $index->getColumns();
 
     $localIndexes = array_filter($this->table->getIndexes(), $filterLocalIndexes);
 

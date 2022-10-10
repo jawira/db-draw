@@ -1,4 +1,4 @@
-FROM php:7.3-cli-buster
+FROM php:7.4-cli-buster
 
 WORKDIR "/app"
 
@@ -18,6 +18,9 @@ RUN set -ex \
 
 
 RUN echo "### PHP extensions ###" \
+    && apt-get update \
+    && apt-get --yes --no-install-recommends install \
+        libonig-dev \
     && docker-php-source extract \
     && pecl install xdebug \
     && docker-php-ext-configure intl \
