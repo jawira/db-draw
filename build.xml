@@ -54,6 +54,16 @@
     </exec>
   </target>
 
+  <target name="remote:shell" description="Tunnel to container">
+    <exec executable="docker" passthru="true">
+      <arg value="exec"/>
+      <arg value="-it"/>
+      <arg value="${dc.project-name}-php-1"/>
+      <arg value="/bin/bash"/>
+    </exec>
+  </target>
+
+
   <target name="remote:qa" description="Run tests on docker container">
     <exec executable="docker" passthru="true" checkreturn="true">
       <arg value="exec"/>
@@ -99,6 +109,7 @@
 
   <target name="plantuml:convert" description="Convert puml to png">
     <exec executable="vendor/bin/plantuml" checkreturn="true" passthru="true">
+      <arg value="-progress"/>
       <arg value="-tpng"/>
       <arg value="-nometadata"/>
       <arg value="-output"/>
@@ -127,7 +138,7 @@
     <uptodate property="visualizer.up-to-date" srcfile="build.xml" targetfile="docs/images/build.png"/>
     <runtarget target="visualizer"/>
     <exec executable="xdg-open" spawn="true">
-      <arg file="docs/images/build.png"/>
+      <arg file="docs/images/build.svg"/>
     </exec>
   </target>
 

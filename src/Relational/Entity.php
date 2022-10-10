@@ -55,15 +55,9 @@ class Entity implements ElementInterface
     $pkNames    = $this->table->hasPrimaryKey() ? $this->table->getPrimaryKeyColumns() : [];
     $allColumns = $this->table->getColumns();
 
-    $pkOnly       = function (DoctrineColumn $column) use ($pkNames): bool {
-      return in_array($column->getName(), $pkNames);
-    };
-    $exceptPk     = function (DoctrineColumn $column) use ($pkOnly): bool {
-      return !$pkOnly($column);
-    };
-    $instantiator = function (DoctrineColumn $column) {
-      return new Column($column);
-    };
+    $pkOnly       = fn(DoctrineColumn $column): bool => in_array($column->getName(), $pkNames);
+    $exceptPk     = fn(DoctrineColumn $column): bool => !$pkOnly($column);
+    $instantiator = fn(DoctrineColumn $column) => new Column($column);
 
     $pk            = array_filter($allColumns, $pkOnly);
     $columns       = array_filter($allColumns, $exceptPk);

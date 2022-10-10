@@ -12,7 +12,6 @@ use function array_map;
  */
 class Midi extends AbstractDiagram
 {
-
   /**
    * @return $this
    */

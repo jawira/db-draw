@@ -21,7 +21,7 @@
     "issues": "https://github.com/jawira/db-draw/issues"
   },
   "require": {
-    "php": "^7.3 || ^8.0",
+    "php": "^7.4 || ^8.0",
     "doctrine/dbal": "^2.5 || ^3",
     "jawira/the-lost-functions": "^1.1"
   },
@@ -33,8 +33,8 @@
     "friendsofphp/php-cs-fixer": "^3.0",
     "jawira/plantuml": "^1.59",
     "jawira/plantuml-client": "^1.0",
-    "jawira/skeleton": "^2.0",
-    "phpstan/phpstan": "^0.12.82",
+    "jawira/skeleton": "^2.16",
+    "phpstan/phpstan": "^1.8",
     "phpunit/phpunit": "^9.5"
   },
   "autoload": {

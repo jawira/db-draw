@@ -49,9 +49,7 @@ class Views implements ElementInterface
 
   public function generateViews(): self
   {
-    $this->views = array_map(function (View $view) {
-      return new Raw(sprintf('entity %s { }', $view->getName()));
-    }, $this->doctrineViews);
+    $this->views = array_map(fn(View $view) => new Raw(sprintf('entity %s { }', $view->getName())), $this->doctrineViews);
 
     return $this;
   }
