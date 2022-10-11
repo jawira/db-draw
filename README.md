@@ -1,6 +1,6 @@
 # DB Draw
 
-**📐 Library to generate database diagrams.**
+**📐 Takes a DoctrineORM connection and generates a database diagram in .puml format.**
 
 [![Latest Stable Version](http://poser.pugx.org/jawira/db-draw/v)](https://packagist.org/packages/jawira/db-draw)
 [![.gitattributes](http://poser.pugx.org/jawira/db-draw/gitattributes)](https://packagist.org/packages/jawira/db-draw)
@@ -19,17 +19,8 @@ https://jawira.github.io/db-draw/
 
 ## Contributing
 
-If you liked this project, ⭐ [star it on GitHub](https://github.com/jawira/db-draw).
-
-## PlantUML crowdfunding
-
-When you generate **png** or **svg** diagrams you are using PlantUML servers for free.
-
-Please consider [donating to PlantUML](https://plantuml.com/crowdfunding).
-
-## License
-
-This library is licensed under the [MIT license](LICENSE.md).
+If you liked this project,
+⭐ [star it on GitHub](https://github.com/jawira/db-draw).
 
 ***
 

@@ -1,9 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Jawira\DbDraw\Relational;
 
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Index;
+use Doctrine\DBAL\Schema\Table;
 use function array_filter;
 use function array_reduce;
 use function Jawira\TheLostFunctions\array_search_callback;
@@ -15,15 +16,8 @@ use const PHP_EOL;
  */
 class Relationship implements ElementInterface
 {
-  /**
-   * @var \Doctrine\DBAL\Schema\Table
-   */
-  protected $table;
-
-  /**
-   * @var ForeignKeyConstraint
-   */
-  protected $foreignKeyConstraint;
+  protected Table $table;
+  protected ForeignKeyConstraint $foreignKeyConstraint;
 
 
   public function __construct(ForeignKeyConstraint $foreignKeyConstraint)
@@ -60,6 +54,7 @@ class Relationship implements ElementInterface
 
     $reducer = function ($carry, $column) {
       $isNullable = !$this->table->getColumn($column)->getNotnull();
+
       return $carry && $isNullable;
     };
 

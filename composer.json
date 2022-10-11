@@ -1,6 +1,6 @@
 {
   "name": "jawira/db-draw",
-  "description": "\ud83d\udcd0 Library to generate database diagrams.",
+  "description": "\ud83d\udcd0 Takes a DoctrineORM connection and generates a database diagram in .puml format",
   "license": "MIT",
   "type": "library",
   "keywords": [
