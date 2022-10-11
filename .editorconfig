@@ -1,8 +1,33 @@
+root = true
+
 [*]
 charset = utf-8
 end_of_line = lf
 indent_size = 2
 indent_style = space
 insert_final_newline = true
-max_line_length = 120
 trim_trailing_whitespace = true
+ij_visual_guides = 80, 120
+
+[*.php]
+ij_php_import_sorting = alphabetic
+ij_php_group_use_wrap = normal
+ij_php_phpdoc_use_fqcn = true
+ij_php_align_assignments = true
+ij_php_align_phpdoc_comments = true
+ij_php_align_phpdoc_param_names = true
+ij_php_align_multiline_parameters = true
+ij_php_align_multiline_chained_methods = true
+ij_php_blank_lines_before_return_statement = 1
+ij_php_comma_after_last_array_element = true
+max_line_length = 120
+
+[*.md]
+max_line_length = 80
+
+[.gitattributes]
+indent_style = tab
+indent_size = 4
+
+[{Dockerfile, *.Dockerfile}]
+indent_size = 4

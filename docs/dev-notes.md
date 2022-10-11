@@ -6,7 +6,8 @@
 
 ## Running tests
 
-PHPUnit needs a mysql database to run tests, this is handled by `docker compose`:
+PHPUnit needs a mysql database to run tests, this is handled
+by `docker compose`:
 
 ```console
 phing setup remote:qa
@@ -23,3 +24,5 @@ PHPUnit without Phing:
 ```console
 DB_HOST=172.23.0.2 vendor/bin/phpunit tests/DiagramTest.php testTheme
 ```
+
+Important: DB_HOST variable is only used in tests.
