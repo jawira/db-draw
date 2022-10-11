@@ -17,25 +17,11 @@ use function strval;
  */
 class Entity implements ElementInterface
 {
-  /**
-   * @var \Doctrine\DBAL\Schema\Table
-   */
-  protected $table;
-
-  /**
-   * @var ElementInterface[]
-   */
-  protected $columns = [];
-
-  /**
-   * @var Raw
-   */
-  protected $header = null;
-
-  /**
-   * @var Raw
-   */
-  protected $footer = null;
+  /** @var ElementInterface[] */
+  protected array $columns = [];
+  protected Table $table;
+  protected Raw $header;
+  protected Raw $footer;
 
   public function __construct(Table $table)
   {

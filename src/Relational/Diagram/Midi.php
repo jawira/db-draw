@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types=1);
 
 namespace Jawira\DbDraw\Relational\Diagram;
-
 
 use Jawira\DbDraw\Relational\Entity;
 use function array_map;
@@ -12,10 +10,7 @@ use function array_map;
  */
 class Midi extends AbstractDiagram
 {
-  /**
-   * @return $this
-   */
-  public function process()
+  public function process(): self
   {
     $this->generateHeaderAndFooter($this->connection, $this->theme);
     $this->generateEntities($this->connection->getSchemaManager()->listTables());

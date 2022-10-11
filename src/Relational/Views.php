@@ -12,22 +12,13 @@ use function strval;
  */
 class Views implements ElementInterface
 {
-  /**
-   * @var \Doctrine\DBAL\Schema\View[]
-   */
-  protected $doctrineViews;
-  /**
-   * @var \Jawira\DbDraw\Relational\Raw
-   */
-  protected $header;
-  /**
-   * @var \Jawira\DbDraw\Relational\Raw
-   */
-  protected $footer;
-  /**
-   * @var \Jawira\DbDraw\Relational\Raw[]
-   */
-  protected $views = [];
+  /** @var \Jawira\DbDraw\Relational\Raw[] */
+  protected array $views = [];
+  /** @var \Doctrine\DBAL\Schema\View[] */
+  protected array $doctrineViews;
+  protected Raw $header;
+  protected Raw $footer;
+
 
   /**
    * Views constructor.

@@ -26,43 +26,31 @@ abstract class AbstractDiagram
    *
    * @var \Jawira\DbDraw\Relational\Raw[]
    */
-  protected $beginning = [];
+  protected array $beginning = [];
 
   /**
    * Things to put at the ending of the diagram
    *
    * @var \Jawira\DbDraw\Relational\Raw[]
    */
-  protected $ending = [];
+  protected array $ending = [];
 
   /**
    * DB entities (tables)
    *
    * @var \Jawira\DbDraw\Relational\Entity[]
    */
-  protected $entities = [];
+  protected array $entities = [];
 
   /**
    * DB relationships
    *
    * @var \Jawira\DbDraw\Relational\Relationship[]
    */
-  protected $relationships = [];
-
-  /**
-   * @var Connection
-   */
-  protected $connection;
-
-  /**
-   * @var \Jawira\DbDraw\Relational\Views
-   */
-  protected $views;
-
-  /**
-   * @var null|string
-   */
-  protected $theme;
+  protected array $relationships = [];
+  protected Connection $connection;
+  protected ?Views $views = null;
+  protected ?string $theme = null;
 
   /**
    * @return $this
@@ -117,7 +105,7 @@ abstract class AbstractDiagram
     $this->relationships = array_map($createRelationship, $foreignKeys);
   }
 
-  protected function generateHeaderAndFooter(Connection $connection, ?string $theme=null): self
+  protected function generateHeaderAndFooter(Connection $connection, ?string $theme = null): self
   {
     $this->beginning[] = new Raw('@startuml');
     $this->beginning[] = new Raw('hide empty members');

@@ -11,10 +11,7 @@ use const PHP_EOL;
  */
 class Raw implements ElementInterface
 {
-  /**
-   * @var string
-   */
-  protected $raw;
+  protected string $raw;
 
   /**
    * Raw constructor.

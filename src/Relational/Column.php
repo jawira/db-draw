@@ -12,10 +12,7 @@ use const PHP_EOL;
  */
 class Column implements ElementInterface
 {
-  /**
-   * @var DoctrineColumn
-   */
-  protected $doctrineColumn;
+  protected DoctrineColumn $doctrineColumn;
 
   public function __construct(DoctrineColumn $doctrineColumn)
   {
@@ -25,9 +22,11 @@ class Column implements ElementInterface
   public function __toString(): string
   {
     $format = '%s %s: %s';
-    $chunks = [$this->doctrineColumn->getNotnull() ? '*' : '',
-               $this->doctrineColumn->getName(),
-               $this->doctrineColumn->getType()->getName(),];
+    $chunks = [
+      $this->doctrineColumn->getNotnull() ? '*' : '',
+      $this->doctrineColumn->getName(),
+      $this->doctrineColumn->getType()->getName(),
+    ];
 
     return vsprintf($format, $chunks) . PHP_EOL;
   }
