@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace Jawira\DbDraw\Relational\Diagram;
@@ -19,7 +19,7 @@ use function strval;
 /**
  * @author  Jawira Portugal
  */
-abstract class AbstractDiagram
+abstract class AbstractDiagram implements \Stringable
 {
   /**
    * Things to put at the beginning of the diagram
@@ -57,11 +57,6 @@ abstract class AbstractDiagram
    */
   abstract public function process();
 
-  /**
-   * @param Connection $connection
-   *
-   * @return AbstractDiagram
-   */
   public function setConnection(Connection $connection): AbstractDiagram
   {
     $this->connection = $connection;

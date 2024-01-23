@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Jawira\DbDraw\Relational;
 
@@ -12,11 +12,8 @@ use const PHP_EOL;
  */
 class Column implements ElementInterface
 {
-  protected DoctrineColumn $doctrineColumn;
-
-  public function __construct(DoctrineColumn $doctrineColumn)
+  public function __construct(protected DoctrineColumn $doctrineColumn)
   {
-    $this->doctrineColumn = $doctrineColumn;
   }
 
   public function __toString(): string

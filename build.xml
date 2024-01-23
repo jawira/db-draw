@@ -2,10 +2,11 @@
 <project name="DB draw" default="help" phingVersion="3">
 
   <property name="dc.project-name" value="db-draw"/>
-  <property name="db.host" value="mysql"/>
+  <property name="db.host" value="127.0.0.1"/>
 
-  <target name="setup" depends="composer:install,dc:up,dc:ip"/>
-  <target name="qa" depends="composer:validate,composer:normalize,cs:fix,phpstan:analyze,phpunit:run,plantuml:convert"/>
+  <target name="setup" depends="composer:install,dc:up"/>
+  <target name="qa"
+          depends="composer:validate,composer:normalize,php:lint,cs:fix,phpstan:analyze,phpunit:run,plantuml:convert"/>
 
   <target name="dc:up" description="Launch containers">
     <exec executable="docker-compose" passthru="true" checkreturn="true">
@@ -34,42 +35,13 @@
     </exec>
   </target>
 
-  <target name="dc:ip" description="Reveal containers ip addresses">
-    <property name="dc.format"
-              value="--format='{{ .Name }}{{&quot;\t&quot;}}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{&quot;\t&quot;}}{{end}}'"/>
-    <exec executable="docker" checkreturn="true" passthru="true">
-      <arg value="inspect"/>
-      <arg line="${dc.format}"/>
-      <arg value="${dc.project-name}-php-1"/>
-      <arg value="${dc.project-name}-mysql-1"/>
-    </exec>
-  </target>
-
-  <target name="dc:shell" description="Tunnel to container">
-    <exec executable="docker" passthru="true">
-      <arg value="exec"/>
-      <arg value="-it"/>
-      <arg value="${dc.project-name}-php-1"/>
-      <arg value="/bin/bash"/>
-    </exec>
-  </target>
-
-  <target name="remote:shell" description="Tunnel to container">
-    <exec executable="docker" passthru="true">
-      <arg value="exec"/>
-      <arg value="-it"/>
-      <arg value="${dc.project-name}-php-1"/>
-      <arg value="/bin/bash"/>
-    </exec>
-  </target>
-
-
-  <target name="remote:qa" description="Run tests on docker container">
-    <exec executable="docker" passthru="true" checkreturn="true">
-      <arg value="exec"/>
-      <arg value="${dc.project-name}-php-1"/>
-      <arg line="phing -longtargets qa"/>
-    </exec>
+  <target name="php:lint" description="Check syntax errors">
+    <phplint haltonfailure="true" deprecatedAsError="true" level="verbose">
+      <fileset dir=".">
+        <include name="src/**/*.php"/>
+        <include name="tests/**/*.php"/>
+      </fileset>
+    </phplint>
   </target>
 
   <target name="phpstan:analyze" description="Analyze code at max level">
@@ -121,7 +93,6 @@
   <target name="phpunit:run" description="Run PHPUnit tests" depends="db:wait-for-database">
     <mkdir dir="resources/output/"/>
     <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
-      <env key="DB_HOST" value="${db.host}"/>
       <env key="XDEBUG_MODE" value="coverage"/>
       <arg value="--testdox"/>
     </exec>
@@ -129,7 +100,7 @@
 
   <target name="db:wait-for-database" description="Wait until DB is up and running">
     <waitfor timeoutproperty="db.timeout" maxwait="30" maxwaitunit="second">
-      <pdosqlexec url="mysql:host=${db.host};dbname=institute;port=3306" userid="groot" password="groot"/>
+      <pdosqlexec url="mysql:host=${db.host};dbname=institute;port=33060" userid="groot" password="groot"/>
     </waitfor>
     <fail if="db.timeout">Cannot reach database.</fail>
   </target>
@@ -149,6 +120,7 @@
   <target name="cs:fix" description="Fix code style">
     <exec executable="vendor/bin/php-cs-fixer" passthru="true" checkreturn="true">
       <arg value="fix"/>
+      <arg value="--allow-risky=yes"/>
     </exec>
   </target>
 
