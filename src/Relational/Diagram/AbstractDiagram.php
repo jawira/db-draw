@@ -5,14 +5,12 @@ namespace Jawira\DbDraw\Relational\Diagram;
 
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Table;
 use Jawira\DbDraw\Relational\Entity;
 use Jawira\DbDraw\Relational\Raw;
 use Jawira\DbDraw\Relational\Relationship;
 use Jawira\DbDraw\Relational\Views;
 use function array_map;
-use function array_merge;
 use function array_reduce;
 use function strval;
 
