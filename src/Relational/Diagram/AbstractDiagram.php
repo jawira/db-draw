@@ -91,13 +91,11 @@ abstract class AbstractDiagram implements \Stringable
    */
   protected function generateRelationships(array $tables): void
   {
-    $foreignKeys         = [];
-    $retrieveForeignKeys = function (Table $table) use (&$foreignKeys) {
-      $foreignKeys = array_merge($foreignKeys, $table->getForeignKeys());
-    };
-    array_map($retrieveForeignKeys, $tables);
-    $createRelationship  = fn(ForeignKeyConstraint $foreignKeyConstraint) => new Relationship($foreignKeyConstraint);
-    $this->relationships = array_map($createRelationship, $foreignKeys);
+    foreach ($tables as $table) {
+      foreach ($table->getForeignKeys() as $foreignKey) {
+        $this->relationships[] = new Relationship($table, $foreignKey);
+      }
+    }
   }
 
   protected function generateHeaderAndFooter(Connection $connection, ?string $theme = null): self
