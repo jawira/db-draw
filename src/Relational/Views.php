@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Jawira\DbDraw\Relational;
 
@@ -14,8 +14,6 @@ class Views implements ElementInterface
 {
   /** @var \Jawira\DbDraw\Relational\Raw[] */
   protected array $views = [];
-  /** @var \Doctrine\DBAL\Schema\View[] */
-  protected array $doctrineViews;
   protected Raw $header;
   protected Raw $footer;
 
@@ -23,11 +21,10 @@ class Views implements ElementInterface
   /**
    * Views constructor.
    *
-   * @param \Doctrine\DBAL\Schema\View[] $views
+   * @param \Doctrine\DBAL\Schema\View[] $doctrineViews
    */
-  public function __construct(array $views)
+  public function __construct(protected array $doctrineViews)
   {
-    $this->doctrineViews = $views;
   }
 
   public function generateHeaderAndFooter(): self

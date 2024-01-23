@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Jawira\DbDraw;
 
@@ -43,19 +43,12 @@ class DbDraw
    */
   protected function resolveDiagram(string $size): AbstractDiagram
   {
-    switch ($size) {
-      case self::MINI:
-        $diagram = new Mini();
-        break;
-      case self::MIDI:
-        $diagram = new Midi();
-        break;
-      case self::MAXI:
-        $diagram = new Maxi();
-        break;
-      default:
-        throw new DbDrawException('Invalid diagram size');
-    }
+    $diagram = match ($size) {
+      self::MINI => new Mini(),
+      self::MIDI => new Midi(),
+      self::MAXI => new Maxi(),
+      default => throw new DbDrawException('Invalid diagram size'),
+    };
 
     return $diagram;
   }

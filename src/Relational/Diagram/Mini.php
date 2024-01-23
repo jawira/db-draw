@@ -10,8 +10,8 @@ class Mini extends AbstractDiagram
   public function process(): self
   {
     $this->generateHeaderAndFooter($this->connection, $this->theme);
-    $this->generateEntities($this->connection->getSchemaManager()->listTables());
-    $this->generateRelationships($this->connection->getSchemaManager()->listTables());
+    $this->generateEntities($this->connection->createSchemaManager()->listTables());
+    $this->generateRelationships($this->connection->createSchemaManager()->listTables());
 
     return $this;
   }

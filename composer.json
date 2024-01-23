@@ -21,8 +21,8 @@
     "issues": "https://github.com/jawira/db-draw/issues"
   },
   "require": {
-    "php": "^7.4 || ^8.0",
-    "doctrine/dbal": "^2.5 || ^3",
+    "php": "^8.0",
+    "doctrine/dbal": "^3.3",
     "jawira/the-lost-functions": "^1.1"
   },
   "require-dev": {
@@ -35,7 +35,8 @@
     "jawira/plantuml-client": "^1.0",
     "jawira/skeleton": "^2.16",
     "phpstan/phpstan": "^1.8",
-    "phpunit/phpunit": "^9.5"
+    "phpunit/phpunit": "^9.5",
+    "rector/rector": "^0.19.2"
   },
   "autoload": {
     "psr-4": {

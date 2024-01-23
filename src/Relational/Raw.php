@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Jawira\DbDraw\Relational;
 
@@ -11,15 +11,11 @@ use const PHP_EOL;
  */
 class Raw implements ElementInterface
 {
-  protected string $raw;
-
   /**
    * Raw constructor.
-   * @param string $raw
    */
-  public function __construct(string $raw)
+  public function __construct(protected string $raw)
   {
-    $this->raw = $raw;
   }
 
   public function __toString(): string

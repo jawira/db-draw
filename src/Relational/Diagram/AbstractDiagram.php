@@ -1,25 +1,23 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace Jawira\DbDraw\Relational\Diagram;
 
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Table;
 use Jawira\DbDraw\Relational\Entity;
 use Jawira\DbDraw\Relational\Raw;
 use Jawira\DbDraw\Relational\Relationship;
 use Jawira\DbDraw\Relational\Views;
 use function array_map;
-use function array_merge;
 use function array_reduce;
 use function strval;
 
 /**
  * @author  Jawira Portugal
  */
-abstract class AbstractDiagram
+abstract class AbstractDiagram implements \Stringable
 {
   /**
    * Things to put at the beginning of the diagram
@@ -57,11 +55,6 @@ abstract class AbstractDiagram
    */
   abstract public function process();
 
-  /**
-   * @param Connection $connection
-   *
-   * @return AbstractDiagram
-   */
   public function setConnection(Connection $connection): AbstractDiagram
   {
     $this->connection = $connection;
@@ -96,13 +89,11 @@ abstract class AbstractDiagram
    */
   protected function generateRelationships(array $tables): void
   {
-    $foreignKeys         = [];
-    $retrieveForeignKeys = function (Table $table) use (&$foreignKeys) {
-      $foreignKeys = array_merge($foreignKeys, $table->getForeignKeys());
-    };
-    array_map($retrieveForeignKeys, $tables);
-    $createRelationship  = fn(ForeignKeyConstraint $foreignKeyConstraint) => new Relationship($foreignKeyConstraint);
-    $this->relationships = array_map($createRelationship, $foreignKeys);
+    foreach ($tables as $table) {
+      foreach ($table->getForeignKeys() as $foreignKey) {
+        $this->relationships[] = new Relationship($table, $foreignKey);
+      }
+    }
   }
 
   protected function generateHeaderAndFooter(Connection $connection, ?string $theme = null): self

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Jawira\DbDraw\Relational;
 
@@ -19,13 +19,11 @@ class Entity implements ElementInterface
 {
   /** @var ElementInterface[] */
   protected array $columns = [];
-  protected Table $table;
   protected Raw $header;
   protected Raw $footer;
 
-  public function __construct(Table $table)
+  public function __construct(protected Table $table)
   {
-    $this->table = $table;
   }
 
   public function generateHeaderAndFooter(): self
@@ -38,7 +36,7 @@ class Entity implements ElementInterface
 
   public function generateColumns(): self
   {
-    $pkNames    = $this->table->hasPrimaryKey() ? $this->table->getPrimaryKeyColumns() : [];
+    $pkNames    = $this->table->getPrimaryKey()?->getColumns() ?? [];
     $allColumns = $this->table->getColumns();
 
     $pkOnly       = fn(DoctrineColumn $column): bool => in_array($column->getName(), $pkNames);

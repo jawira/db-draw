@@ -20,18 +20,18 @@ class Relationship implements ElementInterface
   protected ForeignKeyConstraint $foreignKeyConstraint;
 
 
-  public function __construct(ForeignKeyConstraint $foreignKeyConstraint)
+  public function __construct(Table $table, ForeignKeyConstraint $foreignKeyConstraint)
   {
-    $this->table                = $foreignKeyConstraint->getLocalTable();
+    $this->table                = $table;
     $this->foreignKeyConstraint = $foreignKeyConstraint;
   }
 
   protected function fkIsUnique(): bool
   {
-    $localColumns = $this->foreignKeyConstraint->getColumns();
+    $localColumns = $this->foreignKeyConstraint->getLocalColumns();
 
     // Find indexes for FK constraint only
-    $filterLocalIndexes = fn(Index $index) => $localColumns == $index->getColumns();
+    $filterLocalIndexes = fn(Index $index) => $localColumns === $index->getColumns();
 
     $localIndexes = array_filter($this->table->getIndexes(), $filterLocalIndexes);
 
@@ -50,7 +50,7 @@ class Relationship implements ElementInterface
 
   protected function fkIsNullable(): bool
   {
-    $localColumns = $this->foreignKeyConstraint->getColumns();
+    $localColumns = $this->foreignKeyConstraint->getLocalColumns();
 
     $reducer = function ($carry, $column) {
       $isNullable = !$this->table->getColumn($column)->getNotnull();
@@ -64,7 +64,7 @@ class Relationship implements ElementInterface
   public function __toString(): string
   {
     $chuncks                 = [];
-    $chuncks['localTable']   = $this->foreignKeyConstraint->getLocalTableName();
+    $chuncks['localTable']   = $this->table->getName();
     $chuncks['localMax']     = $this->fkIsUnique() ? '|' : '}';
     $chuncks['remoteMin']    = $this->fkIsNullable() ? 'o' : '|';
     $chuncks['foreignTable'] = $this->foreignKeyConstraint->getForeignTableName();
