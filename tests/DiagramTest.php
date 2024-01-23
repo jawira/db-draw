@@ -124,51 +124,51 @@ class DiagramTest extends TestCase
       skinparam PackageFontStyle normal
       title institute
       entity Assistant {
-      --
       * id: integer
+      --
       * details_id: integer
       }
       entity Course {
-      --
       * id: integer
+      --
        faculty_id: integer
        required_id: integer
       * name: string
       }
       entity inscription_session {
-      --
       * inscription_id: integer
       * session_id: integer
+      --
       }
       entity CreditCard {
-      --
       * id: integer
+      --
       * ownerFullName: string
       * number: string
       * pin: string
       * expirationDate: date
       }
       entity Teacher {
-      --
       * id: integer
+      --
       * details_id: integer
       }
       entity Student {
-      --
       * id: integer
+      --
       * details_id: integer
       * username: string
       * password: string
        creditCard_id: integer
       }
       entity Faculty {
-      --
       * id: integer
+      --
       * name: string
       }
       entity Session {
-      --
       * id: integer
+      --
       * course_id: integer
       * teacher_id: integer
        assistant_id: integer
@@ -178,14 +178,14 @@ class DiagramTest extends TestCase
       * code: string
       }
       entity Inscription {
-      --
       * id: integer
+      --
       * student_id: integer
       * createdAt: datetime
       }
       entity Person {
-      --
       * id: integer
+      --
       * firstName: string
       * lastName: string
        birthDate: datetime
@@ -244,51 +244,51 @@ class DiagramTest extends TestCase
       skinparam PackageFontStyle normal
       title institute
       entity Assistant {
-      --
       * id: integer
+      --
       * details_id: integer
       }
       entity Course {
-      --
       * id: integer
+      --
        faculty_id: integer
        required_id: integer
       * name: string
       }
       entity inscription_session {
-      --
       * inscription_id: integer
       * session_id: integer
+      --
       }
       entity CreditCard {
-      --
       * id: integer
+      --
       * ownerFullName: string
       * number: string
       * pin: string
       * expirationDate: date
       }
       entity Teacher {
-      --
       * id: integer
+      --
       * details_id: integer
       }
       entity Student {
-      --
       * id: integer
+      --
       * details_id: integer
       * username: string
       * password: string
        creditCard_id: integer
       }
       entity Faculty {
-      --
       * id: integer
+      --
       * name: string
       }
       entity Session {
-      --
       * id: integer
+      --
       * course_id: integer
       * teacher_id: integer
        assistant_id: integer
@@ -298,14 +298,14 @@ class DiagramTest extends TestCase
       * code: string
       }
       entity Inscription {
-      --
       * id: integer
+      --
       * student_id: integer
       * createdAt: datetime
       }
       entity Person {
-      --
       * id: integer
+      --
       * firstName: string
       * lastName: string
        birthDate: datetime

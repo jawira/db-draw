@@ -36,7 +36,7 @@ class Entity implements ElementInterface
 
   public function generateColumns(): self
   {
-    $pkNames    = $this->table->hasPrimaryKey() ? $this->table->getPrimaryKeyColumns() : [];
+    $pkNames    = $this->table->getPrimaryKey()?->getColumns() ?? [];
     $allColumns = $this->table->getColumns();
 
     $pkOnly       = fn(DoctrineColumn $column): bool => in_array($column->getName(), $pkNames);
