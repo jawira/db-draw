@@ -121,6 +121,9 @@
     <exec executable="vendor/bin/php-cs-fixer" passthru="true" checkreturn="true">
       <arg value="fix"/>
       <arg value="--allow-risky=yes"/>
+      <arg value="--no-interaction"/>
+      <arg value="--ansi"/>
+      <arg value="src"/>
     </exec>
   </target>
 

@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
-$finder = \PhpCsFixer\Finder::create()->in(__DIR__ . DIRECTORY_SEPARATOR . 'src');
-$config = new \PhpCsFixer\Config();
 
-return $config->setRules([
+$rules = [
   'no_unused_imports' => true,
   'single_blank_line_at_eof' => true,
   'no_trailing_whitespace' => true,
@@ -16,4 +14,6 @@ return $config->setRules([
   'switch_case_space' => true,
   'visibility_required' => true,
   'simplified_if_return' => true,
-])->setFinder($finder)->setHideProgress(true)->setIndent('  ');
+];
+
+return (new \PhpCsFixer\Config())->setRules($rules)->setHideProgress(true)->setIndent('  ');
