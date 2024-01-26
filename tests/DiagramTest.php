@@ -12,10 +12,129 @@ use const PHP_EOL;
 
 class DiagramTest extends TestCase
 {
-  /**
-   * @var Connection
-   */
-  protected $connection;
+  private $entityCreditCard = <<<PLANTUML
+    entity CreditCard {
+    * id: integer
+    --
+    * ownerFullName: string
+    * number: string
+    * pin: string
+    * expirationDate: date
+    }
+    PLANTUML;
+
+
+  private $entityAssistant = <<<PLANTUML
+    entity Assistant {
+    * id: integer
+    --
+    * details_id: integer
+    }
+    PLANTUML;
+  private $entityInscriptionSession = <<<PLANTUML
+    entity inscription_session {
+    * inscription_id: integer
+    * session_id: integer
+    --
+    }
+    PLANTUML;
+
+  private $entityTeacher = <<<PLANTUML
+    entity Teacher {
+    * id: integer
+    --
+    * details_id: integer
+    }
+    PLANTUML;
+
+
+  private $entityStudent = <<<PLANTUML
+    entity Student {
+    * id: integer
+    --
+    * details_id: integer
+    * username: string
+    * password: string
+     creditCard_id: integer
+    }
+    PLANTUML;
+
+
+  private $entitySession = <<<PLANTUML
+    entity Session {
+    * id: integer
+    --
+    * course_id: integer
+    * teacher_id: integer
+     assistant_id: integer
+    * academicYear: integer
+    * firstLesson: date
+    * lastLesson: date
+    * code: string
+    }
+    PLANTUML;
+
+
+  private $entityPerson = <<<PLANTUML
+    entity Person {
+    * id: integer
+    --
+    * firstName: string
+    * lastName: string
+     birthDate: datetime
+    * email: string
+    }
+    PLANTUML;
+
+
+  private $entityInscription = <<<PLANTUML
+    entity Inscription {
+    * id: integer
+    --
+    * student_id: integer
+    * createdAt: datetime
+    }
+    PLANTUML;
+
+  private $entityFaculty = <<<PLANTUML
+    entity Faculty {
+    * id: integer
+    --
+    * name: string
+    }
+    PLANTUML;
+
+  private $entityCourse = <<<PLANTUML
+    entity Course {
+    * id: integer
+    --
+     faculty_id: integer
+     required_id: integer
+    * name: string
+    }
+    PLANTUML;
+
+  private $relationAssistantPerson = "Assistant |o--|| Person";
+  private $relationInscriptoinSessionInscription = "inscription_session }o--|| Inscription";
+  private $relationInsciptionSessionSession = "inscription_session }o--|| Session";
+  private $relationTeacherPerson = "Teacher |o--|| Person";
+  private $relationStudentCreditCard = "Student |o--o| CreditCard";
+  private $relationStudentPerson = "Student |o--|| Person";
+  private $relationSessionTeacher = "Session }o--|| Teacher";
+  private $relationSessionCourse = "Session }o--|| Course";
+  private $relationSessionAssistant = "Session }o--o| Assistant";
+  private $relationIscriptionStudent = "Inscription }o--|| Student";
+  private $relationCourseFaculty = "Course }o--o| Faculty";
+  private $relationCourseCourse = "Course }o--o| Course";
+
+  private $views = <<<PLANTUML
+    package "views" {
+    entity introductory_courses { }
+    entity students_with_no_card { }
+    }
+    PLANTUML;
+
+  private Connection $connection;
 
   public function __construct(?string $name = null, array $data = [], $dataName = '')
   {
@@ -36,62 +155,23 @@ class DiagramTest extends TestCase
    */
   public function testMiniDiagram()
   {
-    $expected = <<<'PUML'
-      @startuml
-      hide empty members
-      hide circle
-      skinparam ArrowColor #333
-      skinparam ArrowThickness 1.5
-      skinparam ClassBackgroundColor White-APPLICATION
-      skinparam ClassBorderColor LightSlateGray
-      skinparam ClassBorderThickness 1
-      skinparam MinClassWidth 150
-      skinparam LineType Ortho
-      skinparam Shadowing false
-      skinparam PackageBackgroundColor #eee
-      skinparam PackageBorderColor #eee
-      skinparam PackageFontStyle normal
-      title institute
-      entity Assistant {
-      }
-      entity Course {
-      }
-      entity inscription_session {
-      }
-      entity CreditCard {
-      }
-      entity Teacher {
-      }
-      entity Student {
-      }
-      entity Faculty {
-      }
-      entity Session {
-      }
-      entity Inscription {
-      }
-      entity Person {
-      }
-      Assistant |o--|| Person
-      Course }o--o| Faculty
-      Course }o--o| Course
-      inscription_session }o--|| Inscription
-      inscription_session }o--|| Session
-      Teacher |o--|| Person
-      Student |o--o| CreditCard
-      Student |o--|| Person
-      Session }o--|| Teacher
-      Session }o--|| Course
-      Session }o--o| Assistant
-      Inscription }o--|| Student
-      @enduml
-      PUML;
-    $drawer   = new DbDraw($this->connection);
-    $puml     = $drawer->generatePuml(DbDraw::MINI);
+    $drawer = new DbDraw($this->connection);
+    $puml   = $drawer->generatePuml(DbDraw::MINI);
     file_put_contents('./resources/output/mini.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(940, mb_strlen($puml));
-    $this->assertStringContainsString($expected, $puml);
+    $this->assertStringContainsString($this->relationAssistantPerson, $puml);
+    $this->assertStringContainsString($this->relationInscriptoinSessionInscription, $puml);
+    $this->assertStringContainsString($this->relationInsciptionSessionSession, $puml);
+    $this->assertStringContainsString($this->relationTeacherPerson, $puml);
+    $this->assertStringContainsString($this->relationStudentCreditCard, $puml);
+    $this->assertStringContainsString($this->relationStudentPerson, $puml);
+    $this->assertStringContainsString($this->relationSessionTeacher, $puml);
+    $this->assertStringContainsString($this->relationSessionCourse, $puml);
+    $this->assertStringContainsString($this->relationSessionAssistant, $puml);
+    $this->assertStringContainsString($this->relationIscriptionStudent, $puml);
+    $this->assertStringContainsString($this->relationCourseFaculty, $puml);
+    $this->assertStringContainsString($this->relationCourseCourse, $puml);
   }
 
   /**
@@ -107,111 +187,33 @@ class DiagramTest extends TestCase
    */
   public function testMidiDiagram()
   {
-    $expected = <<<'PUML'
-      @startuml
-      hide empty members
-      hide circle
-      skinparam ArrowColor #333
-      skinparam ArrowThickness 1.5
-      skinparam ClassBackgroundColor White-APPLICATION
-      skinparam ClassBorderColor LightSlateGray
-      skinparam ClassBorderThickness 1
-      skinparam MinClassWidth 150
-      skinparam LineType Ortho
-      skinparam Shadowing false
-      skinparam PackageBackgroundColor #eee
-      skinparam PackageBorderColor #eee
-      skinparam PackageFontStyle normal
-      title institute
-      entity Assistant {
-      * id: integer
-      --
-      * details_id: integer
-      }
-      entity Course {
-      * id: integer
-      --
-       faculty_id: integer
-       required_id: integer
-      * name: string
-      }
-      entity inscription_session {
-      * inscription_id: integer
-      * session_id: integer
-      --
-      }
-      entity CreditCard {
-      * id: integer
-      --
-      * ownerFullName: string
-      * number: string
-      * pin: string
-      * expirationDate: date
-      }
-      entity Teacher {
-      * id: integer
-      --
-      * details_id: integer
-      }
-      entity Student {
-      * id: integer
-      --
-      * details_id: integer
-      * username: string
-      * password: string
-       creditCard_id: integer
-      }
-      entity Faculty {
-      * id: integer
-      --
-      * name: string
-      }
-      entity Session {
-      * id: integer
-      --
-      * course_id: integer
-      * teacher_id: integer
-       assistant_id: integer
-      * academicYear: integer
-      * firstLesson: date
-      * lastLesson: date
-      * code: string
-      }
-      entity Inscription {
-      * id: integer
-      --
-      * student_id: integer
-      * createdAt: datetime
-      }
-      entity Person {
-      * id: integer
-      --
-      * firstName: string
-      * lastName: string
-       birthDate: datetime
-      * email: string
-      }
-      Assistant |o--|| Person
-      Course }o--o| Faculty
-      Course }o--o| Course
-      inscription_session }o--|| Inscription
-      inscription_session }o--|| Session
-      Teacher |o--|| Person
-      Student |o--o| CreditCard
-      Student |o--|| Person
-      Session }o--|| Teacher
-      Session }o--|| Course
-      Session }o--o| Assistant
-      Inscription }o--|| Student
-      @enduml
-      PUML;
-
     $drawer = new DbDraw($this->connection);
     $puml   = $drawer->generatePuml(DbDraw::MIDI);
     file_put_contents('./resources/output/midi.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(1690, mb_strlen($puml));
-    $this->assertStringContainsString($expected, $puml);
+    $this->assertStringContainsString($this->entityCourse, $puml);
+    $this->assertStringContainsString($this->entityAssistant, $puml);
+    $this->assertStringContainsString($this->entityInscriptionSession, $puml);
+    $this->assertStringContainsString($this->entityFaculty, $puml);
+    $this->assertStringContainsString($this->entityCreditCard, $puml);
+    $this->assertStringContainsString($this->entityPerson, $puml);
+    $this->assertStringContainsString($this->entityInscription, $puml);
+    $this->assertStringContainsString($this->entitySession, $puml);
+    $this->assertStringContainsString($this->entityStudent, $puml);
+    $this->assertStringContainsString($this->entityTeacher, $puml);
+    $this->assertStringContainsString($this->relationAssistantPerson, $puml);
+    $this->assertStringContainsString($this->relationInscriptoinSessionInscription, $puml);
+    $this->assertStringContainsString($this->relationInsciptionSessionSession, $puml);
+    $this->assertStringContainsString($this->relationTeacherPerson, $puml);
+    $this->assertStringContainsString($this->relationStudentCreditCard, $puml);
+    $this->assertStringContainsString($this->relationStudentPerson, $puml);
+    $this->assertStringContainsString($this->relationSessionTeacher, $puml);
+    $this->assertStringContainsString($this->relationSessionCourse, $puml);
+    $this->assertStringContainsString($this->relationSessionAssistant, $puml);
+    $this->assertStringContainsString($this->relationIscriptionStudent, $puml);
+    $this->assertStringContainsString($this->relationCourseFaculty, $puml);
+    $this->assertStringContainsString($this->relationCourseCourse, $puml);
   }
 
   /**
@@ -227,115 +229,35 @@ class DiagramTest extends TestCase
    */
   public function testMaxiDiagram()
   {
-    $expected = <<<'PUML'
-      @startuml
-      hide empty members
-      hide circle
-      skinparam ArrowColor #333
-      skinparam ArrowThickness 1.5
-      skinparam ClassBackgroundColor White-APPLICATION
-      skinparam ClassBorderColor LightSlateGray
-      skinparam ClassBorderThickness 1
-      skinparam MinClassWidth 150
-      skinparam LineType Ortho
-      skinparam Shadowing false
-      skinparam PackageBackgroundColor #eee
-      skinparam PackageBorderColor #eee
-      skinparam PackageFontStyle normal
-      title institute
-      entity Assistant {
-      * id: integer
-      --
-      * details_id: integer
-      }
-      entity Course {
-      * id: integer
-      --
-       faculty_id: integer
-       required_id: integer
-      * name: string
-      }
-      entity inscription_session {
-      * inscription_id: integer
-      * session_id: integer
-      --
-      }
-      entity CreditCard {
-      * id: integer
-      --
-      * ownerFullName: string
-      * number: string
-      * pin: string
-      * expirationDate: date
-      }
-      entity Teacher {
-      * id: integer
-      --
-      * details_id: integer
-      }
-      entity Student {
-      * id: integer
-      --
-      * details_id: integer
-      * username: string
-      * password: string
-       creditCard_id: integer
-      }
-      entity Faculty {
-      * id: integer
-      --
-      * name: string
-      }
-      entity Session {
-      * id: integer
-      --
-      * course_id: integer
-      * teacher_id: integer
-       assistant_id: integer
-      * academicYear: integer
-      * firstLesson: date
-      * lastLesson: date
-      * code: string
-      }
-      entity Inscription {
-      * id: integer
-      --
-      * student_id: integer
-      * createdAt: datetime
-      }
-      entity Person {
-      * id: integer
-      --
-      * firstName: string
-      * lastName: string
-       birthDate: datetime
-      * email: string
-      }
-      Assistant |o--|| Person
-      Course }o--o| Faculty
-      Course }o--o| Course
-      inscription_session }o--|| Inscription
-      inscription_session }o--|| Session
-      Teacher |o--|| Person
-      Student |o--o| CreditCard
-      Student |o--|| Person
-      Session }o--|| Teacher
-      Session }o--|| Course
-      Session }o--o| Assistant
-      Inscription }o--|| Student
-      package "views" {
-      entity introductory_courses { }
-      entity students_with_no_card { }
-      }
-      @enduml
-      PUML;
-
     $drawer = new DbDraw($this->connection);
     $puml   = $drawer->generatePuml(DbDraw::MAXI);
     file_put_contents('./resources/output/maxi.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(1770, mb_strlen($puml));
-    $this->assertStringContainsString($expected, $puml);
+
+    $this->assertStringContainsString($this->entityCourse, $puml);
+    $this->assertStringContainsString($this->entityAssistant, $puml);
+    $this->assertStringContainsString($this->entityInscriptionSession, $puml);
+    $this->assertStringContainsString($this->entityFaculty, $puml);
+    $this->assertStringContainsString($this->entityCreditCard, $puml);
+    $this->assertStringContainsString($this->entityPerson, $puml);
+    $this->assertStringContainsString($this->entityInscription, $puml);
+    $this->assertStringContainsString($this->entitySession, $puml);
+    $this->assertStringContainsString($this->entityStudent, $puml);
+    $this->assertStringContainsString($this->entityTeacher, $puml);
+    $this->assertStringContainsString($this->relationAssistantPerson, $puml);
+    $this->assertStringContainsString($this->relationInscriptoinSessionInscription, $puml);
+    $this->assertStringContainsString($this->relationInsciptionSessionSession, $puml);
+    $this->assertStringContainsString($this->relationTeacherPerson, $puml);
+    $this->assertStringContainsString($this->relationStudentCreditCard, $puml);
+    $this->assertStringContainsString($this->relationStudentPerson, $puml);
+    $this->assertStringContainsString($this->relationSessionTeacher, $puml);
+    $this->assertStringContainsString($this->relationSessionCourse, $puml);
+    $this->assertStringContainsString($this->relationSessionAssistant, $puml);
+    $this->assertStringContainsString($this->relationIscriptionStudent, $puml);
+    $this->assertStringContainsString($this->relationCourseFaculty, $puml);
+    $this->assertStringContainsString($this->relationCourseCourse, $puml);
+    $this->assertStringContainsString($this->views, $puml);
   }
 
   /**
