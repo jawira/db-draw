@@ -3,9 +3,8 @@
 **📐 Takes a DoctrineORM connection and generates a database diagram in .puml format.**
 
 [![Latest Stable Version](http://poser.pugx.org/jawira/db-draw/v)](https://packagist.org/packages/jawira/db-draw)
-[![.gitattributes](http://poser.pugx.org/jawira/db-draw/gitattributes)](https://packagist.org/packages/jawira/db-draw)
-[![composer.lock](http://poser.pugx.org/jawira/db-draw/composerlock)](https://packagist.org/packages/jawira/db-draw)
-[![License](http://poser.pugx.org/jawira/db-draw/license)](https://packagist.org/packages/jawira/db-draw)
+[![PHP Version Require](http://poser.pugx.org/jawira/db-draw/require/php)](https://packagist.org/packages/jawira/db-draw)
+![Github Actions](https://github.com/jawira/db-draw/actions/workflows/qa.yaml/badge.svg)
 
 ## Installing
 

@@ -6,7 +6,7 @@
 
   <target name="setup" depends="composer:install,dc:up"/>
   <target name="qa"
-          depends="composer:validate,composer:normalize,php:lint,cs:fix,phpstan:analyze,phpunit:run,plantuml:convert"/>
+          depends="composer:validate,composer:normalize,php:lint,cs:fix,cs:check,phpstan:analyze,phpunit:run,plantuml:convert"/>
 
   <target name="dc:up" description="Launch containers">
     <exec executable="docker-compose" passthru="true" checkreturn="true">
@@ -120,6 +120,17 @@
   <target name="cs:fix" description="Fix code style">
     <exec executable="vendor/bin/php-cs-fixer" passthru="true" checkreturn="true">
       <arg value="fix"/>
+      <arg value="--allow-risky=yes"/>
+      <arg value="--no-interaction"/>
+      <arg value="--ansi"/>
+      <arg value="src"/>
+    </exec>
+  </target>
+
+  <target name="cs:check" description="Fix code style">
+    <exec executable="vendor/bin/php-cs-fixer" passthru="true" checkreturn="true">
+      <arg value="check"/>
+      <arg value="--diff"/>
       <arg value="--allow-risky=yes"/>
       <arg value="--no-interaction"/>
       <arg value="--ansi"/>
