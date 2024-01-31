@@ -28,10 +28,14 @@ class DbDraw
     $this->connection = $connection;
   }
 
-  public function generatePuml(string $size, ?string $theme = null): string
+  /**
+   * @param string[]  $exclude
+   */
+  public function generatePuml(string $size, string $theme = Theme::NONE, array $exclude = []): string
   {
     $diagram = $this->resolveDiagram($size);
     $diagram->setTheme($theme)
+            ->setExclude($exclude)
             ->setConnection($this->connection)
             ->process();
 
@@ -39,17 +43,15 @@ class DbDraw
   }
 
   /**
-   * @throws \Jawira\DbDraw\DbDrawException
+   * Instantiate proper diagram according to provided size.
    */
   protected function resolveDiagram(string $size): AbstractDiagram
   {
-    $diagram = match ($size) {
+    return match ($size) {
       self::MINI => new Mini(),
       self::MIDI => new Midi(),
       self::MAXI => new Maxi(),
-      default => throw new DbDrawException('Invalid diagram size'),
+      default => throw new DbDrawException(sprintf("Invalid diagram size, must be '%s', '%s', or '%s'.", self::MINI, self::MIDI, self::MAXI)),
     };
-
-    return $diagram;
   }
 }
