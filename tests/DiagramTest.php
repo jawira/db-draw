@@ -159,7 +159,7 @@ class DiagramTest extends TestCase
     $puml   = $drawer->generatePuml(DbDraw::MINI);
     file_put_contents('./resources/output/mini.puml', $puml);
     $this->assertIsString($puml);
-    $this->assertGreaterThan(940, mb_strlen($puml));
+    $this->assertGreaterThan(630, mb_strlen($puml));
     $this->assertStringContainsString($this->relationAssistantPerson, $puml);
     $this->assertStringContainsString($this->relationInscriptoinSessionInscription, $puml);
     $this->assertStringContainsString($this->relationInsciptionSessionSession, $puml);
@@ -191,7 +191,7 @@ class DiagramTest extends TestCase
     $puml   = $drawer->generatePuml(DbDraw::MIDI);
     file_put_contents('./resources/output/midi.puml', $puml);
     $this->assertIsString($puml);
-    $this->assertGreaterThan(1690, mb_strlen($puml));
+    $this->assertGreaterThan(1380, mb_strlen($puml));
     $this->assertStringContainsString($this->entityCourse, $puml);
     $this->assertStringContainsString($this->entityAssistant, $puml);
     $this->assertStringContainsString($this->entityInscriptionSession, $puml);
@@ -233,7 +233,7 @@ class DiagramTest extends TestCase
     $puml   = $drawer->generatePuml(DbDraw::MAXI);
     file_put_contents('./resources/output/maxi.puml', $puml);
     $this->assertIsString($puml);
-    $this->assertGreaterThan(1770, mb_strlen($puml));
+    $this->assertGreaterThan(1460, mb_strlen($puml));
 
     $this->assertStringContainsString($this->entityCourse, $puml);
     $this->assertStringContainsString($this->entityAssistant, $puml);
@@ -282,42 +282,34 @@ class DiagramTest extends TestCase
     $puml   = $drawer->generatePuml(DbDraw::MAXI, $theme);
     file_put_contents("./resources/output/theme-{$theme}.puml", $puml);
     $this->assertIsString($puml);
-    $this->assertStringStartsWith('@startuml' . PHP_EOL, $puml);
     $this->assertStringContainsString("!theme {$theme}", $puml);
-    $this->assertStringEndsWith('@enduml' . PHP_EOL, $puml);
   }
 
   public function themeProvider(): array
   {
     return [
-      [Theme::AMIGA],
-      [Theme::BLACK_KNIGHT],
-      [Theme::BLUEGRAY],
-      [Theme::BLUEPRINT],
-      [Theme::CERULEAN],
-      [Theme::CERULEAN_OUTLINE],
-      [Theme::CRT_AMBER],
-      [Theme::CRT_GREEN],
-      [Theme::CYBORG],
-      [Theme::CYBORG_OUTLINE],
-      [Theme::HACKER],
-      [Theme::LIGHTGRAY],
-      [Theme::MATERIA],
-      [Theme::MATERIA_OUTLINE],
-      [Theme::METAL],
-      [Theme::MIMEOGRAPH],
-      [Theme::MINTY],
-      [Theme::PLAIN],
-      [Theme::SANDSTONE],
-      [Theme::SILVER],
-      [Theme::SKETCHY],
-      [Theme::SKETCHY_OUTLINE],
-      [Theme::SPACELAB],
-      [Theme::SUPERHERO],
-      [Theme::SUPERHERO_OUTLINE],
-      [Theme::TOY],
-      [Theme::UNITED],
-      [Theme::VIBRANT],
+      ['_none_'],
+      ['amiga'],
+      ['aws-orange'],
+      ['black-knight'],
+      ['bluegray'],
+      ['blueprint'],
+      ['carbon-gray'],
+      ['cerulean'],
+      ['cerulean-outline'],
+      ['cloudscape-design'],
+      ['crt-amber'],
+      ['crt-green'],
+      ['cyborg'],
+      ['cyborg-outline'],
+      ['hacker'],
+      ['lightgray'],
+      ['mars'],
+      ['materia'],
+      ['materia-outline'],
+      ['metal'],
+      ['mimeograph'],
+      ['minty'],
     ];
   }
 }

@@ -101,17 +101,8 @@ abstract class AbstractDiagram implements \Stringable
     $this->beginning[] = new Raw('@startuml');
     $this->beginning[] = new Raw('hide empty members');
     $this->beginning[] = new Raw('hide circle');
-    $this->beginning[] = new Raw('skinparam ArrowColor #333');
-    $this->beginning[] = new Raw('skinparam ArrowThickness 1.5');
-    $this->beginning[] = new Raw('skinparam ClassBackgroundColor White-APPLICATION');
-    $this->beginning[] = new Raw('skinparam ClassBorderColor LightSlateGray');
-    $this->beginning[] = new Raw('skinparam ClassBorderThickness 1');
     $this->beginning[] = new Raw('skinparam MinClassWidth 150');
     $this->beginning[] = new Raw('skinparam LineType Ortho');
-    $this->beginning[] = new Raw('skinparam Shadowing false');
-    $this->beginning[] = new Raw('skinparam PackageBackgroundColor #eee');
-    $this->beginning[] = new Raw('skinparam PackageBorderColor #eee');
-    $this->beginning[] = new Raw('skinparam PackageFontStyle normal');
     $this->beginning[] = new Raw('title ' . $connection->getDatabase());
     if ($theme) {
       $this->beginning[] = new Raw('!theme ' . $theme);
