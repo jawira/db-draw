@@ -4,6 +4,7 @@ namespace Jawira\DbDraw;
 
 class Theme
 {
+  public const NONE             = '_none_';
   public const AMIGA             = 'amiga';
   public const BLACK_KNIGHT      = 'black-knight';
   public const BLUEGRAY          = 'bluegray';
