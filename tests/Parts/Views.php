@@ -11,6 +11,6 @@ class Views
     }
     PLANTUML;
 
-  public const INTRODUCTORY = 'entity introductory_courses { }';
-  public const STUDENTS = 'entity students_with_no_card { }';
+  public const ENTITY_INTRODUCTORY_COURSES = 'entity introductory_courses { }';
+  public const ENTITY_STUDENTS_WITH_NO_CARD = 'entity students_with_no_card { }';
 }
