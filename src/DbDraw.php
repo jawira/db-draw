@@ -29,7 +29,9 @@ class DbDraw
   }
 
   /**
-   * @param string[]  $exclude
+   * Generate ER diagram.
+   *
+   * @param string[] $exclude List of tables and views to exclude.
    */
   public function generatePuml(string $size, string $theme = Theme::NONE, array $exclude = []): string
   {
