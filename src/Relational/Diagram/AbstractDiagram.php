@@ -5,12 +5,14 @@ namespace Jawira\DbDraw\Relational\Diagram;
 
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Table;
+use Doctrine\DBAL\Schema\View;
 use Jawira\DbDraw\Relational\Entity;
 use Jawira\DbDraw\Relational\Raw;
 use Jawira\DbDraw\Relational\Relationship;
 use Jawira\DbDraw\Relational\Views;
-use function array_map;
+use Jawira\DbDraw\Theme;
 use function array_reduce;
 use function strval;
 
@@ -46,25 +48,41 @@ abstract class AbstractDiagram implements \Stringable
    * @var \Jawira\DbDraw\Relational\Relationship[]
    */
   protected array $relationships = [];
+  /**
+   * List of tables and views to ignore.
+   *
+   * @var string[]
+   */
+  protected array $exclude = [];
   protected Connection $connection;
   protected ?Views $views = null;
-  protected ?string $theme = null;
+  protected string $theme = Theme::NONE;
 
   /**
    * @return $this
    */
   abstract public function process();
 
-  public function setConnection(Connection $connection): AbstractDiagram
+  public function setConnection(Connection $connection): self
   {
     $this->connection = $connection;
 
     return $this;
   }
 
-  public function setTheme(?string $theme): AbstractDiagram
+  public function setTheme(string $theme): self
   {
     $this->theme = $theme;
+
+    return $this;
+  }
+
+  /**
+   * @param string[] $exclude
+   */
+  public function setExclude(array $exclude): self
+  {
+    $this->exclude = $exclude;
 
     return $this;
   }
@@ -74,14 +92,15 @@ abstract class AbstractDiagram implements \Stringable
    */
   protected function generateEntities(array $tables): void
   {
-    $createEntity = function (Table $table) {
+    foreach ($tables as $table) {
+      if ($this->skipTable($table)) {
+        continue;
+      }
       $entity = new Entity($table);
       $entity->generateHeaderAndFooter();
 
-      return $entity;
-    };
-
-    $this->entities = array_map($createEntity, $tables);
+      $this->entities[] = $entity;
+    }
   }
 
   /**
@@ -90,13 +109,19 @@ abstract class AbstractDiagram implements \Stringable
   protected function generateRelationships(array $tables): void
   {
     foreach ($tables as $table) {
+      if ($this->skipTable($table)) {
+        continue;
+      }
       foreach ($table->getForeignKeys() as $foreignKey) {
+        if ($this->skipForeignKey($foreignKey)) {
+          continue;
+        }
         $this->relationships[] = new Relationship($table, $foreignKey);
       }
     }
   }
 
-  protected function generateHeaderAndFooter(Connection $connection, ?string $theme = null): self
+  protected function generateHeaderAndFooter(Connection $connection, string $theme): self
   {
     $this->beginning[] = new Raw('@startuml');
     $this->beginning[] = new Raw('hide empty members');
@@ -104,19 +129,18 @@ abstract class AbstractDiagram implements \Stringable
     $this->beginning[] = new Raw('skinparam MinClassWidth 150');
     $this->beginning[] = new Raw('skinparam LineType Ortho');
     $this->beginning[] = new Raw('title ' . $connection->getDatabase());
-    if ($theme) {
-      $this->beginning[] = new Raw('!theme ' . $theme);
-    }
-    $this->ending[] = new Raw('@enduml');
+    $this->beginning[] = new Raw('!theme ' . $theme);
+    $this->ending[]    = new Raw('@enduml');
 
     return $this;
   }
 
   /**
-   * @param \Doctrine\DBAL\Schema\View[] $views
+   * @param View[] $views
    */
   public function generateViews(array $views): self
   {
+    $views       = array_filter($views, fn(View $v) => !$this->skipView($v));
     $this->views = new Views($views);
     $this->views->generateHeaderAndFooter()->generateViews();
 
@@ -132,5 +156,28 @@ abstract class AbstractDiagram implements \Stringable
     $puml = array_reduce($this->ending, '\\Jawira\\DbDraw\\Toolbox::reducer', $puml);
 
     return $puml;
+  }
+
+  /**
+   * Tells if provided table must be hidden in diagram.
+   *
+   * This function is supposed to be used with "exclude" feature.
+   */
+  protected function skipTable(Table $table): bool
+  {
+    return in_array($table->getName(), $this->exclude, true);
+  }
+
+  /**
+   * Tells if foreign table name must be hidden in diagram.
+   */
+  protected function skipForeignKey(ForeignKeyConstraint $foreignKey): bool
+  {
+    return in_array($foreignKey->getForeignTableName(), $this->exclude, true);
+  }
+
+  protected function skipView(View $view): bool
+  {
+    return in_array($view->getName(), $this->exclude, true);
   }
 }
