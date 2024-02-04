@@ -38,7 +38,7 @@ class ExcludeTest extends TestCase
   {
     $drawer = new DbDraw($this->connection);
     $puml   = $drawer->generatePuml(DbDraw::MINI, exclude: ['Course', 'Assistant']);
-    file_put_contents('./resources/output/mini.puml', $puml);
+    file_put_contents('./resources/output/mini-exclude.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(490, mb_strlen($puml));
     $this->assertStringNotContainsString(EntityNames::Course, $puml);
@@ -80,7 +80,7 @@ class ExcludeTest extends TestCase
   {
     $drawer = new DbDraw($this->connection);
     $puml   = $drawer->generatePuml(DbDraw::MIDI, exclude: ['Session', 'Student']);
-    file_put_contents('./resources/output/midi.puml', $puml);
+    file_put_contents('./resources/output/midi-exclude.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(900, mb_strlen($puml));
     $this->assertStringContainsString(Entities::Course, $puml);
@@ -122,7 +122,7 @@ class ExcludeTest extends TestCase
   {
     $drawer = new DbDraw($this->connection);
     $puml   = $drawer->generatePuml(DbDraw::MAXI, exclude: ['CreditCard', 'students_with_no_card']);
-    file_put_contents('./resources/output/maxi.puml', $puml);
+    file_put_contents('./resources/output/maxi-exclude.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(1300, mb_strlen($puml));
 
