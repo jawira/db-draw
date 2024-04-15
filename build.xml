@@ -9,7 +9,8 @@
           depends="composer:validate,composer:normalize,php:lint,cs:fix,cs:check,phpstan:analyze,phpunit:run,plantuml:convert"/>
 
   <target name="dc:up" description="Launch containers">
-    <exec executable="docker-compose" passthru="true" checkreturn="true">
+    <exec executable="docker" passthru="true" checkreturn="true">
+      <arg value="compose"/>
       <arg line="--project-name ${dc.project-name}"/>
       <arg value="up"/>
       <arg value="--build"/>
@@ -19,7 +20,8 @@
   </target>
 
   <target name="dc:stop" description="Stop docker containers">
-    <exec executable="docker-compose" passthru="true">
+    <exec executable="docker" passthru="true">
+      <arg value="compose"/>
       <arg line="--project-name ${dc.project-name}"/>
       <arg value="stop"/>
     </exec>
