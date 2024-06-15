@@ -2,7 +2,6 @@ services:
 
   mysql:
     image: mysql:8
-    command: '--default-authentication-plugin=mysql_native_password'
     ports:
       - '33060:3306'
     environment:
@@ -11,7 +10,7 @@ services:
       MYSQL_PASSWORD: groot
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
     volumes:
-      - "./resources/sql:/docker-entrypoint-initdb.d:ro"
+      - "./resources/sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro"
     networks:
       - default
 
