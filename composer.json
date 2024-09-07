@@ -22,7 +22,7 @@
   },
   "require": {
     "php": "^8.0",
-    "doctrine/dbal": "^3.3",
+    "doctrine/dbal": "^4.1",
     "jawira/the-lost-functions": "^1.1"
   },
   "require-dev": {

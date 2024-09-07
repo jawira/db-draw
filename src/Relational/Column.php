@@ -3,6 +3,7 @@
 namespace Jawira\DbDraw\Relational;
 
 use Doctrine\DBAL\Schema\Column as DoctrineColumn;
+use Doctrine\DBAL\Types\Type;
 
 use function vsprintf;
 use const PHP_EOL;
@@ -22,7 +23,7 @@ class Column implements ElementInterface
     $chunks = [
       $this->doctrineColumn->getNotnull() ? '*' : '',
       $this->doctrineColumn->getName(),
-      $this->doctrineColumn->getType()->getName(),
+      Type::getTypeRegistry()->lookupName($this->doctrineColumn->getType()),
     ];
 
     return vsprintf($format, $chunks) . PHP_EOL;
