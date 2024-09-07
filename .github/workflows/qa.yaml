@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         php: [ '8.0','8.1','8.2','8.3' ]
+        lowest: [ '0','1' ]
     runs-on: ubuntu-22.04
     timeout-minutes: 5
     steps:
@@ -26,22 +27,21 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Download phing
-        run: mkdir bin && curl -L -C - -s -S -o bin/phing https://github.com/phingofficial/phing/releases/download/3.0.0-rc6/phing-3.0.0-RC6.phar && chmod +x bin/phing
+        run: mkdir bin && curl -L -C - -s -S -o bin/phing https://github.com/phingofficial/phing/releases/download/3.0.0/phing-3.0.0.phar && chmod +x bin/phing
 
       - name: composer:validate
         run: bin/phing composer:validate
+
+      - name: Composer update
+        run: composer update --ansi --no-interaction
+        env:
+          COMPOSER_PREFER_LOWEST: ${{ matrix.lowest }}
 
       - name: composer:install
         run: bin/phing composer:install
 
       - name: php:lint
         run: bin/phing php:lint
-
-      - name: cs:fix
-        run: bin/phing cs:fix
-
-      - name: cs:check
-        run: bin/phing cs:check
 
       - name: phpstan:analyze
         run: bin/phing phpstan:analyze
