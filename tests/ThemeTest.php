@@ -16,7 +16,16 @@ class ThemeTest extends TestCase
   public function __construct(?string $name = null, array $data = [], $dataName = '')
   {
     parent::__construct($name, $data, $dataName);
-    $connectionParams = ['url' => "mysql://groot:groot@127.0.0.1:33060/institute", 'driver' => 'pdo_mysql'];
+    $connectionParams = [
+      'user' => 'groot',
+      'password' => 'groot',
+      'host' => '127.0.0.1',
+      'port' => 33060,
+      'dbname' => 'institute',
+      'charset' => 'utf8mb4',
+      'driver' => 'pdo_mysql',
+      'serverVersion' => '8.2',
+    ];
     $this->connection = DriverManager::getConnection($connectionParams);
     $this->connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
   }

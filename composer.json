@@ -22,21 +22,21 @@
   },
   "require": {
     "php": "^8.0",
-    "doctrine/dbal": "^4.1",
+    "doctrine/dbal": "^3.3 || ^4.0",
     "jawira/the-lost-functions": "^1.1"
   },
   "require-dev": {
     "ext-dom": "*",
     "ext-mbstring": "*",
     "ext-xml": "*",
-    "ergebnis/composer-normalize": "^2.13",
-    "friendsofphp/php-cs-fixer": "^3.0",
-    "jawira/plantuml": "^1.59",
-    "jawira/plantuml-client": "^1.0",
-    "jawira/skeleton": "^2.16",
-    "phpstan/phpstan": "^1.8",
-    "phpunit/phpunit": "^9.5",
-    "rector/rector": "^0.19.2"
+    "ergebnis/composer-normalize": "^2.43",
+    "friendsofphp/php-cs-fixer": "^3.64",
+    "jawira/plantuml": "^1.2024.6",
+    "jawira/plantuml-client": "^1.0.3",
+    "jawira/skeleton": "^2.24.1",
+    "phpstan/phpstan": "^1.12.2",
+    "phpunit/phpunit": "^9.6.20",
+    "rector/rector": "^0.19.8"
   },
   "autoload": {
     "psr-4": {
