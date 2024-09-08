@@ -29,14 +29,12 @@
     "ext-dom": "*",
     "ext-mbstring": "*",
     "ext-xml": "*",
-    "ergebnis/composer-normalize": "^2.43",
     "friendsofphp/php-cs-fixer": "^3.64",
     "jawira/plantuml": "^1.2024.6",
     "jawira/plantuml-client": "^1.0.3",
     "jawira/skeleton": "^2.24.1",
     "phpstan/phpstan": "^1.12.2",
-    "phpunit/phpunit": "^9.6.20",
-    "rector/rector": "^0.19.8"
+    "phpunit/phpunit": "^9.6.20"
   },
   "autoload": {
     "psr-4": {
@@ -49,9 +47,6 @@
     }
   },
   "config": {
-    "allow-plugins": {
-      "ergebnis/composer-normalize": true
-    },
     "preferred-install": "dist"
   }
 }
