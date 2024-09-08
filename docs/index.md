@@ -39,18 +39,26 @@ use Doctrine\DBAL\DriverManager;
 use Jawira\DbDraw\DbDraw;
 use Jawira\PlantUmlClient\{Client, Format};
 
-// a. Some logic to retrieve $connection (\Doctrine\DBAL\Connection),
-//    this is an example, your application should do this for you.
-$connectionParams = ['url'    => 'mysql://admin:pass@127.0.0.1/db-draw',
-                     'driver' => 'pdo_mysql'];
+// a. Some logic to retrieve $connection (\Doctrine\DBAL\Connection)
+$connectionParams = [
+      'user' => 'groot',
+      'password' => 'groot',
+      'host' => '127.0.0.1',
+      'port' => 33060,
+      'dbname' => 'institute',
+      'charset' => 'utf8mb4',
+      'driver' => 'pdo_mysql',
+      'serverVersion' => '8.2',
+    ];
 $connection = DriverManager::getConnection($connectionParams);
+$connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string'); // optional
 
 // b. Using jawira/db-draw: generating PlantUML diagram
 $dbDiagram = new DbDraw($connection);
 $puml      = $dbDiagram->generatePuml(DbDraw::MIDI); // set size and theme here
 file_put_contents('database.puml', $puml);
 
-// c. Converting & saving png image (using jawira/plantuml-client)
+// c. (Optional) Converting & saving png image (using jawira/plantuml-client)
 $client = new Client();
 $png    = $client->generateImage($puml, Format::PNG);
 file_put_contents('database.png', $png);

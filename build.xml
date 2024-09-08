@@ -6,7 +6,7 @@
 
   <target name="setup" depends="composer:install,dc:up"/>
   <target name="qa"
-          depends="composer:validate,composer:normalize,php:lint,cs:fix,cs:check,phpstan:analyze,phpunit:run,plantuml:convert"/>
+          depends="composer:validate,php:lint,cs:fix,cs:check,phpstan:analyze,phpunit:run,plantuml:convert"/>
 
   <target name="dc:up" description="Launch containers">
     <exec executable="docker" passthru="true" checkreturn="true">
@@ -58,12 +58,6 @@
 
   <target name="composer:validate" description="Validate composer.json">
     <composer command="validate">
-      <arg value="--ansi"/>
-    </composer>
-  </target>
-
-  <target name="composer:normalize" description="Normalize composer.json">
-    <composer command="normalize">
       <arg value="--ansi"/>
     </composer>
   </target>
