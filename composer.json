@@ -21,9 +21,10 @@
     "issues": "https://github.com/jawira/db-draw/issues"
   },
   "require": {
-    "php": "^8.0",
+    "php": "^8.1",
     "doctrine/dbal": "^3.3 || ^4.0",
-    "jawira/the-lost-functions": "^1.1"
+    "jawira/the-lost-functions": "^1.1",
+    "jawira/doctrine-diagram-contracts": "^0.1.0"
   },
   "require-dev": {
     "ext-dom": "*",

@@ -3,7 +3,7 @@
 namespace Jawira\DbDraw\Relational;
 
 use Doctrine\DBAL\Schema\Column as DoctrineColumn;
-use \Doctrine\DBAL\Schema\Table;
+use Doctrine\DBAL\Schema\Table;
 use function array_filter;
 use function array_map;
 use function array_merge;

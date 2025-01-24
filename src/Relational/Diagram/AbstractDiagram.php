@@ -12,7 +12,6 @@ use Jawira\DbDraw\Relational\Entity;
 use Jawira\DbDraw\Relational\Raw;
 use Jawira\DbDraw\Relational\Relationship;
 use Jawira\DbDraw\Relational\Views;
-use Jawira\DbDraw\Theme;
 use function array_reduce;
 use function strval;
 
@@ -54,21 +53,17 @@ abstract class AbstractDiagram implements \Stringable
    * @var string[]
    */
   protected array $exclude = [];
-  protected Connection $connection;
   protected ?Views $views = null;
-  protected string $theme = Theme::NONE;
+  protected string $theme;
+
+  public function __construct(protected readonly Connection $connection)
+  {
+  }
 
   /**
    * @return $this
    */
   abstract public function process();
-
-  public function setConnection(Connection $connection): self
-  {
-    $this->connection = $connection;
-
-    return $this;
-  }
 
   public function setTheme(string $theme): self
   {
