@@ -9,6 +9,8 @@ use Jawira\DbDrawTests\Parts\Entities;
 use Jawira\DbDrawTests\Parts\EntityNames;
 use Jawira\DbDrawTests\Parts\Relations;
 use Jawira\DbDrawTests\Parts\Views;
+use Jawira\DoctrineDiagramContracts\Size;
+use Jawira\DoctrineDiagramContracts\Theme;
 use PHPUnit\Framework\TestCase;
 use function file_put_contents;
 
@@ -36,17 +38,17 @@ class ExcludeTest extends TestCase
 
   /**
    * @covers \Jawira\DbDraw\DbDraw
-   * @covers \Jawira\DbDraw\Relational\Diagram\AbstractDiagram
-   * @covers \Jawira\DbDraw\Relational\Diagram\Mini
-   * @covers \Jawira\DbDraw\Relational\Entity
-   * @covers \Jawira\DbDraw\Relational\Raw
-   * @covers \Jawira\DbDraw\Relational\Relationship
-   * @covers \Jawira\DbDraw\Toolbox
+   * @covers \Jawira\DbDraw\Diagram\AbstractDiagram
+   * @covers \Jawira\DbDraw\Diagram\Mini
+   * @covers \Jawira\DbDraw\Element\Entity
+   * @covers \Jawira\DbDraw\Element\Raw
+   * @covers \Jawira\DbDraw\Element\Relationship
+   * @covers \Jawira\DbDraw\Service\Toolbox
    */
   public function testMiniDiagram()
   {
     $drawer = new DbDraw($this->connection);
-    $puml   = $drawer->generatePuml(DbDraw::MINI, exclude: ['Course', 'Assistant']);
+    $puml   = $drawer->generatePuml(Size::Mini, Theme::Toy, exclude: ['Course', 'Assistant']);
     file_put_contents('./resources/output/mini-exclude.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(490, mb_strlen($puml));
@@ -76,19 +78,19 @@ class ExcludeTest extends TestCase
 
   /**
    * @covers \Jawira\DbDraw\DbDraw
-   * @covers \Jawira\DbDraw\Relational\Column
-   * @covers \Jawira\DbDraw\Relational\Diagram\AbstractDiagram
-   * @covers \Jawira\DbDraw\Relational\Diagram\Maxi
-   * @covers \Jawira\DbDraw\Relational\Diagram\Midi
-   * @covers \Jawira\DbDraw\Relational\Entity
-   * @covers \Jawira\DbDraw\Relational\Raw
-   * @covers \Jawira\DbDraw\Relational\Relationship
-   * @covers \Jawira\DbDraw\Toolbox
+   * @covers \Jawira\DbDraw\Element\Column
+   * @covers \Jawira\DbDraw\Diagram\AbstractDiagram
+   * @covers \Jawira\DbDraw\Diagram\Maxi
+   * @covers \Jawira\DbDraw\Diagram\Midi
+   * @covers \Jawira\DbDraw\Element\Entity
+   * @covers \Jawira\DbDraw\Element\Raw
+   * @covers \Jawira\DbDraw\Element\Relationship
+   * @covers \Jawira\DbDraw\Service\Toolbox
    */
   public function testMidiDiagram()
   {
     $drawer = new DbDraw($this->connection);
-    $puml   = $drawer->generatePuml(DbDraw::MIDI, exclude: ['Session', 'Student']);
+    $puml   = $drawer->generatePuml(Size::Midi, '_none_', exclude: ['Session', 'Student']);
     file_put_contents('./resources/output/midi-exclude.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(900, mb_strlen($puml));
@@ -118,19 +120,19 @@ class ExcludeTest extends TestCase
 
   /**
    * @covers \Jawira\DbDraw\DbDraw
-   * @covers \Jawira\DbDraw\Relational\Column
-   * @covers \Jawira\DbDraw\Relational\Diagram\AbstractDiagram
-   * @covers \Jawira\DbDraw\Relational\Diagram\Maxi
-   * @covers \Jawira\DbDraw\Relational\Entity
-   * @covers \Jawira\DbDraw\Relational\Raw
-   * @covers \Jawira\DbDraw\Relational\Relationship
-   * @covers \Jawira\DbDraw\Relational\Views
-   * @covers \Jawira\DbDraw\Toolbox
+   * @covers \Jawira\DbDraw\Element\Column
+   * @covers \Jawira\DbDraw\Diagram\AbstractDiagram
+   * @covers \Jawira\DbDraw\Diagram\Maxi
+   * @covers \Jawira\DbDraw\Element\Entity
+   * @covers \Jawira\DbDraw\Element\Raw
+   * @covers \Jawira\DbDraw\Element\Relationship
+   * @covers \Jawira\DbDraw\Element\Views
+   * @covers \Jawira\DbDraw\Service\Toolbox
    */
   public function testMaxiDiagram()
   {
     $drawer = new DbDraw($this->connection);
-    $puml   = $drawer->generatePuml(DbDraw::MAXI, exclude: ['CreditCard', 'students_with_no_card']);
+    $puml   = $drawer->generatePuml('maxi', 'crt-amber', exclude: ['CreditCard', 'students_with_no_card']);
     file_put_contents('./resources/output/maxi-exclude.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(1300, mb_strlen($puml));

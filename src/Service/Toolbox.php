@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Jawira\DbDraw;
+namespace Jawira\DbDraw\Service;
 
-use Jawira\DbDraw\Relational\ElementInterface;
+use Jawira\DbDraw\Element\ElementInterface;
 use function strval;
 
 /**

@@ -10,7 +10,7 @@ jobs:
   qa:
     strategy:
       matrix:
-        php: [ '8.0','8.1','8.2','8.3' ]
+        php: [ '8.1','8.2','8.3','8.4' ]
         lowest: [ '0','1' ]
     runs-on: ubuntu-22.04
     timeout-minutes: 5
@@ -22,15 +22,12 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: mbstring, intl
           coverage: xdebug
-          tools: composer:v2
+          tools: phing:v3
 
       - uses: actions/checkout@v3
 
-      - name: Download phing
-        run: mkdir bin && curl -L -C - -s -S -o bin/phing https://github.com/phingofficial/phing/releases/download/3.0.0/phing-3.0.0.phar && chmod +x bin/phing
-
       - name: composer:validate
-        run: bin/phing composer:validate
+        run: phing composer:validate
 
       - name: Composer update
         run: composer update --ansi --no-interaction
@@ -38,13 +35,13 @@ jobs:
           COMPOSER_PREFER_LOWEST: ${{ matrix.lowest }}
 
       - name: composer:install
-        run: bin/phing composer:install
+        run: phing composer:install
 
       - name: php:lint
-        run: bin/phing php:lint
+        run: phing php:lint
 
       - name: phpstan:analyze
-        run: bin/phing phpstan:analyze
+        run: phing phpstan:analyze
 
       - uses: isbang/compose-action@v1.5.1
         with:
@@ -52,4 +49,4 @@ jobs:
           down-flags: "--volumes"
 
       - name: phpunit:run
-        run: bin/phing phpunit:run
+        run: phing phpunit:run

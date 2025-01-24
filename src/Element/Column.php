@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Jawira\DbDraw\Relational;
+namespace Jawira\DbDraw\Element;
 
 use Doctrine\DBAL\Schema\Column as DoctrineColumn;
 use Doctrine\DBAL\Types\Type;

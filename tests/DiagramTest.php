@@ -9,6 +9,8 @@ use Jawira\DbDrawTests\Parts\Entities;
 use Jawira\DbDrawTests\Parts\EntityNames;
 use Jawira\DbDrawTests\Parts\Relations;
 use Jawira\DbDrawTests\Parts\Views;
+use Jawira\DoctrineDiagramContracts\Size;
+use Jawira\DoctrineDiagramContracts\Theme;
 use PHPUnit\Framework\TestCase;
 use function file_put_contents;
 
@@ -36,17 +38,17 @@ class DiagramTest extends TestCase
 
   /**
    * @covers \Jawira\DbDraw\DbDraw
-   * @covers \Jawira\DbDraw\Relational\Diagram\AbstractDiagram
-   * @covers \Jawira\DbDraw\Relational\Diagram\Mini
-   * @covers \Jawira\DbDraw\Relational\Entity
-   * @covers \Jawira\DbDraw\Relational\Raw
-   * @covers \Jawira\DbDraw\Relational\Relationship
-   * @covers \Jawira\DbDraw\Toolbox
+   * @covers \Jawira\DbDraw\Diagram\AbstractDiagram
+   * @covers \Jawira\DbDraw\Diagram\Mini
+   * @covers \Jawira\DbDraw\Element\Entity
+   * @covers \Jawira\DbDraw\Element\Raw
+   * @covers \Jawira\DbDraw\Element\Relationship
+   * @covers \Jawira\DbDraw\Service\Toolbox
    */
   public function testMiniDiagram()
   {
     $drawer = new DbDraw($this->connection);
-    $puml   = $drawer->generatePuml(DbDraw::MINI);
+    $puml   = $drawer->generatePuml(Size::Mini, Theme::Toy);
     file_put_contents('./resources/output/mini.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(630, mb_strlen($puml));
@@ -76,19 +78,19 @@ class DiagramTest extends TestCase
 
   /**
    * @covers \Jawira\DbDraw\DbDraw
-   * @covers \Jawira\DbDraw\Relational\Column
-   * @covers \Jawira\DbDraw\Relational\Diagram\AbstractDiagram
-   * @covers \Jawira\DbDraw\Relational\Diagram\Maxi
-   * @covers \Jawira\DbDraw\Relational\Diagram\Midi
-   * @covers \Jawira\DbDraw\Relational\Entity
-   * @covers \Jawira\DbDraw\Relational\Raw
-   * @covers \Jawira\DbDraw\Relational\Relationship
-   * @covers \Jawira\DbDraw\Toolbox
+   * @covers \Jawira\DbDraw\Element\Column
+   * @covers \Jawira\DbDraw\Diagram\AbstractDiagram
+   * @covers \Jawira\DbDraw\Diagram\Maxi
+   * @covers \Jawira\DbDraw\Diagram\Midi
+   * @covers \Jawira\DbDraw\Element\Entity
+   * @covers \Jawira\DbDraw\Element\Raw
+   * @covers \Jawira\DbDraw\Element\Relationship
+   * @covers \Jawira\DbDraw\Service\Toolbox
    */
   public function testMidiDiagram()
   {
     $drawer = new DbDraw($this->connection);
-    $puml   = $drawer->generatePuml(DbDraw::MIDI);
+    $puml   = $drawer->generatePuml(Size::Midi, Theme::None);
     file_put_contents('./resources/output/midi.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(1380, mb_strlen($puml));
@@ -118,19 +120,19 @@ class DiagramTest extends TestCase
 
   /**
    * @covers \Jawira\DbDraw\DbDraw
-   * @covers \Jawira\DbDraw\Relational\Column
-   * @covers \Jawira\DbDraw\Relational\Diagram\AbstractDiagram
-   * @covers \Jawira\DbDraw\Relational\Diagram\Maxi
-   * @covers \Jawira\DbDraw\Relational\Entity
-   * @covers \Jawira\DbDraw\Relational\Raw
-   * @covers \Jawira\DbDraw\Relational\Relationship
-   * @covers \Jawira\DbDraw\Relational\Views
-   * @covers \Jawira\DbDraw\Toolbox
+   * @covers \Jawira\DbDraw\Element\Column
+   * @covers \Jawira\DbDraw\Diagram\AbstractDiagram
+   * @covers \Jawira\DbDraw\Diagram\Maxi
+   * @covers \Jawira\DbDraw\Element\Entity
+   * @covers \Jawira\DbDraw\Element\Raw
+   * @covers \Jawira\DbDraw\Element\Relationship
+   * @covers \Jawira\DbDraw\Element\Views
+   * @covers \Jawira\DbDraw\Service\Toolbox
    */
   public function testMaxiDiagram()
   {
     $drawer = new DbDraw($this->connection);
-    $puml   = $drawer->generatePuml(DbDraw::MAXI);
+    $puml   = $drawer->generatePuml(Size::Maxi, Theme::None);
     file_put_contents('./resources/output/maxi.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(1460, mb_strlen($puml));

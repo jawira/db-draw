@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Jawira\DbDraw\Relational;
+namespace Jawira\DbDraw\Element;
 
 use Doctrine\DBAL\Schema\Column as DoctrineColumn;
-use \Doctrine\DBAL\Schema\Table;
+use Doctrine\DBAL\Schema\Table;
+use Jawira\DbDraw\Service\Toolbox;
 use function array_filter;
 use function array_map;
 use function array_merge;
@@ -53,7 +54,7 @@ class Entity implements ElementInterface
   public function __toString(): string
   {
     $puml = strval($this->header);
-    $puml = array_reduce($this->columns, '\\Jawira\\DbDraw\\Toolbox::reducer', $puml);
+    $puml = array_reduce($this->columns, Toolbox::reducer(...), $puml);
     $puml .= strval($this->footer);
 
     return $puml;

@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Jawira\DbDraw\Relational;
+namespace Jawira\DbDraw\Element;
 
 use Doctrine\DBAL\Schema\View;
+use Jawira\DbDraw\Service\Toolbox;
 use function array_map;
 use function array_reduce;
 use function strval;
@@ -12,7 +13,7 @@ use function strval;
  */
 class Views implements ElementInterface
 {
-  /** @var \Jawira\DbDraw\Relational\Raw[] */
+  /** @var \Jawira\DbDraw\Element\Raw[] */
   protected array $views = [];
   protected Raw $header;
   protected Raw $footer;
@@ -45,7 +46,7 @@ class Views implements ElementInterface
   public function __toString(): string
   {
     $puml = strval($this->header);
-    $puml = array_reduce($this->views, '\\Jawira\\DbDraw\\Toolbox::reducer', $puml);
+    $puml = array_reduce($this->views, Toolbox::reducer(...), $puml);
     $puml .= strval($this->footer);
 
     return $puml;

@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
 
-namespace Jawira\DbDraw\Relational\Diagram;
+namespace Jawira\DbDraw\Diagram;
 
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Schema\View;
-use Jawira\DbDraw\Relational\Entity;
-use Jawira\DbDraw\Relational\Raw;
-use Jawira\DbDraw\Relational\Relationship;
-use Jawira\DbDraw\Relational\Views;
-use Jawira\DbDraw\Theme;
+use Jawira\DbDraw\Element\Entity;
+use Jawira\DbDraw\Element\Raw;
+use Jawira\DbDraw\Element\Relationship;
+use Jawira\DbDraw\Element\Views;
+use Jawira\DbDraw\Service\Toolbox;
 use function array_reduce;
 use function strval;
 
@@ -24,28 +24,28 @@ abstract class AbstractDiagram implements \Stringable
   /**
    * Things to put at the beginning of the diagram
    *
-   * @var \Jawira\DbDraw\Relational\Raw[]
+   * @var \Jawira\DbDraw\Element\Raw[]
    */
   protected array $beginning = [];
 
   /**
    * Things to put at the ending of the diagram
    *
-   * @var \Jawira\DbDraw\Relational\Raw[]
+   * @var \Jawira\DbDraw\Element\Raw[]
    */
   protected array $ending = [];
 
   /**
    * DB entities (tables)
    *
-   * @var \Jawira\DbDraw\Relational\Entity[]
+   * @var \Jawira\DbDraw\Element\Entity[]
    */
   protected array $entities = [];
 
   /**
    * DB relationships
    *
-   * @var \Jawira\DbDraw\Relational\Relationship[]
+   * @var \Jawira\DbDraw\Element\Relationship[]
    */
   protected array $relationships = [];
   /**
@@ -54,21 +54,17 @@ abstract class AbstractDiagram implements \Stringable
    * @var string[]
    */
   protected array $exclude = [];
-  protected Connection $connection;
   protected ?Views $views = null;
-  protected string $theme = Theme::NONE;
+  protected string $theme;
+
+  public function __construct(protected readonly Connection $connection)
+  {
+  }
 
   /**
    * @return $this
    */
   abstract public function process();
-
-  public function setConnection(Connection $connection): self
-  {
-    $this->connection = $connection;
-
-    return $this;
-  }
 
   public function setTheme(string $theme): self
   {
@@ -149,11 +145,11 @@ abstract class AbstractDiagram implements \Stringable
 
   public function __toString(): string
   {
-    $puml = array_reduce($this->beginning, '\\Jawira\\DbDraw\\Toolbox::reducer', '');
-    $puml = array_reduce($this->entities, '\\Jawira\\DbDraw\\Toolbox::reducer', $puml);
-    $puml = array_reduce($this->relationships, '\\Jawira\\DbDraw\\Toolbox::reducer', $puml);
+    $puml = array_reduce($this->beginning, Toolbox::reducer(...), '');
+    $puml = array_reduce($this->entities, Toolbox::reducer(...), $puml);
+    $puml = array_reduce($this->relationships, Toolbox::reducer(...), $puml);
     $puml .= strval($this->views);
-    $puml = array_reduce($this->ending, '\\Jawira\\DbDraw\\Toolbox::reducer', $puml);
+    $puml = array_reduce($this->ending, Toolbox::reducer(...), $puml);
 
     return $puml;
   }
