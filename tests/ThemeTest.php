@@ -33,17 +33,17 @@ class ThemeTest extends TestCase
 
   /**
    * @covers       \Jawira\DbDraw\DbDraw
-   * @covers       \Jawira\DbDraw\Relational\Column
-   * @covers       \Jawira\DbDraw\Relational\Diagram\AbstractDiagram
-   * @covers       \Jawira\DbDraw\Relational\Diagram\Maxi
-   * @covers       \Jawira\DbDraw\Relational\Entity
-   * @covers       \Jawira\DbDraw\Relational\Raw
-   * @covers       \Jawira\DbDraw\Relational\Relationship
-   * @covers       \Jawira\DbDraw\Relational\Views::__construct
-   * @covers       \Jawira\DbDraw\Relational\Views::__toString
-   * @covers       \Jawira\DbDraw\Relational\Views::generateHeaderAndFooter
-   * @covers       \Jawira\DbDraw\Relational\Views::generateViews
-   * @covers       \Jawira\DbDraw\Toolbox
+   * @covers       \Jawira\DbDraw\Element\Column
+   * @covers       \Jawira\DbDraw\Diagram\AbstractDiagram
+   * @covers       \Jawira\DbDraw\Diagram\Maxi
+   * @covers       \Jawira\DbDraw\Element\Entity
+   * @covers       \Jawira\DbDraw\Element\Raw
+   * @covers       \Jawira\DbDraw\Element\Relationship
+   * @covers       \Jawira\DbDraw\Element\Views::__construct
+   * @covers       \Jawira\DbDraw\Element\Views::__toString
+   * @covers       \Jawira\DbDraw\Element\Views::generateHeaderAndFooter
+   * @covers       \Jawira\DbDraw\Element\Views::generateViews
+   * @covers       \Jawira\DbDraw\Service\Toolbox
    * @dataProvider themeProvider
    * @testdox      Diagram with theme $theme
    */

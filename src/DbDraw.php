@@ -3,9 +3,9 @@
 namespace Jawira\DbDraw;
 
 use Doctrine\DBAL\Connection;
-use Jawira\DbDraw\Relational\Diagram\Maxi;
-use Jawira\DbDraw\Relational\Diagram\Midi;
-use Jawira\DbDraw\Relational\Diagram\Mini;
+use Jawira\DbDraw\Diagram\Maxi;
+use Jawira\DbDraw\Diagram\Midi;
+use Jawira\DbDraw\Diagram\Mini;
 use Jawira\DoctrineDiagramContracts\DiagramGeneratorInterface;
 use Jawira\DoctrineDiagramContracts\Size;
 use Jawira\DoctrineDiagramContracts\Theme;
