@@ -31,15 +31,15 @@ class DbDraw implements DiagramGeneratorInterface
     if (is_string($size)) {
       $size = Size::from($size);
     }
+    if ($theme instanceof Theme) {
+      $theme = $theme->value;
+    }
 
-    $diagramClass = match ($size) {
-      Size::Mini => Mini::class,
-      Size::Midi => Midi::class,
-      Size::Maxi => Maxi::class,
+    $diagram = match ($size) {
+      Size::Mini => new Mini($this->connection),
+      Size::Midi => new Midi($this->connection),
+      Size::Maxi => new Maxi($this->connection),
     };
-
-    $theme = $theme instanceof Theme ? $theme->value : $theme;
-    $diagram = new $diagramClass($this->connection);
     $diagram->setTheme($theme)
             ->setExclude($exclude)
             ->process();
