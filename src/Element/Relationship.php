@@ -52,7 +52,7 @@ class Relationship implements ElementInterface
   {
     $localColumns = $this->foreignKeyConstraint->getLocalColumns();
 
-    $reducer = function ($carry, $column) {
+    $reducer = function (bool $carry, string $column) {
       $isNullable = !$this->table->getColumn($column)->getNotnull();
 
       return $carry && $isNullable;

@@ -50,7 +50,7 @@ class ThemeTest extends TestCase
   public function testTheme($theme)
   {
     $drawer = new DbDraw($this->connection);
-    $puml   = $drawer->generatePuml(Size::Maxi, $theme);
+    $puml   = $drawer->generatePuml(Size::Maxi, $theme, [], []);
     file_put_contents("./resources/output/theme-{$theme}.puml", $puml);
     $this->assertIsString($puml);
     $this->assertStringContainsString("!theme {$theme}", $puml);

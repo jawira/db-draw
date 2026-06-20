@@ -1,28 +1,37 @@
-/.editorconfig          export-ignore
-/.gitattributes         export-ignore
-/.github                export-ignore
-/.gitignore             export-ignore
-/.idea                  export-ignore
-/.phive                 export-ignore
+/.editorconfig			export-ignore
+/.gitattributes			export-ignore
+/.github				export-ignore
+/.gitignore				export-ignore
+/.idea					export-ignore
+/.phive					export-ignore
 /.php-cs-fixer.dist.php export-ignore
-/.psalm                 export-ignore
-/CHANGELOG.md           export-ignore
-/README.md              export-ignore
-/build                  export-ignore
-/build.png              export-ignore
-/build.xml              export-ignore
-/docker-compose.yaml    export-ignore
-/docs                   export-ignore
-/examples               export-ignore
-/mkdocs.yml             export-ignore
-/phpstan                export-ignore
-/phpunit.xml            export-ignore
-/phpunit.xml.dist       export-ignore
-/resources              export-ignore
-/tests                  export-ignore
+/.psalm					export-ignore
+/CHANGELOG.md			export-ignore
+/README.md				export-ignore
+/build.png				export-ignore
+/build.xml				export-ignore
+/compose.yaml			export-ignore
+/docker-compose.yaml	export-ignore
+/docs					export-ignore
+/examples				export-ignore
+/mkdocs.yml				export-ignore
+/phpstan				export-ignore
+/phpunit.xml			export-ignore
+/phpunit.xml.dist		export-ignore
+/resources				export-ignore
+/tests					export-ignore
 
-# Configure diff output for .php and .phar files.
-*.php	text	eol=lf	diff=php
-*.svg	text	eol=lf
+# Linux
+*	text=auto eol=lf
+
+# Windows
+*.bat	text eol=crlf
+*.cmd	text eol=crlf
+
+# Binary
 *.phar	binary
 *.png	binary
+*.jpg	binary
+*.gif	binary
+*.pdf	binary
+*.zip	binary

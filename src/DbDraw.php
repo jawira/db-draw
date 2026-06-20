@@ -3,13 +3,9 @@
 namespace Jawira\DbDraw;
 
 use Doctrine\DBAL\Connection;
-use Jawira\DbDraw\Diagram\Maxi;
-use Jawira\DbDraw\Diagram\Midi;
-use Jawira\DbDraw\Diagram\Mini;
 use Jawira\DoctrineDiagramContracts\DiagramGeneratorInterface;
 use Jawira\DoctrineDiagramContracts\Size;
 use Jawira\DoctrineDiagramContracts\Theme;
-use function is_string;
 use function strval;
 
 /**
@@ -26,20 +22,17 @@ class DbDraw implements DiagramGeneratorInterface
    *
    * @param string[] $exclude List of tables and views to exclude.
    */
-  public function generatePuml(string|Size $size, string|Theme $theme, array $exclude = []): string
+  public function generatePuml(Size $size, string|Theme $theme, array $include, array $exclude): string
   {
-    if (is_string($size)) {
-      $size = Size::from($size);
-    }
+    $diagram = match ($size) {
+      Size::Mini => new Diagram\Mini($this->connection),
+      Size::Midi => new Diagram\Midi($this->connection),
+      Size::Maxi => new Diagram\Maxi($this->connection),
+    };
     if ($theme instanceof Theme) {
       $theme = $theme->value;
     }
 
-    $diagram = match ($size) {
-      Size::Mini => new Mini($this->connection),
-      Size::Midi => new Midi($this->connection),
-      Size::Maxi => new Maxi($this->connection),
-    };
     $diagram->setTheme($theme)
             ->setExclude($exclude)
             ->process();
