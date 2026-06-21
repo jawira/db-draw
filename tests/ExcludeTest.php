@@ -11,9 +11,21 @@ use Jawira\DbDrawTests\Parts\Relations;
 use Jawira\DbDrawTests\Parts\Views;
 use Jawira\DoctrineDiagramContracts\Size;
 use Jawira\DoctrineDiagramContracts\Theme;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use function file_put_contents;
 
+#[CoversClass(\Jawira\DbDraw\DbDraw::class)]
+#[CoversClass(\Jawira\DbDraw\Diagram\AbstractDiagram::class)]
+#[CoversClass(\Jawira\DbDraw\Diagram\Maxi::class)]
+#[CoversClass(\Jawira\DbDraw\Diagram\Midi::class)]
+#[CoversClass(\Jawira\DbDraw\Diagram\Mini::class)]
+#[CoversClass(\Jawira\DbDraw\Element\Column::class)]
+#[CoversClass(\Jawira\DbDraw\Element\Entity::class)]
+#[CoversClass(\Jawira\DbDraw\Element\Raw::class)]
+#[CoversClass(\Jawira\DbDraw\Element\Relationship::class)]
+#[CoversClass(\Jawira\DbDraw\Element\Views::class)]
+#[CoversClass(\Jawira\DbDraw\Service\Toolbox::class)]
 class ExcludeTest extends TestCase
 {
 
@@ -36,15 +48,6 @@ class ExcludeTest extends TestCase
     $this->connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
   }
 
-  /**
-   * @covers \Jawira\DbDraw\DbDraw
-   * @covers \Jawira\DbDraw\Diagram\AbstractDiagram
-   * @covers \Jawira\DbDraw\Diagram\Mini
-   * @covers \Jawira\DbDraw\Element\Entity
-   * @covers \Jawira\DbDraw\Element\Raw
-   * @covers \Jawira\DbDraw\Element\Relationship
-   * @covers \Jawira\DbDraw\Service\Toolbox
-   */
   public function testMiniDiagram()
   {
     $drawer = new DbDraw($this->connection);
@@ -76,17 +79,6 @@ class ExcludeTest extends TestCase
     $this->assertStringNotContainsString(Relations::CourseCourse, $puml);
   }
 
-  /**
-   * @covers \Jawira\DbDraw\DbDraw
-   * @covers \Jawira\DbDraw\Element\Column
-   * @covers \Jawira\DbDraw\Diagram\AbstractDiagram
-   * @covers \Jawira\DbDraw\Diagram\Maxi
-   * @covers \Jawira\DbDraw\Diagram\Midi
-   * @covers \Jawira\DbDraw\Element\Entity
-   * @covers \Jawira\DbDraw\Element\Raw
-   * @covers \Jawira\DbDraw\Element\Relationship
-   * @covers \Jawira\DbDraw\Service\Toolbox
-   */
   public function testMidiDiagram()
   {
     $drawer = new DbDraw($this->connection);
@@ -118,17 +110,6 @@ class ExcludeTest extends TestCase
     $this->assertStringContainsString(Relations::CourseCourse, $puml);
   }
 
-  /**
-   * @covers \Jawira\DbDraw\DbDraw
-   * @covers \Jawira\DbDraw\Element\Column
-   * @covers \Jawira\DbDraw\Diagram\AbstractDiagram
-   * @covers \Jawira\DbDraw\Diagram\Maxi
-   * @covers \Jawira\DbDraw\Element\Entity
-   * @covers \Jawira\DbDraw\Element\Raw
-   * @covers \Jawira\DbDraw\Element\Relationship
-   * @covers \Jawira\DbDraw\Element\Views
-   * @covers \Jawira\DbDraw\Service\Toolbox
-   */
   public function testMaxiDiagram()
   {
     $drawer = new DbDraw($this->connection);
