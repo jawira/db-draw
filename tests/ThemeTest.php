@@ -6,9 +6,26 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Jawira\DbDraw\DbDraw;
 use Jawira\DoctrineDiagramContracts\Size;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use function file_put_contents;
 
+#[CoversClass(\Jawira\DbDraw\DbDraw::class)]
+#[CoversClass(\Jawira\DbDraw\Element\Column::class)]
+#[CoversClass(\Jawira\DbDraw\Diagram\AbstractDiagram::class)]
+#[CoversClass(\Jawira\DbDraw\Diagram\Maxi::class)]
+#[CoversClass(\Jawira\DbDraw\Element\Entity::class)]
+#[CoversClass(\Jawira\DbDraw\Element\Raw::class)]
+#[CoversClass(\Jawira\DbDraw\Element\Relationship::class)]
+#[CoversClass(\Jawira\DbDraw\Service\Toolbox::class)]
+#[CoversMethod(\Jawira\DbDraw\Element\Views::class, '__construct')]
+#[CoversMethod(\Jawira\DbDraw\Element\Views::class, '__toString')]
+#[CoversMethod(\Jawira\DbDraw\Element\Views::class, 'generateHeaderAndFooter')]
+#[CoversMethod(\Jawira\DbDraw\Element\Views::class, 'generateViews')]
 class ThemeTest extends TestCase
 {
 
@@ -31,22 +48,8 @@ class ThemeTest extends TestCase
     $this->connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
   }
 
-  /**
-   * @covers       \Jawira\DbDraw\DbDraw
-   * @covers       \Jawira\DbDraw\Element\Column
-   * @covers       \Jawira\DbDraw\Diagram\AbstractDiagram
-   * @covers       \Jawira\DbDraw\Diagram\Maxi
-   * @covers       \Jawira\DbDraw\Element\Entity
-   * @covers       \Jawira\DbDraw\Element\Raw
-   * @covers       \Jawira\DbDraw\Element\Relationship
-   * @covers       \Jawira\DbDraw\Element\Views::__construct
-   * @covers       \Jawira\DbDraw\Element\Views::__toString
-   * @covers       \Jawira\DbDraw\Element\Views::generateHeaderAndFooter
-   * @covers       \Jawira\DbDraw\Element\Views::generateViews
-   * @covers       \Jawira\DbDraw\Service\Toolbox
-   * @dataProvider themeProvider
-   * @testdox      Diagram with theme $theme
-   */
+  #[DataProvider('themeProvider')]
+  #[TestDox('Diagram with theme $theme')]
   public function testTheme($theme)
   {
     $drawer = new DbDraw($this->connection);
@@ -56,7 +59,7 @@ class ThemeTest extends TestCase
     $this->assertStringContainsString("!theme {$theme}", $puml);
   }
 
-  public function themeProvider(): array
+  public static function themeProvider(): array
   {
     return [
       ['_none_'],
