@@ -6,7 +6,6 @@ use Doctrine\DBAL\Connection;
 use Jawira\DoctrineDiagramContracts\DiagramGeneratorInterface;
 use Jawira\DoctrineDiagramContracts\Size;
 use Jawira\DoctrineDiagramContracts\Theme;
-use function strval;
 
 /**
  * @author  Jawira Portugal
@@ -33,10 +32,6 @@ class DbDraw implements DiagramGeneratorInterface
       $theme = $theme->value;
     }
 
-    $diagram->setTheme($theme)
-            ->setExclude($exclude)
-            ->process();
-
-    return strval($diagram);
+    return $diagram->process($theme, [], $exclude);
   }
 }

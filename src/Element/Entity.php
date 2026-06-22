@@ -8,10 +8,8 @@ use Jawira\DbDraw\Service\Toolbox;
 use function array_filter;
 use function array_map;
 use function array_merge;
-use function array_reduce;
 use function in_array;
 use function sprintf;
-use function strval;
 
 /**
  * @author  Jawira Portugal
@@ -22,9 +20,11 @@ class Entity implements ElementInterface
   protected array $columns = [];
   protected Raw $header;
   protected Raw $footer;
+  private Toolbox $toolbox;
 
   public function __construct(protected Table $table)
   {
+    $this->toolbox = new Toolbox();
   }
 
   public function generateHeaderAndFooter(): self
@@ -53,10 +53,6 @@ class Entity implements ElementInterface
 
   public function __toString(): string
   {
-    $puml = strval($this->header);
-    $puml = array_reduce($this->columns, Toolbox::reducer(...), $puml);
-    $puml .= strval($this->footer);
-
-    return $puml;
+    return $this->toolbox->reduceElements([$this->header, ...$this->columns, $this->footer]);
   }
 }

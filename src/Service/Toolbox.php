@@ -11,10 +11,16 @@ use function strval;
 class Toolbox
 {
   /**
-   * Callback for `array_reduce()`
+   * Takes an array of {@see \Jawira\DbDraw\Element\ElementInterface} objects and convert them to PlantUML code.
+   *
+   * @param \Jawira\DbDraw\Element\ElementInterface[] $elements
    */
-  public static function reducer(string $carry, ElementInterface $element): string
+  public function reduceElements(array $elements): string
   {
-    return $carry . strval($element);
+    $reducer = function (string $carry, ElementInterface $component): string {
+      return $carry . strval($component);
+    };
+
+    return array_reduce($elements, $reducer, '');
   }
 }
