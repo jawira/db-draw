@@ -8,7 +8,6 @@ use Jawira\DbDraw\DbDraw;
 use Jawira\DoctrineDiagramContracts\Size;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversMethod;
-use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
@@ -16,16 +15,14 @@ use function file_put_contents;
 
 #[CoversClass(\Jawira\DbDraw\DbDraw::class)]
 #[CoversClass(\Jawira\DbDraw\Element\Column::class)]
-#[CoversClass(\Jawira\DbDraw\Diagram\AbstractDiagram::class)]
 #[CoversClass(\Jawira\DbDraw\Diagram\Maxi::class)]
 #[CoversClass(\Jawira\DbDraw\Element\Entity::class)]
 #[CoversClass(\Jawira\DbDraw\Element\Raw::class)]
 #[CoversClass(\Jawira\DbDraw\Element\Relationship::class)]
+#[CoversClass(\Jawira\DbDraw\Element\View::class)]
 #[CoversClass(\Jawira\DbDraw\Service\Toolbox::class)]
-#[CoversMethod(\Jawira\DbDraw\Element\Views::class, '__construct')]
-#[CoversMethod(\Jawira\DbDraw\Element\Views::class, '__toString')]
-#[CoversMethod(\Jawira\DbDraw\Element\Views::class, 'generateHeaderAndFooter')]
-#[CoversMethod(\Jawira\DbDraw\Element\Views::class, 'generateViews')]
+#[CoversClass(\Jawira\DbDraw\Service\ElementFilter::class)]
+#[CoversClass(\Jawira\DbDraw\Service\PlantUmlWriter::class)]
 class ThemeTest extends TestCase
 {
 

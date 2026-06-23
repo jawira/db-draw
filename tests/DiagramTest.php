@@ -16,7 +16,6 @@ use PHPUnit\Framework\TestCase;
 use function file_put_contents;
 
 #[CoversClass(\Jawira\DbDraw\DbDraw::class)]
-#[CoversClass(\Jawira\DbDraw\Diagram\AbstractDiagram::class)]
 #[CoversClass(\Jawira\DbDraw\Diagram\Maxi::class)]
 #[CoversClass(\Jawira\DbDraw\Diagram\Midi::class)]
 #[CoversClass(\Jawira\DbDraw\Diagram\Mini::class)]
@@ -24,7 +23,9 @@ use function file_put_contents;
 #[CoversClass(\Jawira\DbDraw\Element\Entity::class)]
 #[CoversClass(\Jawira\DbDraw\Element\Raw::class)]
 #[CoversClass(\Jawira\DbDraw\Element\Relationship::class)]
-#[CoversClass(\Jawira\DbDraw\Element\Views::class)]
+#[CoversClass(\Jawira\DbDraw\Element\View::class)]
+#[CoversClass(\Jawira\DbDraw\Service\ElementFilter::class)]
+#[CoversClass(\Jawira\DbDraw\Service\PlantUmlWriter::class)]
 #[CoversClass(\Jawira\DbDraw\Service\Toolbox::class)]
 
 class DiagramTest extends TestCase

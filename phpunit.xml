@@ -10,7 +10,8 @@
          cacheDirectory=".phpunit.cache"
          requireCoverageMetadata="true"
          beStrictAboutCoverageMetadata="true"
-         displayDetailsOnPhpunitDeprecations="true">
+         displayDetailsOnPhpunitDeprecations="true"
+         stopOnDefect="true">
   <testsuites>
     <testsuite name="default">
       <directory suffix="Test.php">tests</directory>

@@ -2,24 +2,39 @@
 
 namespace Jawira\DbDraw\Diagram;
 
+use Doctrine\DBAL\Connection;
 use Jawira\DbDraw\Element\Entity;
+use Jawira\DbDraw\Service\PlantUmlWriter;
+use Jawira\DbDraw\Service\Toolbox;
 use function array_map;
 
 /**
  * @author  Jawira Portugal
  */
-class Maxi extends AbstractDiagram
+class Maxi implements ErDiagramInterface
 {
-  public function process(): self
-  {
-    $this->generateHeaderAndFooter($this->connection, $this->theme);
-    $this->generateEntities($this->connection->createSchemaManager()->listTables());
-    array_map(function (Entity $entity) {
-      $entity->generateColumns();
-    }, $this->entities);
-    $this->generateRelationships($this->connection->createSchemaManager()->listTables());
-    $this->generateViews($this->connection->createSchemaManager()->listViews());
+  private readonly PlantUmlWriter $plantUmlWriter;
+  private readonly Toolbox $toolbox;
 
-    return $this;
+  public function __construct(Connection $connection)
+  {
+    $this->plantUmlWriter = new PlantUmlWriter($connection);
+    $this->toolbox        = new Toolbox();
+  }
+
+  /**
+   * @param string[] $include
+   * @param string[] $exclude
+   */
+  public function process(string $theme, array $include, array $exclude): string
+  {
+    $header   = $this->plantUmlWriter->generateHeader($theme);
+    $entities = $this->plantUmlWriter->generateEntities($include, $exclude);
+    array_map(fn(Entity $entity) => $entity->generateColumns(), $entities);
+    $relationships = $this->plantUmlWriter->generateRelationships($include, $exclude);
+    $views         = $this->plantUmlWriter->generateViews($include, $exclude);
+    $footer        = $this->plantUmlWriter->generateFooter();
+
+    return $this->toolbox->reduceElements([...$header, ...$entities, ...$relationships, ...$views, ...$footer]);
   }
 }
