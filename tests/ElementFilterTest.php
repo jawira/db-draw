@@ -102,6 +102,10 @@ class ElementFilterTest extends TestCase
       ['foo', self::$tableSet2, [], true],
       ['public.users', self::$tableSet1, [], false],
       ['Public.users', self::$tableSet2, [], true],
+      ['archive.orders_2023', ['archive.*'], [], false],
+      ['archive.orders_2023', ['archive.orders_????'], [], false],
+      ['archive.orders_2023', ['archive.orders_???'], [], true],
+      ['archive.orders_2023', ['archive.orders_202[0-9]'], [], false],
       // Exclude only
       ['foo', [], ['foo'], true],
       ['foo', [], ['foo', 'bar', 'baz'], true],
@@ -109,11 +113,18 @@ class ElementFilterTest extends TestCase
       ['foo', [], self::$tableSet2, false],
       ['public.users', [], self::$tableSet1, true],
       ['Public.users', [], self::$tableSet2, false],
+      ['archive.orders_2023', [], ['archive.*'], true],
+      ['archive.orders_2023', [], ['archive.orders_????'], true],
+      ['archive.orders_2023', [], ['archive.orders_???'], false],
+      ['archive.orders_2023', [], ['archive.orders_202[0-9]'], true],
       // Exclude and include
       ['foo', ['foo', 'bar'], ['bar'], false],
       ['bar', ['foo', 'bar'], ['bar'], true],
       ['baz', ['foo', 'bar'], ['bar'], true],
       ['public.users', self::$tableSet1, self::$tableSet2, false],
+      ['archive.orders_2023', ['*orders*'], ['archive.*'], true],
+      ['archive.orders_2023', ['archive.orders_????'], ['archive.orders_????'], true],
+      ['geo.country_codes', self::$tableSet1, ['geo.*'], true],
     ];
   }
 }

@@ -7,7 +7,8 @@ use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Schema\View;
 use function boolval;
 use function count;
-use function in_array;
+use function fnmatch;
+use const FNM_NOESCAPE;
 
 /**
  * Contains the logic to filter tables.
@@ -57,18 +58,33 @@ class ElementFilter
   {
     // Include
     $includeHasContent = boolval(count($include));
-    $elementInInclude  = in_array($elementName, $include, true);
+    $elementInInclude  = $this->isElementInArray($elementName, $include);
     if ($includeHasContent && !$elementInInclude) {
       return true;
     }
 
     // Exclude
     $excludeHasContent = boolval(count($exclude));
-    $elementInExclude  = in_array($elementName, $exclude, true);
+    $elementInExclude  = $this->isElementInArray($elementName, $exclude);
     if ($excludeHasContent && $elementInExclude) {
       return true;
     }
 
+    return false;
+  }
+
+  /**
+   * Checks if an element matches a table pattern.
+   *
+   * @param string[] $tables
+   */
+  private function isElementInArray(string $elementName, array $tables): bool
+  {
+    foreach ($tables as $table) {
+      if (fnmatch($table, $elementName, FNM_NOESCAPE)) {
+        return true;
+      }
+    }
     return false;
   }
 }
