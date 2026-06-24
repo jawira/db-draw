@@ -11,6 +11,8 @@ use Jawira\DbDraw\Element\Relationship;
 use Jawira\DbDraw\Element\View;
 
 /**
+ * Convert DoctrineORM elements to PlantUML format.
+ *
  * @author  Jawira Portugal
  */
 class PlantUmlWriter

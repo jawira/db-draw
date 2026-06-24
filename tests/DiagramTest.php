@@ -27,7 +27,6 @@ use function file_put_contents;
 #[CoversClass(\Jawira\DbDraw\Service\ElementFilter::class)]
 #[CoversClass(\Jawira\DbDraw\Service\PlantUmlWriter::class)]
 #[CoversClass(\Jawira\DbDraw\Service\Toolbox::class)]
-
 class DiagramTest extends TestCase
 {
 
@@ -57,6 +56,7 @@ class DiagramTest extends TestCase
     file_put_contents('./resources/output/mini.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(630, mb_strlen($puml));
+    // Entities
     $this->assertStringContainsString(EntityNames::Course, $puml);
     $this->assertStringContainsString(EntityNames::Assistant, $puml);
     $this->assertStringContainsString(EntityNames::InscriptionSession, $puml);
@@ -67,19 +67,21 @@ class DiagramTest extends TestCase
     $this->assertStringContainsString(EntityNames::Session, $puml);
     $this->assertStringContainsString(EntityNames::Student, $puml);
     $this->assertStringContainsString(EntityNames::Teacher, $puml);
+    // Relations
     $this->assertStringContainsString(Relations::AssistantPerson, $puml);
-    $this->assertStringContainsString(Relations::InscriptoinSessionInscription, $puml);
-    $this->assertStringContainsString(Relations::InsciptionSessionSession, $puml);
+    $this->assertStringContainsString(Relations::InscriptionSessionInscription, $puml);
+    $this->assertStringContainsString(Relations::InscriptionSessionSession, $puml);
     $this->assertStringContainsString(Relations::TeacherPerson, $puml);
     $this->assertStringContainsString(Relations::StudentCreditCard, $puml);
     $this->assertStringContainsString(Relations::StudentPerson, $puml);
     $this->assertStringContainsString(Relations::SessionTeacher, $puml);
     $this->assertStringContainsString(Relations::SessionCourse, $puml);
     $this->assertStringContainsString(Relations::SessionAssistant, $puml);
-    $this->assertStringContainsString(Relations::IscriptionStudent, $puml);
+    $this->assertStringContainsString(Relations::InscriptionStudent, $puml);
     $this->assertStringContainsString(Relations::CourseFaculty, $puml);
     $this->assertStringContainsString(Relations::CourseCourse, $puml);
-  }
+    // Views
+    $this->assertStringNotContainsString(Views::ALL, $puml);  }
 
   public function testMidiDiagram()
   {
@@ -88,6 +90,7 @@ class DiagramTest extends TestCase
     file_put_contents('./resources/output/midi.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(1380, mb_strlen($puml));
+    // Entities
     $this->assertStringContainsString(Entities::Course, $puml);
     $this->assertStringContainsString(Entities::Assistant, $puml);
     $this->assertStringContainsString(Entities::InscriptionSession, $puml);
@@ -98,18 +101,21 @@ class DiagramTest extends TestCase
     $this->assertStringContainsString(Entities::Session, $puml);
     $this->assertStringContainsString(Entities::Student, $puml);
     $this->assertStringContainsString(Entities::Teacher, $puml);
+    // Relations
     $this->assertStringContainsString(Relations::AssistantPerson, $puml);
-    $this->assertStringContainsString(Relations::InscriptoinSessionInscription, $puml);
-    $this->assertStringContainsString(Relations::InsciptionSessionSession, $puml);
+    $this->assertStringContainsString(Relations::InscriptionSessionInscription, $puml);
+    $this->assertStringContainsString(Relations::InscriptionSessionSession, $puml);
     $this->assertStringContainsString(Relations::TeacherPerson, $puml);
     $this->assertStringContainsString(Relations::StudentCreditCard, $puml);
     $this->assertStringContainsString(Relations::StudentPerson, $puml);
     $this->assertStringContainsString(Relations::SessionTeacher, $puml);
     $this->assertStringContainsString(Relations::SessionCourse, $puml);
     $this->assertStringContainsString(Relations::SessionAssistant, $puml);
-    $this->assertStringContainsString(Relations::IscriptionStudent, $puml);
+    $this->assertStringContainsString(Relations::InscriptionStudent, $puml);
     $this->assertStringContainsString(Relations::CourseFaculty, $puml);
     $this->assertStringContainsString(Relations::CourseCourse, $puml);
+    // Views
+    $this->assertStringNotContainsString(Views::ALL, $puml);
   }
 
   public function testMaxiDiagram()
@@ -119,7 +125,7 @@ class DiagramTest extends TestCase
     file_put_contents('./resources/output/maxi.puml', $puml);
     $this->assertIsString($puml);
     $this->assertGreaterThan(1460, mb_strlen($puml));
-
+    // Entities
     $this->assertStringContainsString(Entities::Course, $puml);
     $this->assertStringContainsString(Entities::Assistant, $puml);
     $this->assertStringContainsString(Entities::InscriptionSession, $puml);
@@ -130,19 +136,20 @@ class DiagramTest extends TestCase
     $this->assertStringContainsString(Entities::Session, $puml);
     $this->assertStringContainsString(Entities::Student, $puml);
     $this->assertStringContainsString(Entities::Teacher, $puml);
-
+    // Relations
     $this->assertStringContainsString(Relations::AssistantPerson, $puml);
-    $this->assertStringContainsString(Relations::InscriptoinSessionInscription, $puml);
-    $this->assertStringContainsString(Relations::InsciptionSessionSession, $puml);
+    $this->assertStringContainsString(Relations::InscriptionSessionInscription, $puml);
+    $this->assertStringContainsString(Relations::InscriptionSessionSession, $puml);
     $this->assertStringContainsString(Relations::TeacherPerson, $puml);
     $this->assertStringContainsString(Relations::StudentCreditCard, $puml);
     $this->assertStringContainsString(Relations::StudentPerson, $puml);
     $this->assertStringContainsString(Relations::SessionTeacher, $puml);
     $this->assertStringContainsString(Relations::SessionCourse, $puml);
     $this->assertStringContainsString(Relations::SessionAssistant, $puml);
-    $this->assertStringContainsString(Relations::IscriptionStudent, $puml);
+    $this->assertStringContainsString(Relations::InscriptionStudent, $puml);
     $this->assertStringContainsString(Relations::CourseFaculty, $puml);
     $this->assertStringContainsString(Relations::CourseCourse, $puml);
+    // Views
     $this->assertStringContainsString(Views::ALL, $puml);
   }
 }

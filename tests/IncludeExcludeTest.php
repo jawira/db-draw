@@ -14,6 +14,7 @@ use Jawira\DoctrineDiagramContracts\Theme;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use function file_put_contents;
+use function mb_strlen;
 
 #[CoversClass(\Jawira\DbDraw\DbDraw::class)]
 #[CoversClass(\Jawira\DbDraw\Diagram\Maxi::class)]
@@ -27,7 +28,7 @@ use function file_put_contents;
 #[CoversClass(\Jawira\DbDraw\Service\ElementFilter::class)]
 #[CoversClass(\Jawira\DbDraw\Service\PlantUmlWriter::class)]
 #[CoversClass(\Jawira\DbDraw\Service\Toolbox::class)]
-class ExcludeTest extends TestCase
+class IncludeExcludeTest extends TestCase
 {
 
   private Connection $connection;
@@ -52,97 +53,122 @@ class ExcludeTest extends TestCase
   public function testMiniDiagram()
   {
     $drawer = new DbDraw($this->connection);
-    $puml   = $drawer->generatePuml(Size::Mini, Theme::Toy, [], exclude: ['Course', 'Assistant']);
-    file_put_contents('./resources/output/mini-exclude.puml', $puml);
+    $puml   = $drawer->generatePuml(
+      Size::Mini,
+      Theme::Toy,
+      ['Assistant', 'Course', 'InscriptionSession', 'Faculty', 'CreditCard', 'Person', 'Inscription', 'Student'],
+      ['Course', 'Assistant'],
+    );
+    file_put_contents(__DIR__ . '/../resources/output/mini-include-exclude.puml', $puml);
     $this->assertIsString($puml);
-    $this->assertGreaterThan(490, mb_strlen($puml));
+    $this->assertGreaterThan(200, mb_strlen($puml));
+    // Entities
     $this->assertStringNotContainsString(EntityNames::Course, $puml);
     $this->assertStringNotContainsString(EntityNames::Assistant, $puml);
-    $this->assertStringContainsString(EntityNames::InscriptionSession, $puml);
+    $this->assertStringNotContainsString(EntityNames::InscriptionSession, $puml);
     $this->assertStringContainsString(EntityNames::Faculty, $puml);
     $this->assertStringContainsString(EntityNames::CreditCard, $puml);
     $this->assertStringContainsString(EntityNames::Person, $puml);
     $this->assertStringContainsString(EntityNames::Inscription, $puml);
-    $this->assertStringContainsString(EntityNames::Session, $puml);
+    $this->assertStringNotContainsString(EntityNames::Session, $puml);
     $this->assertStringContainsString(EntityNames::Student, $puml);
-    $this->assertStringContainsString(EntityNames::Teacher, $puml);
+    $this->assertStringNotContainsString(EntityNames::Teacher, $puml);
+    // Relations
     $this->assertStringNotContainsString(Relations::AssistantPerson, $puml);
-    $this->assertStringContainsString(Relations::InscriptoinSessionInscription, $puml);
-    $this->assertStringContainsString(Relations::InsciptionSessionSession, $puml);
-    $this->assertStringContainsString(Relations::TeacherPerson, $puml);
+    $this->assertStringNotContainsString(Relations::InscriptionSessionInscription, $puml);
+    $this->assertStringNotContainsString(Relations::InscriptionSessionSession, $puml);
+    $this->assertStringNotContainsString(Relations::TeacherPerson, $puml);
     $this->assertStringContainsString(Relations::StudentCreditCard, $puml);
     $this->assertStringContainsString(Relations::StudentPerson, $puml);
-    $this->assertStringContainsString(Relations::SessionTeacher, $puml);
+    $this->assertStringNotContainsString(Relations::SessionTeacher, $puml);
     $this->assertStringNotContainsString(Relations::SessionCourse, $puml);
     $this->assertStringNotContainsString(Relations::SessionAssistant, $puml);
-    $this->assertStringContainsString(Relations::IscriptionStudent, $puml);
+    $this->assertStringContainsString(Relations::InscriptionStudent, $puml);
     $this->assertStringNotContainsString(Relations::CourseFaculty, $puml);
     $this->assertStringNotContainsString(Relations::CourseCourse, $puml);
+    // Views
+    $this->assertStringNotContainsString(Views::ENTITY_INTRODUCTORY_COURSES, $puml);
+    $this->assertStringNotContainsString(Views::ENTITY_STUDENTS_WITH_NO_CARD, $puml);
   }
 
   public function testMidiDiagram()
   {
     $drawer = new DbDraw($this->connection);
-    $puml   = $drawer->generatePuml(Size::Midi, '_none_', [], exclude: ['Session', 'Student']);
-    file_put_contents('./resources/output/midi-exclude.puml', $puml);
+    $puml   = $drawer->generatePuml(
+      Size::Midi,
+      '_none_',
+      ['inscription_session', 'Inscription', 'Student', 'Person', 'Teacher', 'Session', 'Course', 'Faculty'],
+      ['Assistant', 'Faculty'],
+    );
+    file_put_contents(__DIR__ . '/../resources/output/midi-include-exclude.puml', $puml);
     $this->assertIsString($puml);
-    $this->assertGreaterThan(900, mb_strlen($puml));
+    $this->assertGreaterThan(170, mb_strlen($puml));
+    // Entities
     $this->assertStringContainsString(Entities::Course, $puml);
-    $this->assertStringContainsString(Entities::Assistant, $puml);
+    $this->assertStringNotContainsString(Entities::Assistant, $puml);
     $this->assertStringContainsString(Entities::InscriptionSession, $puml);
-    $this->assertStringContainsString(Entities::Faculty, $puml);
-    $this->assertStringContainsString(Entities::CreditCard, $puml);
-    $this->assertStringContainsString(Entities::Person, $puml);
-    $this->assertStringContainsString(Entities::Inscription, $puml);
-    $this->assertStringNotContainsString(Entities::Session, $puml);
-    $this->assertStringNotContainsString(Entities::Student, $puml);
-    $this->assertStringContainsString(Entities::Teacher, $puml);
-    $this->assertStringContainsString(Relations::AssistantPerson, $puml);
-    $this->assertStringContainsString(Relations::InscriptoinSessionInscription, $puml);
-    $this->assertStringNotContainsString(Relations::InsciptionSessionSession, $puml);
-    $this->assertStringContainsString(Relations::TeacherPerson, $puml);
-    $this->assertStringNotContainsString(Relations::StudentCreditCard, $puml);
-    $this->assertStringNotContainsString(Relations::StudentPerson, $puml);
-    $this->assertStringNotContainsString(Relations::SessionTeacher, $puml);
-    $this->assertStringNotContainsString(Relations::SessionCourse, $puml);
-    $this->assertStringNotContainsString(Relations::SessionAssistant, $puml);
-    $this->assertStringNotContainsString(Relations::IscriptionStudent, $puml);
-    $this->assertStringContainsString(Relations::CourseFaculty, $puml);
-    $this->assertStringContainsString(Relations::CourseCourse, $puml);
-  }
-
-  public function testMaxiDiagram()
-  {
-    $drawer = new DbDraw($this->connection);
-    $puml   = $drawer->generatePuml(Size::Maxi, 'crt-amber', [], exclude: ['CreditCard', 'students_with_no_card']);
-    file_put_contents('./resources/output/maxi-exclude.puml', $puml);
-    $this->assertIsString($puml);
-    $this->assertGreaterThan(1300, mb_strlen($puml));
-
-    $this->assertStringContainsString(Entities::Course, $puml);
-    $this->assertStringContainsString(Entities::Assistant, $puml);
-    $this->assertStringContainsString(Entities::InscriptionSession, $puml);
-    $this->assertStringContainsString(Entities::Faculty, $puml);
+    $this->assertStringNotContainsString(Entities::Faculty, $puml);
     $this->assertStringNotContainsString(Entities::CreditCard, $puml);
     $this->assertStringContainsString(Entities::Person, $puml);
     $this->assertStringContainsString(Entities::Inscription, $puml);
     $this->assertStringContainsString(Entities::Session, $puml);
     $this->assertStringContainsString(Entities::Student, $puml);
     $this->assertStringContainsString(Entities::Teacher, $puml);
-
-    $this->assertStringContainsString(Relations::AssistantPerson, $puml);
-    $this->assertStringContainsString(Relations::InscriptoinSessionInscription, $puml);
-    $this->assertStringContainsString(Relations::InsciptionSessionSession, $puml);
+    // Relations
+    $this->assertStringNotContainsString(Relations::AssistantPerson, $puml);
+    $this->assertStringContainsString(Relations::InscriptionSessionInscription, $puml);
+    $this->assertStringContainsString(Relations::InscriptionSessionSession, $puml);
     $this->assertStringContainsString(Relations::TeacherPerson, $puml);
     $this->assertStringNotContainsString(Relations::StudentCreditCard, $puml);
     $this->assertStringContainsString(Relations::StudentPerson, $puml);
     $this->assertStringContainsString(Relations::SessionTeacher, $puml);
     $this->assertStringContainsString(Relations::SessionCourse, $puml);
-    $this->assertStringContainsString(Relations::SessionAssistant, $puml);
-    $this->assertStringContainsString(Relations::IscriptionStudent, $puml);
+    $this->assertStringNotContainsString(Relations::SessionAssistant, $puml);
+    $this->assertStringContainsString(Relations::InscriptionStudent, $puml);
+    $this->assertStringNotContainsString(Relations::CourseFaculty, $puml);
+    $this->assertStringContainsString(Relations::CourseCourse, $puml);
+    // Views
+    $this->assertStringNotContainsString(Views::ENTITY_INTRODUCTORY_COURSES, $puml);
+    $this->assertStringNotContainsString(Views::ENTITY_STUDENTS_WITH_NO_CARD, $puml);
+  }
+
+  public function testMaxiDiagram()
+  {
+    $drawer = new DbDraw($this->connection);
+    $puml   = $drawer->generatePuml(
+      Size::Maxi,
+      'crt-amber',
+      ['Session', 'Course', 'Faculty', 'Student', 'Teacher', 'inscription_session', 'introductory_courses'],
+      ['Teacher', 'CreditCard', 'Student', 'students_with_no_card', 'inscription_session'],
+    );
+    file_put_contents(__DIR__ . '/../resources/output/maxi-include-exclude.puml', $puml);
+    $this->assertIsString($puml);
+    $this->assertGreaterThan(570, mb_strlen($puml));
+    // Entities
+    $this->assertStringContainsString(Entities::Course, $puml);
+    $this->assertStringNotContainsString(Entities::Assistant, $puml);
+    $this->assertStringNotContainsString(Entities::InscriptionSession, $puml);
+    $this->assertStringContainsString(Entities::Faculty, $puml);
+    $this->assertStringNotContainsString(Entities::CreditCard, $puml);
+    $this->assertStringNotContainsString(Entities::Person, $puml);
+    $this->assertStringNotContainsString(Entities::Inscription, $puml);
+    $this->assertStringContainsString(Entities::Session, $puml);
+    $this->assertStringNotContainsString(Entities::Student, $puml);
+    $this->assertStringNotContainsString(Entities::Teacher, $puml);
+    // Relations
+    $this->assertStringNotContainsString(Relations::AssistantPerson, $puml);
+    $this->assertStringNotContainsString(Relations::InscriptionSessionInscription, $puml);
+    $this->assertStringNotContainsString(Relations::InscriptionSessionSession, $puml);
+    $this->assertStringNotContainsString(Relations::TeacherPerson, $puml);
+    $this->assertStringNotContainsString(Relations::StudentCreditCard, $puml);
+    $this->assertStringNotContainsString(Relations::StudentPerson, $puml);
+    $this->assertStringNotContainsString(Relations::SessionTeacher, $puml);
+    $this->assertStringContainsString(Relations::SessionCourse, $puml);
+    $this->assertStringNotContainsString(Relations::SessionAssistant, $puml);
+    $this->assertStringNotContainsString(Relations::InscriptionStudent, $puml);
     $this->assertStringContainsString(Relations::CourseFaculty, $puml);
     $this->assertStringContainsString(Relations::CourseCourse, $puml);
-
+    // Views
     $this->assertStringContainsString(Views::ENTITY_INTRODUCTORY_COURSES, $puml);
     $this->assertStringNotContainsString(Views::ENTITY_STUDENTS_WITH_NO_CARD, $puml);
   }

@@ -6,6 +6,8 @@ use Jawira\DbDraw\Element\ElementInterface;
 use function strval;
 
 /**
+ * Toolbox.
+ *
  * @author  Jawira Portugal
  */
 class Toolbox
