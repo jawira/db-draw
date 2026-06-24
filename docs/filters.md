@@ -44,3 +44,20 @@ Important, `include` and `exclude` can be used at the same time.
 // Diagram will only contain the Teacher table
 $puml = $drawer->generatePuml(Size::Mini, 'plain', ['Faculty', 'Teacher'], ['Faculty']);
 ```
+
+## Wildcards
+
+Use wildcards instead of declaring table names one by one.
+
+* Use `?` to match a single characters.
+* Use `*` to match multiple characters.
+
+Examples:
+
+```php
+// Display all tables starting with "billing."
+$puml = $drawer->generatePuml(Size::Mini, 'plain', ['billing.*'], []);
+
+// Remove tables like "report_2020", "report_2021", etc.
+$puml = $drawer->generatePuml(Size::Mini, 'plain', [], ['report_202?']);
+```
