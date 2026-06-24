@@ -8,6 +8,8 @@ use Jawira\DoctrineDiagramContracts\Size;
 use Jawira\DoctrineDiagramContracts\Theme;
 
 /**
+ * Use this class to generate diagrams.
+ *
  * @author  Jawira Portugal
  */
 class DbDraw implements DiagramGeneratorInterface
@@ -32,6 +34,6 @@ class DbDraw implements DiagramGeneratorInterface
       $theme = $theme->value;
     }
 
-    return $diagram->process($theme, [], $exclude);
+    return $diagram->process($theme, $include, $exclude);
   }
 }

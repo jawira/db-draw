@@ -5,7 +5,15 @@ namespace Jawira\DbDraw\Service;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Schema\View;
+use function boolval;
+use function count;
+use function in_array;
 
+/**
+ * Contains the logic to filter tables.
+ *
+ * @author  Jawira Portugal
+ */
 class ElementFilter
 {
   /**
@@ -45,8 +53,22 @@ class ElementFilter
    * @param string[] $include
    * @param string[] $exclude
    */
-  private function skipElement(string $elementName, array $include, array $exclude):bool
+  private function skipElement(string $elementName, array $include, array $exclude): bool
   {
-    return in_array($elementName, $exclude, true);
+    // Include
+    $includeHasContent = boolval(count($include));
+    $elementInInclude  = in_array($elementName, $include, true);
+    if ($includeHasContent && !$elementInInclude) {
+      return true;
+    }
+
+    // Exclude
+    $excludeHasContent = boolval(count($exclude));
+    $elementInExclude  = in_array($elementName, $exclude, true);
+    if ($excludeHasContent && $elementInExclude) {
+      return true;
+    }
+
+    return false;
   }
 }
