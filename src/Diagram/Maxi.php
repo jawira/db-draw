@@ -30,7 +30,7 @@ class Maxi implements ErDiagramInterface
   {
     $header   = $this->plantUmlWriter->generateHeader($theme);
     $entities = $this->plantUmlWriter->generateEntities($include, $exclude);
-    array_map(fn(Entity $entity) => $entity->generateColumns(), $entities);
+    array_map(fn(Entity $entity): Entity => $entity->generateColumns(), $entities);
     $relationships = $this->plantUmlWriter->generateRelationships($include, $exclude);
     $views         = $this->plantUmlWriter->generateViews($include, $exclude);
     $footer        = $this->plantUmlWriter->generateFooter();

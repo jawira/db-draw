@@ -17,7 +17,7 @@ use Jawira\DbDraw\Element\View;
  */
 class PlantUmlWriter
 {
-  private ElementFilter $elementFilter;
+  private readonly ElementFilter $elementFilter;
 
   public function __construct(private readonly Connection $connection)
   {

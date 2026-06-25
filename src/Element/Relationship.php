@@ -16,14 +16,8 @@ use const PHP_EOL;
  */
 class Relationship implements ElementInterface
 {
-  protected Table $table;
-  protected ForeignKeyConstraint $foreignKeyConstraint;
-
-
-  public function __construct(Table $table, ForeignKeyConstraint $foreignKeyConstraint)
+  public function __construct(protected Table $table, protected ForeignKeyConstraint $foreignKeyConstraint)
   {
-    $this->table                = $table;
-    $this->foreignKeyConstraint = $foreignKeyConstraint;
   }
 
   protected function fkIsUnique(): bool
@@ -31,11 +25,11 @@ class Relationship implements ElementInterface
     $localColumns = $this->foreignKeyConstraint->getLocalColumns();
 
     // Find indexes for FK constraint only
-    $filterLocalIndexes = fn(Index $index) => $localColumns === $index->getColumns();
+    $filterLocalIndexes = fn(Index $index): bool => $localColumns === $index->getColumns();
 
     $localIndexes = array_filter($this->table->getIndexes(), $filterLocalIndexes);
 
-    $findUnique = function (Index $index) {
+    $findUnique = function (Index $index): bool {
       if ($index->isPrimary()) {
         return false;
       }
@@ -52,7 +46,7 @@ class Relationship implements ElementInterface
   {
     $localColumns = $this->foreignKeyConstraint->getLocalColumns();
 
-    $reducer = function (bool $carry, string $column) {
+    $reducer = function (bool $carry, string $column): bool {
       $isNullable = !$this->table->getColumn($column)->getNotnull();
 
       return $carry && $isNullable;

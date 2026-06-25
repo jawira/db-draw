@@ -8,8 +8,7 @@
     "db",
     "dbal",
     "diagram",
-    "doctrine",
-    "php"
+    "doctrine"
   ],
   "authors": [
     {
@@ -23,17 +22,17 @@
   "require": {
     "php": "^8.2",
     "doctrine/dbal": "^3.3 || ^4.0",
-    "jawira/the-lost-functions": "^1.1",
-    "jawira/doctrine-diagram-contracts": "^2.0"
+    "jawira/the-lost-functions": "^v1.1",
+    "jawira/doctrine-diagram-contracts": "^v2.0"
   },
   "require-dev": {
     "ext-dom": "*",
     "ext-mbstring": "*",
     "ext-xml": "*",
     "friendsofphp/php-cs-fixer": "^3.64",
-    "jawira/plantuml": "^1.2024.6",
-    "jawira/plantuml-client": "^1.0.3",
-    "jawira/skeleton": "^2.24.1",
+    "jawira/plantuml": "^v1.2026",
+    "jawira/plantuml-client": "^v1.0",
+    "jawira/skeleton": "^v2.24",
     "phpstan/phpstan": "^2.0",
     "phpunit/phpunit": "^11.0"
   },
