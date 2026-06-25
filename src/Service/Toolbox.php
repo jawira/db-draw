@@ -19,9 +19,7 @@ class Toolbox
    */
   public function reduceElements(array $elements): string
   {
-    $reducer = function (string $carry, ElementInterface $component): string {
-      return $carry . strval($component);
-    };
+    $reducer = fn(string $carry, ElementInterface $component): string => $carry . strval($component);
 
     return array_reduce($elements, $reducer, '');
   }

@@ -20,7 +20,7 @@ class Entity implements ElementInterface
   protected array $columns = [];
   protected Raw $header;
   protected Raw $footer;
-  private Toolbox $toolbox;
+  private readonly Toolbox $toolbox;
 
   public function __construct(protected Table $table)
   {
@@ -42,7 +42,7 @@ class Entity implements ElementInterface
 
     $pkOnly       = fn(DoctrineColumn $column): bool => in_array($column->getName(), $pkNames);
     $exceptPk     = fn(DoctrineColumn $column): bool => !$pkOnly($column);
-    $instantiator = fn(DoctrineColumn $column) => new Column($column);
+    $instantiator = fn(DoctrineColumn $column): Column => new Column($column);
 
     $pk            = array_filter($allColumns, $pkOnly);
     $columns       = array_filter($allColumns, $exceptPk);

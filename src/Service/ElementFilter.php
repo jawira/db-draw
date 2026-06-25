@@ -56,6 +56,10 @@ class ElementFilter
    */
   private function skipElement(string $elementName, array $include, array $exclude): bool
   {
+    // This variable exists to avoid automatic refactoring by tools like PHPStan
+    // and Rector, allowing to see "Include" and "Exclude" blocks clearly.
+    $defaultValue = false;
+
     // Include
     $includeHasContent = boolval(count($include));
     $elementInInclude  = $this->isElementInArray($elementName, $include);
@@ -70,7 +74,7 @@ class ElementFilter
       return true;
     }
 
-    return false;
+    return $defaultValue;
   }
 
   /**
@@ -85,6 +89,7 @@ class ElementFilter
         return true;
       }
     }
+
     return false;
   }
 }

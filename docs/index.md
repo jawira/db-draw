@@ -5,9 +5,9 @@ a diagram as output.**
 **DbDraw supports multiple diagram sizes and themes, making it easy to visualize
 and document your database structure.**
 
-**⚠️ It is primarily intended to be consumed as a dependency by
-[jawira/doctrine-diagram-bundle](https://github.com/jawira/doctrine-diagram-bundle).
-**
+**⚠️ It is primarily intended to be consumed as a dependency by the
+[jawira/doctrine-diagram-bundle](https://github.com/jawira/doctrine-diagram-bundle)
+project.**
 
 ![crt-amber](images/midi.png)
 
@@ -27,8 +27,8 @@ In order to create a diagram you have to follow these steps:
 1. Your application must provide a
    valid [doctrine/dbal](https://github.com/doctrine/dbal) connection.
 2. Instantiate `\Jawira\DbDraw\DbDraw` using your _dbal connection_.
-3. Choose your diagram size (`mini`, `midi`, `maxi`) and call
-   `DbDraw::generatePuml`.
+3. Call `DbDraw::generatePuml` using a diagram size (`Size::Mini`, `Size::Midi`,
+   `Size::Maxi`), and a theme.
 4. Then `DbDraw::generatePuml` will return
    a [PlantUML diagram](https://plantuml.com/ie-diagram).
 5. Is up to you to convert the _puml_ diagram to another image format (e.g.

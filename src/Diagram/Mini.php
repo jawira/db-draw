@@ -12,9 +12,6 @@ use Jawira\DbDraw\Service\Toolbox;
 class Mini implements ErDiagramInterface
 {
   private readonly PlantUmlWriter $plantUmlWriter;
-  /**
-   * @var \Jawira\DbDraw\Service\Toolbox
-   */
   private readonly Toolbox $toolbox;
 
   public function __construct(Connection $connection)
